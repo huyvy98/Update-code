@@ -3,17 +3,30 @@
 @section('title', 'Tomosia')
 
 @section('content')
-    @foreach($users as $user)
-        @if(!empty($user->firstname))
-            <li>{{$user->firstname}}</li>
-            <li>{{$user->lastname}}</li>
-            <li>{{$user->address}}</li>
-            <li>{{$user->email}}</li>
-            <li>{{$user->phone}}</li>
-            <li>{{$user->image}}</li>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col"><li class="breadcrumb-item"><a href="/admin/add">Add New</a></li></th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach($products as $product)
+            <tr>
+                <td>{{$product->name}}</td>
+                <td>{{$product->price}}</td>
+                <td>{{$product->description}}</td>
+                <td>{{$product->image}}</td>
+                <td>
 
-        @endif
-    @endforeach
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
     <p>
         This view is loaded from module: {!! config('admin.name') !!}

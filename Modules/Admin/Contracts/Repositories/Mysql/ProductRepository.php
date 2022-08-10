@@ -17,6 +17,7 @@ interface ProductRepository
     /**
      * Get all product from database
      *
+     * @return Product $product
      */
     public function getProduct();
 

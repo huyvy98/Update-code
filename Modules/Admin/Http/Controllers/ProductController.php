@@ -2,19 +2,41 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Admin\Http\Requests\ProductRequest;
+use Modules\Admin\Services\ProductServiceImpl;
 
 class ProductController extends Controller
 {
+
+    protected ProductServiceImpl $productServiceImpl;
+
+    public function __construct(ProductServiceImpl $productServiceImpl)
+    {
+        $this->productServiceImpl = $productServiceImpl;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        return view('admin::index');
+        $result = ['status'=>200];
+
+        try{
+            $result['data'] = $this->productServiceImpl->getAll();
+            $products = $result['data'];
+        } catch(Exception $e){
+            $result = [
+              'status' => 500,
+              'error' => $e->getMessage()
+            ];
+        }
+        return view('admin::index',['products'=>json_decode($products)]);
     }
 
     /**
@@ -23,17 +45,26 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin::create');
+        return view('admin::add');
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     * @param ProductRequest $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        try{
+           $result['data'] = $this->productServiceImpl->saveProductData($request);
+           $products = $result['data'];
+        }catch (Exception $e){
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+        return back()->with('success', 'User created successfully.');
     }
 
     /**

@@ -22,21 +22,21 @@ class UserController extends Controller
     /**
      * Display a listing of the resource
      */
-    public function index()
-    {
-        $result = ['status'=>200];
-
-        try{
-           $result['data'] = $this->userService->getAll();
-           $users = $result['data'];
-        } catch(Exception $e) {
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-        return view('admin::index',['users'=>json_decode($users)]);
-    }
+//    public function index()
+//    {
+//        $result = ['status'=>200];
+//
+//        try{
+//           $result['data'] = $this->userService->getAll();
+//           $users = $result['data'];
+//        } catch(Exception $e) {
+//            $result = [
+//                'status' => 500,
+//                'error' => $e->getMessage()
+//            ];
+//        }
+//        return view('admin::index',['users'=>json_decode($users)]);
+//    }
 
     /**
      * Show the form for creating a new resource.

@@ -12,10 +12,10 @@
 */
 
 use Illuminate\Support\Facades\Route;
-
+    Route::get('/login','LoginController@index')->name('login');
     Route::prefix('admin')->group(function() {
-    Route::get('/', 'UserController@index');
-        Route::get('/add', 'UserController@create');
-        Route::post('/add', 'UserController@store');
+    Route::get('/', 'ProductController@index');
+        Route::get('/add', 'ProductController@create');
+        Route::post('/add', 'ProductController@store');
 
     });

@@ -3,8 +3,8 @@
 namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Admin\Contracts\Repositories\Mysql\UserRepository;
-use Modules\Admin\Repositories\Mysql\UserRepoImpl;
+use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
+use Modules\Admin\Repositories\Mysql\ProductRepoImpl;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -15,6 +15,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(UserRepository::class, UserRepoImpl::class);
+        $this->app->bind(ProductRepository::class, ProductRepoImpl::class);
     }
 }

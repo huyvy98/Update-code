@@ -7,25 +7,29 @@ use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
 
 class ProductRepoImpl implements ProductRepository
 {
+    protected Product $product;
+    public function __construct(Product $product)
+    {
+        $this->product = $product;
+    }
+
+
     /**
      * Save Product to database
      *
-     * @param Product $product
+     * @param $product
      * @return Product
      */
-    public function save(Product $product): Product
+    public function save($product): Product
     {
         $product->save();
         return $product;
     }
 
-    /**
-     * Get all product
-     *
-     */
+
     public function getProduct()
     {
-        Product::all();
+         return $this->product->get();
     }
 
     /**
@@ -47,7 +51,7 @@ class ProductRepoImpl implements ProductRepository
      */
     public function updateProduct($id, array $attributes): Product
     {
-        return Product::where($id)->update($attributes);
+        return Product::where('id',$id)->update($attributes);
     }
 
     /**
@@ -57,6 +61,6 @@ class ProductRepoImpl implements ProductRepository
      */
     public function deleteProduct($id): Product
     {
-        return Product::where($id)->delete();
+        return Product::where('id',$id)->delete();
     }
 }

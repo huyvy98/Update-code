@@ -12,10 +12,16 @@
 */
 
 use Illuminate\Support\Facades\Route;
-    Route::get('/login','LoginController@index')->name('login');
-    Route::prefix('admin')->group(function() {
-    Route::get('/', 'ProductController@index');
-        Route::get('/add', 'ProductController@create');
-        Route::post('/add', 'ProductController@store');
+use Modules\Admin\Http\Controllers\ProductController;
 
-    });
+//Route::get('/login','LoginController@index')->name('login');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'AdminController@index')->name('admin.home');
+//    Route::get('/', 'ProductController@index');
+//    Route::get('/products', 'ProductController@index');
+//    Route::get('/products/store', 'ProductController@store')->name('products.create');
+//    Route::get('/products/edit/{id}', 'ProductController@edit')->name('products.edit');
+//    Route::get('/products/delete', 'ProductController@destroy')->name('products.delete');
+    Route::resource('products', ProductController::class);
+});

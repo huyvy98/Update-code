@@ -1,66 +1,91 @@
 <?php
+
 namespace Modules\Admin\Repositories\Mysql;
 
-
 use App\Models\Product;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
 
 class ProductRepoImpl implements ProductRepository
 {
-    protected Product $product;
-    public function __construct(Product $product)
-    {
-        $this->product = $product;
-    }
-
-
     /**
      * Save Product to database
      *
-     * @param $product
+     * @param Product $product
      * @return Product
      */
-    public function save($product): Product
+
+    public function save(Product $product): Product
     {
         $product->save();
+
         return $product;
     }
 
-
-    public function getProduct()
+    /**
+     * Get all product
+     *
+     * @return LengthAwarePaginator
+     */
+    public function getProduct(): LengthAwarePaginator
     {
-         return $this->product->get();
+        return Product::query()->paginate(10);
+    }
+
+    /**
+     * Select product
+     */
+    public function editProduct($id)
+    {
+        return Product::query()->where('id', $id)->first();
     }
 
     /**
      * Create product
      *
-     * @param array $attributes
+     * @param Product $product
      * @return Product
      */
-    public function createProduct(array $attributes): Product
+
+    public function createProduct(Product $product): Product
     {
-        return Product::create($attributes);
+        $product->query()->create();
+        return $product;
     }
 
     /**
      * Update product
-     * @param $id
-     * @param array $attributes
+     *
+     * @param Product $product
      * @return Product
      */
-    public function updateProduct($id, array $attributes): Product
+    public function updateProduct(Product $product): Product
     {
-        return Product::where('id',$id)->update($attributes);
+        $product->update();
+
+        return $product;
     }
 
     /**
      * Delete product
-     * @param $id
-     * @return Product
+     *
+     * @param int $id
+     * @return void
      */
-    public function deleteProduct($id): Product
+
+    public function destroy(int $id): void
     {
-        return Product::where('id',$id)->delete();
+        Product::destroy($id);
+    }
+
+    /**
+     * Find product by id
+     *
+     * @param int $id
+     * @return Product|null
+     */
+    public function findById(int $id): ?Product
+    {
+        return Product::query()->findOrFail($id);
     }
 }

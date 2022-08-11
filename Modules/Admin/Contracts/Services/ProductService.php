@@ -1,31 +1,41 @@
 <?php
+
 namespace Modules\Admin\Contracts\Services;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface ProductService
 {
     /**
-     * @return String
+     * @return LengthAwarePaginator
      */
-    public function getAll(): String;
+    public function getAll(): LengthAwarePaginator;
 
     /**
      * @param Request $request
-     * @return String
+     * @return Product
      */
-    public function saveProductData(Request $request): string;
+    public function saveProductData(Request $request): Product;
 
     /**
-     * @param $id
-     * @param array $data
-     * @return String
+     * @param Request $request
+     * @param int $id
+     * @return Product
+     *
      */
-    public function updateProduct(array $data,$id): string;
+    public function updateProduct(Request $request, int $id): Product;
 
     /**
-     * @param $id
-     * @return String
+     * @param int $id
+     * @return Product|null
      */
-    public function deleteProductData($id): string;
+    public function editProduct(int $id): ?Product;
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function destroy(int $id): void;
 }

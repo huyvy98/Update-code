@@ -1,42 +1,91 @@
 <?php
+
 namespace Modules\Admin\Services;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
 use Modules\Admin\Contracts\Services\ProductService;
-use Modules\Admin\Repositories\Mysql\ProductRepoImpl;
-use Modules\Admin\Repositories\Parameters\ProductParam;
 
 class ProductServiceImpl implements ProductService
 {
     /**
-     * @var ProductRepoImpl $productRepoimpl
+     * @var ProductRepository $productRepository
      */
-    protected ProductRepoImpl $productRepoImpl;
+    protected ProductRepository $productRepository;
 
     /**
      * ProductService constructor
-     * @param ProductRepoImpl $productRepoImpl
+     * @param ProductRepository $productRepository
      */
-    public function __construct(ProductRepoImpl $productRepoImpl)
+    public function __construct(ProductRepository $productRepository)
     {
-        $this->productRepoImpl = $productRepoImpl;
-    }
-    public function getAll(): string
-    {
-        return $this->productRepoImpl->getProduct();
-    }
-    public function saveProductData(Request $request): string
-    {
-        $data = new ProductParam($request->input('name'),$request->input('price'),$request->input('description'),$request->input('image'));
-        return $this->productRepoImpl->createProduct((array)$data);
+        $this->productRepository = $productRepository;
     }
 
-    public function updateProduct(array $data, $id): string
+    /**
+     * @return LengthAwarePaginator
+     */
+    public function getAll(): LengthAwarePaginator
     {
-        return $this->productRepoImpl->updateProduct($data,$id);
+        return $this->productRepository->getProduct();
     }
-    public function deleteProductData($id): string
+
+    /**
+     * @param Request $request
+     * @return Product
+     */
+    public function saveProductData(Request $request): Product
     {
-        return $this->productRepoImpl->deleteProduct($id);
+        if ($request->has('image')) {
+            $filePath = $request['image']->storeAs('uploads', request('image')->getClientOriginalName(), 'public');
+        }
+        $product = new Product();
+        $product->name = $request->get('name');
+        $product->price = $request->get('price');
+        $product->description = $request->get('description');
+        $product->image = $filePath;
+        return $this->productRepository->save($product);
+    }
+
+    /**
+     * @param int $id
+     * @return Product|null
+     */
+    public function editProduct(int $id): ?Product
+    {
+        return $this->productRepository->findById($id);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return Product
+     */
+    public function updateProduct(Request $request, $id): Product
+    {
+        $product = $this->productRepository->findById($id);
+        $product->name = $request->get('name');
+        $product->price = $request->get('price');
+        $product->description = $request->get('description');
+        $product->image = $request->get('image');
+        if (!$request->hasFile('image')) {
+            return $this->productRepository->updateProduct($product);
+        } else {
+            $filePath = $request['image']->storeAs('images', request('image')->getClientOriginalName(), 'public');
+            $product->image = $filePath;
+        }
+
+        return $this->productRepository->updateProduct($product);
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function destroy(int $id): void
+    {
+        $this->productRepository->destroy($id);
     }
 }

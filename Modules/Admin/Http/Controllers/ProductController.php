@@ -2,109 +2,93 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use Exception;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
+use Modules\Admin\Contracts\Services\ProductService;
 use Modules\Admin\Http\Requests\ProductRequest;
-use Modules\Admin\Services\ProductServiceImpl;
 
 class ProductController extends Controller
 {
+    /**
+     * @var ProductService
+     */
+    public ProductService $productService;
 
-    protected ProductServiceImpl $productServiceImpl;
-
-    public function __construct(ProductServiceImpl $productServiceImpl)
+    /**
+     * @param ProductService $productService
+     */
+    public function __construct(ProductService $productService)
     {
-        $this->productServiceImpl = $productServiceImpl;
+        $this->productService = $productService;
     }
 
     /**
      * Display a listing of the resource.
-     * @return Renderable
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
-        $result = ['status'=>200];
+        $products = $this->productService->getAll();
 
-        try{
-            $result['data'] = $this->productServiceImpl->getAll();
-            $products = $result['data'];
-        } catch(Exception $e){
-            $result = [
-              'status' => 500,
-              'error' => $e->getMessage()
-            ];
-        }
-        return view('admin::index',['products'=>json_decode($products)]);
+        return view('admin::product.all', ['products' => $products]);
     }
 
     /**
      * Show the form for creating a new resource.
-     * @return Renderable
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        return view('admin::add');
+        return view('admin::product.add');
     }
 
     /**
      * Store a newly created resource in storage.
      * @param ProductRequest $request
-     * @return Renderable
+     * @return RedirectResponse
      */
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request): RedirectResponse
     {
-        try{
-           $result['data'] = $this->productServiceImpl->saveProductData($request);
-           $products = $result['data'];
-        }catch (Exception $e){
-            $result = [
-                'status' => 500,
-                'error' => $e->getMessage()
-            ];
-        }
-        return back()->with('success', 'User created successfully.');
-    }
+        $this->productService->saveProductData($request);
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('admin::show');
+        return Redirect::route('products.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      * @param int $id
-     * @return Renderable
+     * @return View
      */
-    public function edit($id)
+    public function edit(int $id): View
     {
-        return view('admin::edit');
+        $products = $this->productService->editProduct($id);
+
+        return view('admin::product.edit', ['products' => $products]);
     }
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
+     * @param ProductRequest $request
      * @param int $id
-     * @return Renderable
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, int $id): RedirectResponse
     {
-        //
+        $this->productService->updateProduct($request, $id);
+        return Redirect::route('products.index');
     }
 
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Renderable
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
-        //
+        $this->productService->destroy($id);
+        return Redirect::route('products.index');
     }
 }

@@ -1,10 +1,20 @@
 <?php
+
 namespace Modules\Admin\Contracts\Repositories\Mysql;
 
 use App\Models\Product;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface ProductRepository
 {
+    /**
+     * Find product by id
+     *
+     * @param int $id
+     * @return Product|null
+     */
+    public function findById(int $id): ?Product;
+
     /**
      * Save product to database
      *
@@ -16,31 +26,30 @@ interface ProductRepository
 
     /**
      * Get all product from database
-     *
-     * @return Product $product
+     * @return LengthAwarePaginator
      */
-    public function getProduct();
+    public function getProduct(): LengthAwarePaginator;
 
     /**
      * Create product
      *
-     * @param array $attributes
+     * @param Product $product
      * @return Product
      */
-    public function createProduct(array $attributes): Product;
+    public function createProduct(Product $product): Product;
 
     /**
      * Update product
-     * @param $id
-     * @param array $attributes
-     * @return Product
+     *
+     * @param Product $product
+     * @return Product|null
      */
-    public function updateProduct($id, array $attributes): Product;
+    public function updateProduct(Product $product): ?Product;
 
     /**
      * Delete product
-     * @param $id
-     * @return Product
+     * @param int $id
+     * @return void
      */
-    public function deleteProduct($id): Product;
+    public function destroy(int $id): void;
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Contracts\Repositories\Mysql;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -52,4 +53,10 @@ interface ProductRepository
      * @return void
      */
     public function destroy(int $id): void;
+
+    /**
+     * @param Category $category
+     * @return Category
+     */
+    public function category(Category $category): Category;
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Services;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -38,6 +39,7 @@ class ProductServiceImpl implements ProductService
      */
     public function saveProductData(Request $request): Product
     {
+        $category = $request->get('category');
         if ($request->has('image')) {
             $filePath = $request['image']->storeAs('uploads', request('image')->getClientOriginalName(), 'public');
         }
@@ -46,7 +48,11 @@ class ProductServiceImpl implements ProductService
         $product->price = $request->get('price');
         $product->description = $request->get('description');
         $product->image = $filePath;
-        return $this->productRepository->save($product);
+        $data = $this->productRepository->save($product);
+
+        $data->category()->attach($category);
+
+        return $data;
     }
 
     /**
@@ -87,5 +93,17 @@ class ProductServiceImpl implements ProductService
     public function destroy(int $id): void
     {
         $this->productRepository->destroy($id);
+    }
+
+    /**
+     * @param Request $request
+     * @return Category
+     */
+    public function category(Request $request): Category
+    {
+        $category = new Category();
+        $category->category = $request->get('category');
+
+        return $this->productRepository->category($category);
     }
 }

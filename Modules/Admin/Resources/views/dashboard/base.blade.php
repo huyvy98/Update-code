@@ -27,8 +27,21 @@
     <div class="c-body">
         <main class="c-main">
 
-            @yield('content')
-
+            <div class="body flex-grow-1 px-3">
+                <div class="container-lg">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card mb-4">
+                                <div class="card-header"><strong>@yield('headerText')</strong></div>
+                                <div class="card-body">
+                                    @yield('content')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row-->
+                </div>
+            </div>
         </main>
         @include('admin::dashboard.shared.footer')
     </div>

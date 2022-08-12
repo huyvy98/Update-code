@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -33,7 +33,7 @@ class ProductController extends Controller
     {
         $products = $this->productService->getAll();
 
-        return view('admin::product.all', ['products' => $products]);
+        return view('admin::product.index', ['products' => $products]);
     }
 
     /**
@@ -42,7 +42,9 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        return view('admin::product.add');
+        $category = Category::all();
+
+        return view('admin::product.create');
     }
 
     /**
@@ -78,6 +80,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, int $id): RedirectResponse
     {
         $this->productService->updateProduct($request, $id);
+
         return Redirect::route('products.index');
     }
 
@@ -89,6 +92,7 @@ class ProductController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         $this->productService->destroy($id);
+
         return Redirect::route('products.index');
     }
 }

@@ -3,10 +3,10 @@
 namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Admin\Contracts\Services\LoginService;
 use Modules\Admin\Contracts\Services\ProductService;
-use Modules\Admin\Contracts\Services\UserService;
+use Modules\Admin\Services\LoginServiceImpl;
 use Modules\Admin\Services\ProductServiceImpl;
-use Modules\Admin\Services\UserServiceImpl;
 
 class BootstrapServiceProvider extends ServiceProvider
 {
@@ -18,5 +18,6 @@ class BootstrapServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ProductService::class, ProductServiceImpl::class);
+        $this->app->bind(LoginService::class, LoginServiceImpl::class);
     }
 }

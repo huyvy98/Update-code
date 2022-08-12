@@ -1,7 +1,7 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
-
+@section('headerText','Sửa sản phẩm')
 @section('content')
 
     @if(Session::has('success'))
@@ -16,33 +16,35 @@
         @csrf
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
-            <input type="text" name="name" value="{{$products->name}}">
+            <input class="form-control" type="text" name="name" value="{{$products->name}}">
         </div>
         @error('name')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Price</label>
-            <input type="number" name="price" value="{{$products->price}}" >
+            <input class="form-control" type="number" name="price" value="{{$products->price}}" >
         </div>
         @error('price')
         <div class="alert alert-danger" >{{ $message }}</div>
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
-            <input type="text" name="description" value="{{$products->description}}">
+            <input class="form-control" type="text" name="description" value="{{$products->description}}">
         </div>
         @error('description')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <div class="form-group">
             <label for="exampleInputPassword1">Image</label>
-            <input type="file" name="image" value="{{$products->image}}">
+            <input class="form-control" type="file" name="image" value="{{$products->image}}">
         </div>
         @error('image')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
 
     <p>

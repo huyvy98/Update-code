@@ -1,6 +1,6 @@
     <div class="c-subheader px-3">
         <ol class="breadcrumb border-0 m-0">
-            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('products.index')}}">Home</a></li>
             @php
                 $segments = '';
                 $requestSegments = Request::segments();

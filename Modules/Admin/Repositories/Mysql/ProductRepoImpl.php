@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Repositories\Mysql;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
@@ -87,5 +88,16 @@ class ProductRepoImpl implements ProductRepository
     public function findById(int $id): ?Product
     {
         return Product::query()->findOrFail($id);
+    }
+
+    /**
+     * @param Category $category
+     * @return Category
+     */
+    public function category(Category $category): Category
+    {
+        $category->save();
+
+        return $category;
     }
 }

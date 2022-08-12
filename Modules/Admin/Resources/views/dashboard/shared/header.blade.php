@@ -13,24 +13,24 @@
         <ul class="c-header-nav ml-auto mr-4">
             <li class="c-sidebar-nav-item dropdown">
                 <span class="c-sidebar-nav-link">
-                    <span class="text-capitalize">Admin</span>
-                    <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <div class="c-avatar">
-                            <img class="c-avatar-img" src="{{ url('/assets/img/avatars/admin.jpg') }}" alt="user@email.com">
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right pt-0 pb-0 my-0">
-                        <form action="{{ url('/logout') }}" method="POST">
-                            @csrf
-                            <div class="dropdown-item">
-                                <svg class="c-icon">
-                                    <use xlink:href="{{ url('/icons/sprites/free.svg#cil-account-logout') }}"></use>
-                                </svg>
-                                <button type="submit" class="btn btn-block">Logout</button>
+                    @if(Auth::guard('admin')->check())
+                        <span class="text-capitalize">{{Auth::guard('admin')->user()->firstname}}</span>
+                        <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            <div class="c-avatar">
+                                <img class="c-avatar-img" src="{{ url('/assets/img/avatars/admin.jpg') }}"
+                                     alt="user@email.com">
                             </div>
-                        </form>
-                    </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right pt-0 pb-0 my-0">
+                            <div class="dropdown-item">
+                                    <svg class="c-icon">
+                                    <use xlink:href="{{ url('/icons/sprites/free.svg#cil-account-logout') }}"></use>
+                                    </svg>
+                                    <a class="btn btn-lock" href="{{route('admin.logout')}}">Logout</a>
+                            </div>
+                        </div>
+                    @endif
                 </span>
             </li>
         </ul>

@@ -15,8 +15,16 @@
     @yield('css')
 </head>
 <body class="c-app flex-row align-items-center">
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+</div>
 
-@yield('content')
 
 <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
 

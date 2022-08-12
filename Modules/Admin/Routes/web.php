@@ -30,7 +30,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{id}', 'ProductController@destroy')->name('products.destroy');
     });
 
-
     Route::get('/login', 'LoginController@show')->name('admin.show')->middleware('CheckLogin');
     Route::post('/login', 'LoginController@login')->name('admin.login');
     Route::get('/logout', 'LogoutController@logout')->name('admin.logout');

@@ -16,13 +16,6 @@
                 Logout
             </a>
         </li>
-    @else
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{route('admin.show')}}">
-                <i class="cil-contact c-sidebar-nav-icon"></i>
-                Login
-            </a>
-        </li>
     @endif
 </ul>
 <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"

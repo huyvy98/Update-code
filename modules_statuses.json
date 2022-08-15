@@ -1,5 +1,6 @@
 {
     "Api": true,
     "Admin": true,
-    "UserController": true
+    "UserController": true,
+    "User": true
 }

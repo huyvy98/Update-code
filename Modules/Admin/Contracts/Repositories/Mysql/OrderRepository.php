@@ -3,6 +3,7 @@
 namespace Modules\Admin\Contracts\Repositories\Mysql;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 interface OrderRepository
 {
@@ -17,4 +18,9 @@ interface OrderRepository
      */
     public function getAllOrder(): LengthAwarePaginator;
 
+    /**
+     * @param int $id
+     * @return Collection
+     */
+    public function getOrderDetail(int $id): Collection;
 }

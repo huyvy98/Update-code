@@ -11,7 +11,7 @@ interface ProductRepository
     /**
      * Find product by id
      *
-     * @param int $id
+     * @param  int  $id
      * @return Product|null
      */
     public function findById(int $id): ?Product;
@@ -19,7 +19,7 @@ interface ProductRepository
     /**
      * Save product to database
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return Product
      */
     public function save(Product $product): Product;
@@ -34,7 +34,7 @@ interface ProductRepository
     /**
      * Create product
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return Product
      */
     public function createProduct(Product $product): Product;
@@ -42,20 +42,20 @@ interface ProductRepository
     /**
      * Update product
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return Product|null
      */
     public function updateProduct(Product $product): ?Product;
 
     /**
      * Delete product
-     * @param int $id
+     * @param  int  $id
      * @return void
      */
     public function destroy(int $id): void;
 
     /**
-     * @param Category $category
+     * @param  Category  $category
      * @return Category
      */
     public function category(Category $category): Category;

@@ -3,6 +3,7 @@
 namespace Modules\Admin\Contracts\Services;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 interface OrderService
 {
@@ -17,4 +18,9 @@ interface OrderService
      */
     public function getAllOrder(): LengthAwarePaginator;
 
+    /**
+     * @param int $id
+     * @return Collection
+     */
+    public function getOrderDetail(int $id): Collection;
 }

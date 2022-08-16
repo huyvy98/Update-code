@@ -19,7 +19,7 @@ class CheckLogin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('admin')->check()) {
-            return Redirect::route('admin.home');
+            return Redirect::route('admin.index');
         }
 
         return $next($request);

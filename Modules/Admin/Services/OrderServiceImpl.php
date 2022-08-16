@@ -3,6 +3,7 @@
 namespace Modules\Admin\Services;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Modules\Admin\Contracts\Repositories\Mysql\OrderRepository;
 use Modules\Admin\Contracts\Services\OrderService;
 
@@ -40,5 +41,8 @@ class OrderServiceImpl implements OrderService
         return $this->orderRepository->getAllOrder();
     }
 
-
+    public function getOrderDetail(int $id): Collection
+    {
+        return $this->orderRepository->getOrderDetail($id);
+    }
 }

@@ -21,7 +21,7 @@
             <tr>
                 <td>{{$loop->index+1}}</td>
                 <td>{{$product->name}}</td>
-                <td>{{$product->price}}</td>
+                <td>{{number_format($product->price)}} VND</td>
                 <td>{{$product->description}}</td>
                 <td><img src="/storage/{{$product->image}}" width="50px" height="50px"/></td>
                 <td>

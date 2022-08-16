@@ -12,5 +12,6 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\User\Http\Controllers\HomeController;
 
-Route::get('/', [HomeController::class, 'index'])->name('user.home');
+Route::get('/', [HomeController::class,'index'])->name('users.index');

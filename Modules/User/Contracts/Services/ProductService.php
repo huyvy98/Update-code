@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\User\Contracts\Service;
+namespace Modules\User\Contracts\Services;
 
 use App\Models\Product;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -13,8 +13,8 @@ interface ProductService
     public function getAllProduct(): LengthAwarePaginator;
 
     /**
-     * @param $id
+     * @param int $id
      * @return Product|null
      */
-    public function findProduct($id): ?Product;
+    public function findProduct(int $id): ?Product;
 }

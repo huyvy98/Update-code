@@ -1,0 +1,43 @@
+@extends('admin::dashboard.base')
+
+@section('title', 'Tomosia')
+@section('headerText','Thông tin order')
+@section('content')
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Tổng tiền</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($orderDetails as $order)
+            <tr>
+                <td>{{$loop->index+1}}</td>
+                <td>{{$order->product->name}}</td>
+                <td>{{number_format($order->price)}} VND</td>
+                <td>{{$order->quantity}}</td>
+                <td>{{number_format($order->quantity * $order->price)}} VND</td>
+            </tr>
+        @endforeach
+        </tbody>
+        <tfoot>
+
+        @php $total = 0 @endphp
+        @foreach($orderDetails as $order)
+            @php $total += $order->price*$order->quantity @endphp
+        @endforeach
+                <td style="position:absolute; right: 190px"><span style="color: #058cb1; float: right">Tổng tiền thanh toán: {{ number_format($total) }} VND</span></td>
+        </tfoot>
+    </table>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+@endsection

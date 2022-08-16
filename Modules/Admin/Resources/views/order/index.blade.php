@@ -10,8 +10,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Tên người đặt hàng</th>
-            <th scope="col">Trạng thái</th>
-            <th>San pham</th>
+            <th scope="col">Thông tin thêm</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -20,13 +19,10 @@
             <tr>
                 <td>{{$loop->index+1}}</td>
                 <td>{{$order->user->firstname}}</td>
-                @if($order->status ==1)
-                    <td>Xác nhận</td>
-                @else
-                    <td>Chưa xác nhận</td>
-                @endif
-                <td>{{$order->orderDetails}}</td>
+                <td>{{$order->request_detail}}</td>
                 <td>
+                    <a style="float: left;margin-right: 5px" type="button" class="btn btn-info"
+                       href="{{url('admin/orders/order-detail/'. $order->id)}}">Detail</a>
                     <form method="POST" action="{{ route('orders.destroy', $order) }}">
                         @csrf
                         @method('DELETE')

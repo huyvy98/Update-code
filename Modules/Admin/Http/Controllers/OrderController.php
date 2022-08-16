@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use App\Models\OrderDetail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
@@ -28,7 +29,6 @@ class OrderController extends Controller
     public function index(): View
     {
         $orders = $this->orderService->getAllOrder();
-
         return view('admin::order.index', compact('orders'));
     }
 
@@ -41,5 +41,11 @@ class OrderController extends Controller
         $this->orderService->destroy($id);
 
         return redirect()->route('orders.index');
+    }
+
+    public function show($id)
+    {
+        $orderDetails = $this->orderService->getOrderDetail($id);
+        return view('admin::order.show',compact('orderDetails'));
     }
 }

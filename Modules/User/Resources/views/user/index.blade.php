@@ -37,17 +37,17 @@
                         <div class="row">
                             @foreach($listProduct as $item)
                                 <div class="col-xl-3 col-lg-4 col-md-6 product-item text-center">
-                                    <a class="product-item-images" href="{{ route('user.detail', $item->id) }}">
+{{--                                    <a class="product-item-images" href="{{ route('user.detail', $item->id) }}">--}}
                                         <img class="img-fluids" src="/storage/{{ $item->image }}" alt="">
                                     </a>
                                     <div class="product-item-title">
-                                        <a href="{{ route('user.detail', $item->id) }}">{{ $item->name }}</a>
+{{--                                        <a href="{{ route('user.detail', $item->id) }}">{{ $item->name }}</a>--}}
                                     </div>
                                     <div class="product-item-price">
                                         <span>{{ number_format($item->price, 0, '', '.') }} đ</span>
                                     </div>
                                     <div class="product-item-buy">
-                                        <a href="{{ route('user.addCart', $item->id) }}" class="btn">Add to Enquiry</a>
+{{--                                        <a href="{{ route('user.addCart', $item->id) }}" class="btn">Add to Enquiry</a>--}}
                                     </div>
                                 </div>
                             @endforeach

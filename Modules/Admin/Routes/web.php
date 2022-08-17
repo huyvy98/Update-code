@@ -16,9 +16,9 @@ use Modules\Admin\Http\Controllers\ProductController;
 use Modules\Admin\Http\Controllers\LoginController;
 use Modules\Admin\Http\Controllers\LogoutController;
 use Modules\Admin\Http\Controllers\OrderController;
-use Modules\Admin\Http\Controllers\OrderDetailController;
 use Modules\Admin\Http\Controllers\AdminController;
-
+use Modules\Admin\Http\Controllers\RoleController;
+use Modules\Admin\Http\Controllers\PermissionController;
 
 Route::get('/login', 'LoginSimpleController@index')->name('login');
 Route::prefix('admin')->group(function () {
@@ -28,6 +28,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
     Route::post('/edit/{id}', [AdminController::class, 'update']);
     Route::delete('/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
+
+    Route::get('/roles', [RoleController::class,'index'])->name('roles.index');
+    Route::get('/roles/create',[RoleController::class,'create'])->name('roles.create');
+    Route::post('/roles/create', [RoleController::class, 'store'])->name('roles.store');
+
+    Route::get('/permissions',[PermissionController::class,'index'])->name('permissions.index');
+    Route::get('/permissions',[PermissionController::class,'create'])->name('permissions.create');
+    Route::post('/permissions',[PermissionController::class,'store'])->name('permissions.store');
 
     Route::group(['prefix' => 'products', 'middleware' => 'CheckLogout'], function () {
         Route::get('/', [ProductController::class, 'index'])->name('products.index');

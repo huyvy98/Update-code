@@ -26,11 +26,12 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
+     * @param Request $request
      * @return LengthAwarePaginator
      */
-    public function getAll(): LengthAwarePaginator
+    public function getAll(Request $request): LengthAwarePaginator
     {
-        return $this->productRepository->getProduct();
+        return $this->productRepository->getProduct($request->input('searchName'), $request->input('productPrice'));
     }
 
     /**
@@ -76,9 +77,7 @@ class ProductServiceImpl implements ProductService
         $product->price = $request->get('price');
         $product->description = $request->get('description');
         $product->image = $request->get('image');
-        if (!$request->hasFile('image')) {
-            return $this->productRepository->updateProduct($product);
-        } else {
+        if ($request->hasFile('image')) {
             $filePath = $request['image']->storeAs('images', request('image')->getClientOriginalName(), 'public');
             $product->image = $filePath;
         }
@@ -93,17 +92,5 @@ class ProductServiceImpl implements ProductService
     public function destroy(int $id): void
     {
         $this->productRepository->destroy($id);
-    }
-
-    /**
-     * @param Request $request
-     * @return Category
-     */
-    public function category(Request $request): Category
-    {
-        $category = new Category();
-        $category->category = $request->get('category');
-
-        return $this->productRepository->category($category);
     }
 }

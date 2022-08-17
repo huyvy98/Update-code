@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -27,13 +28,14 @@ class ProductController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
+     * @param Request $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $products = $this->productService->getAll();
-
-        return view('admin::product.index', ['products' => $products]);
+        $products = $this->productService->getAll($request);
+        return view('admin::product.index', compact('products'));
     }
 
     /**
@@ -42,8 +44,6 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        $category = Category::all();
-
         return view('admin::product.create');
     }
 

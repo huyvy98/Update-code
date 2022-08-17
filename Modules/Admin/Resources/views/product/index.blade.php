@@ -5,6 +5,16 @@
 @section('content')
     <a style="float: right;margin-bottom: 5px" type="button" class="btn btn-primary"
        href="{{route('products.create')}}">Add New</a>
+    <form method="GET">
+        @csrf
+        @method('GET')
+        <input style="width: 300px; float: left" type="search" name="searchName" class="form-control"
+               placeholder="Name">
+        <input style="width: 300px;margin-left: 5px" type="search" name="productPrice" class="form-control"
+               placeholder="Price">
+        <button style="position: absolute;top: 65px;right: 585px" type="submit" class="btn btn-primary mb-3">Search
+        </button>
+    </form>
     <table class="table table-striped">
         <thead>
         <tr>

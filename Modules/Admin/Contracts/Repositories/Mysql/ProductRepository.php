@@ -27,9 +27,12 @@ interface ProductRepository
 
     /**
      * Get all product from database
+     *
+     * @param string|null $name
+     * @param int $price
      * @return LengthAwarePaginator
      */
-    public function getProduct(): LengthAwarePaginator;
+    public function getProduct(?string $name, int $price): LengthAwarePaginator;
 
     /**
      * Create product
@@ -53,10 +56,4 @@ interface ProductRepository
      * @return void
      */
     public function destroy(int $id): void;
-
-    /**
-     * @param  Category  $category
-     * @return Category
-     */
-    public function category(Category $category): Category;
 }

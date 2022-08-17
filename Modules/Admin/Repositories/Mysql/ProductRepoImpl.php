@@ -4,6 +4,7 @@ namespace Modules\Admin\Repositories\Mysql;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
 
@@ -26,11 +27,19 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Get all product
      *
+     * @param string|null $name
+     * @param int|null $price
      * @return LengthAwarePaginator
      */
-    public function getProduct(): LengthAwarePaginator
+    public function getProduct(?string $name, ?int $price): LengthAwarePaginator
     {
-        return Product::query()->paginate(10);
+        return Product::query()->when($name, function (Builder $builder) use ($name) {
+            $builder->where('name','like','%'.$name.'%');
+        })
+            ->when($price, function (Builder $builder) use ($price) {
+                $builder->where('price', $price);
+            })
+            ->paginate(10);
     }
 
     /**
@@ -51,6 +60,7 @@ class ProductRepoImpl implements ProductRepository
     public function createProduct(Product $product): Product
     {
         $product->query()->create();
+
         return $product;
     }
 
@@ -88,16 +98,5 @@ class ProductRepoImpl implements ProductRepository
     public function findById(int $id): ?Product
     {
         return Product::query()->findOrFail($id);
-    }
-
-    /**
-     * @param Category $category
-     * @return Category
-     */
-    public function category(Category $category): Category
-    {
-        $category->save();
-
-        return $category;
     }
 }

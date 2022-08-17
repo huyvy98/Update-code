@@ -2,37 +2,35 @@
 
 namespace Modules\Admin\Contracts\Services;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Spatie\Permission\Models\Role;
 
-interface ProductService
+interface RoleService
 {
     /**
-     * @param Request $request
      * @return LengthAwarePaginator
      */
-    public function getAll(Request $request): LengthAwarePaginator;
+    public function getAll(): LengthAwarePaginator;
 
     /**
      * @param Request $request
-     * @return Product
+     * @return Role
      */
-    public function saveProductData(Request $request): Product;
+    public function saveRole(Request $request): Role;
 
     /**
      * @param Request $request
      * @param int $id
-     * @return Product
-     *
+     * @return Role
      */
-    public function updateProduct(Request $request, int $id): Product;
+    public function updateRole(Request $request, int $id): Role;
 
     /**
      * @param int $id
-     * @return Product|null
+     * @return Role|null
      */
-    public function editProduct(int $id): ?Product;
+    public function editRole(int $id): ?Role;
 
     /**
      * @param int $id

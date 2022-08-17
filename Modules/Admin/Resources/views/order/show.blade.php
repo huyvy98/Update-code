@@ -19,9 +19,9 @@
             <tr>
                 <td>{{$loop->index+1}}</td>
                 <td>{{$order->product->name}}</td>
-                <td>{{number_format($order->price)}} VND</td>
+                <td>{{number_format($order->product->price)}} VND</td>
                 <td>{{$order->quantity}}</td>
-                <td>{{number_format($order->quantity * $order->price)}} VND</td>
+                <td>{{number_format($order->quantity * $order->product->price)}} VND</td>
             </tr>
         @endforeach
         </tbody>
@@ -29,7 +29,7 @@
 
         @php $total = 0 @endphp
         @foreach($orderDetails as $order)
-            @php $total += $order->price*$order->quantity @endphp
+            @php $total += $order->product->price*$order->quantity @endphp
         @endforeach
                 <td style="position:absolute; right: 190px"><span style="color: #058cb1; float: right">Tổng tiền thanh toán: {{ number_format($total) }} VND</span></td>
         </tfoot>

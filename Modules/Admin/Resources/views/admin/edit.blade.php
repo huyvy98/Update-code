@@ -14,6 +14,13 @@
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <div class="form-group">
+            <select class="form-select" aria-label="Default select example" name="admin">
+                <option selected>Select One</option>
+                <option value="0">Super Admin</option>
+                <option value="1">Admin</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="exampleInputEmail1">Last Name</label>
             <input class="form-control" type="text" name="lastname" value="{{$admins->lastname }}"
                    placeholder="Last Name">

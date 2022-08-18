@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Contracts\Repositories\Mysql\ListAdminRepository;
 use Modules\Admin\Contracts\Services\ListAdminService;
+use Spatie\Permission\Models\Permission;
 
 class ListAdminServiceImpl implements ListAdminService
 {
@@ -54,6 +55,25 @@ class ListAdminServiceImpl implements ListAdminService
     public function updateAdmin(Request $request, int $id): Admin
     {
         $admin = $this->listAdminRepository->findById($id);
+        if ($request->get('admin') == '0') {
+            $admin->removeRole('Admin');
+            $admin->revokePermissionTo(Permission::all());
+            $admin->assignRole('SuperAdmin');
+            $admin->syncPermissions(Permission::all());
+        } elseif ($request->get('admin') == '1') {
+            $admin->removeRole('SuperAdmin');
+            $admin->revokePermissionTo(Permission::all());
+            $admin->assignRole('Admin');
+            $admin->syncPermissions([
+                'products.index',
+                'products.create',
+                'products.edit',
+                'products.destroy',
+                'orders.index',
+                'orders.destroy',
+                'orderDetails.index'
+            ]);
+        }
         $admin->firstname = $request->get('firstname');
         $admin->lastname = $request->get('lastname');
         $admin->email = $request->get('email');

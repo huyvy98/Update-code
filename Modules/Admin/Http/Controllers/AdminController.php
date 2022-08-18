@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Modules\Admin\Contracts\Services\ListAdminService;
 use Modules\Admin\Http\Requests\AdminRequest;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -24,10 +25,6 @@ class AdminController extends Controller
     public function __construct(ListAdminService $listAdminService)
     {
         $this->listAdminService = $listAdminService;
-//        $this->middleware('permission:viewA|addA|editA|deleteA', ['only' => ['index','show']]);
-//        $this->middleware('permission:addA', ['only' => ['create','store']]);
-//        $this->middleware('permission:editA', ['only' => ['edit','update']]);
-//        $this->middleware('permission:deleteA', ['only' => ['destroy']]);
     }
 
     /**
@@ -64,7 +61,10 @@ class AdminController extends Controller
     public function edit(int $id): View
     {
         $admins = $this->listAdminService->editAdmin($id);
-        return view('admin::admin.edit',compact('admins'));
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $admins->roles->pluck('name', 'name')->all();
+
+        return view('admin::admin.edit',compact('admins','roles','userRole'));
     }
 
     /**

@@ -2,10 +2,12 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Modules\Admin\Contracts\Services\ProductService;

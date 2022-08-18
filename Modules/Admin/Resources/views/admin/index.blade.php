@@ -3,8 +3,11 @@
 @section('title', 'Tomosia')
 @section('headerText','Trang quan li admin')
 @section('content')
-    <a style="float: right;margin-bottom: 5px" type="button" class="btn btn-primary"
-       href="{{route('admin.create')}}">Add New</a>
+
+    @if(Auth::guard('admin')->user()->hasPermissionTo('superadmin.admin.create'))
+        <a style="float: right;margin-bottom: 5px" type="button" class="btn btn-primary"
+           href="{{route('admin.create')}}">Add New</a>
+    @endif
     <table class="table table-striped">
         <thead>
         <tr>
@@ -23,13 +26,17 @@
                 <td>{{$admin->email}}</td>
                 <td>{{$admin->phone}}</td>
                 <td>
-                    <a style="float: left;margin-right: 5px" type="button" class="btn btn-warning"
-                       href="{{ route('admin.edit' , $admin)}}">Edit</a>
-                    <form method="POST" action="{{ route('admin.destroy', $admin) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    @if(Auth::guard('admin')->user()->hasPermissionTo('superadmin.admin.edit'))
+                        <a style="float: left;margin-right: 5px" type="button" class="btn btn-warning"
+                           href="{{ route('admin.edit' , $admin)}}">Edit</a>
+                    @endif
+                    @if(Auth::guard('admin')->user()->hasPermissionTo('superadmin.admin.destroy'))
+                        <form method="POST" action="{{ route('admin.destroy', $admin) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
         @endforeach

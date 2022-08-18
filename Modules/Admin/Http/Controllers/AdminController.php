@@ -3,11 +3,10 @@
 namespace Modules\Admin\Http\Controllers;
 
 use App\Models\Admin;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Modules\Admin\Contracts\Services\ListAdminService;
 use Modules\Admin\Http\Requests\AdminRequest;
@@ -25,6 +24,10 @@ class AdminController extends Controller
     public function __construct(ListAdminService $listAdminService)
     {
         $this->listAdminService = $listAdminService;
+//        $this->middleware('permission:viewA|addA|editA|deleteA', ['only' => ['index','show']]);
+//        $this->middleware('permission:addA', ['only' => ['create','store']]);
+//        $this->middleware('permission:editA', ['only' => ['edit','update']]);
+//        $this->middleware('permission:deleteA', ['only' => ['destroy']]);
     }
 
     /**
@@ -34,6 +37,8 @@ class AdminController extends Controller
     public function index(): View
     {
         $admins = $this->listAdminService->getAll();
+        /** @var Admin $auth */
+        $auth = Auth::guard('admin')->user();
         return view('admin::admin.index', compact('admins'));
     }
 

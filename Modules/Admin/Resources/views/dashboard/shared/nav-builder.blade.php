@@ -3,30 +3,31 @@
          alt="CoreUI Logo">
 </div>
 <ul class="c-sidebar-nav">
-    <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="{{route('admin.index')}}">
-            <i class="cil-house c-sidebar-nav-icon"></i>
-            Admin
-        </a>
-    </li>
-    <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="{{route('products.index')}}">
-            <i class="cil-house c-sidebar-nav-icon"></i>
-            Product
-        </a>
-    </li>
-    <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="{{route('orders.index')}}">
-            <i class="cil-house c-sidebar-nav-icon"></i>
-            Order
-        </a>
-    </li>
-{{--    <li class="c-sidebar-nav-item">--}}
-{{--        <a class="c-sidebar-nav-link" href="{{route('products.index')}}">--}}
-{{--            <i class="cil-house c-sidebar-nav-icon"></i>--}}
-{{--            User--}}
-{{--        </a>--}}
-{{--    </li>--}}
+
+    @if(Auth::guard('admin')->user()->hasPermissionTo('superadmin.admin.index'))
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{route('admin.index')}}">
+                <i class="cil-house c-sidebar-nav-icon"></i>
+                Admin
+            </a>
+        </li>
+    @endif
+    @if(Auth::guard('admin')->user()->hasPermissionTo('products.index'))
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('products.index')}}">
+                <i class="cil-house c-sidebar-nav-icon"></i>
+                Product
+            </a>
+        </li>
+    @endif
+    @if(Auth::guard('admin')->user()->hasPermissionTo('orders.index'))
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{route('orders.index')}}">
+                <i class="cil-house c-sidebar-nav-icon"></i>
+                Order
+            </a>
+        </li>
+    @endif
     @if(Auth::guard('admin')->check())
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{route('admin.logout')}}">

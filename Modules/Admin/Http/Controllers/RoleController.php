@@ -6,6 +6,7 @@ namespace Modules\Admin\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 use Modules\Admin\Http\Requests\RoleRequest;
@@ -36,16 +37,15 @@ class RoleController extends Controller
 //        $per = Permission::create(['guard_name' => 'admin','name' => 'deleteA']);
 //        $per = Permission::create(['guard_name' => 'admin','name' => 'viewA']);
 
-//        $role = Role::query()->where('id',2)->first();
+//        $role = Role::query()->where('id',1)->first();
 //        $role->syncPermissions(Permission::all());
-
-        $admin = Admin::query()->where('id',3)->first();
+//        $admin = Admin::query()->where('id',1)->first();
 //        $admin->syncPermissions(Permission::all());
-//        dd($admin);
-        $admin->assignRole(['super']);
-//        $user = Admin::role('super_admin')->get();
+////////        dd($admin);
+//        $admin->assignRole(['SuperAdmin']);
+//        $user = Admin::role('super')->get();
 //        dd($user);
-        app()['cache']->forget('spatie.permission.cache');
+//        app()['cache']->forget('spatie.permission.cache');
     }
 
 //    public function create()

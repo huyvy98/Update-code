@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class CheckLogin
+class CheckLoginSuper
 {
     /**
      * Handle an incoming request.
@@ -20,8 +20,6 @@ class CheckLogin
     {
         if (Auth::guard('admin')->user()->hasRole('super')) {
             return Redirect::route('admin.index');
-        } else {
-            return Redirect::route('products.index');
         }
 
         return $next($request);

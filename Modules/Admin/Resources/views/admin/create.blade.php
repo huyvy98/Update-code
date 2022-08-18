@@ -1,7 +1,7 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
-@section('headerText','Thêm sản phẩm')
+@section('headerText','Thêm admin')
 @section('content')
 
     <form method="POST" enctype="multipart/form-data" action="{{route('admin.create')}}">

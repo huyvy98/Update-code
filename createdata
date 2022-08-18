@@ -1,0 +1,21 @@
+
+// insert Admin
+insert into admin(id,firstname,email,password) values(1,'Huy','m@gmail.com','$2y$10$7vtiCoKzX1Yi9alp5Nk1u.GZNzmgBB9G5mgDIScefAPZRdmVbMmZG');
+
+
+// insert user
+insert into users(id,firstname,email,password) values(1,'rs','mail@gmail.om','$2y$10$7vtiCoKzX1Yi9alp5Nk1u.GZNzmgBB9G5mgDIScefAPZRdmVbMmZG');
+
+insert into users(id,firstname,email,password) values(2,'2xx','m@gmail.om','$2y$10$7vtiCoKzX1Yi9alp5Nk1u.GZNzmgBB9G5mgDIScefAPZRdmVbMmZG');
+
+// insert into orders
+
+insert into orders(id,user_id) values(1,1);
+insert into orders(id,user_id) values(2,2);
+insert into orders(id,user_id) values(3,1);
+
+//insert order_detail
+
+insert into order_details(id,product_id,order_id,price,quantity) values(1,1,1,1231,6);
+insert into order_details(id,product_id,order_id,price,quantity) values(2,2,2,1231,7);
+insert into order_details(id,product_id,order_id,price,quantity) values(3,3,3,1231,7);

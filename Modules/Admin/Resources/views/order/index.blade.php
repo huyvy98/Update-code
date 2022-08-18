@@ -21,13 +21,17 @@
                 <td>{{$order->user->firstname}}</td>
                 <td>{{$order->request_detail}}</td>
                 <td>
-                    <a style="float: left;margin-right: 5px" type="button" class="btn btn-info"
-                       href="{{url('admin/orders/order-detail/'. $order->id)}}">Detail</a>
-                    <form method="POST" action="{{ route('orders.destroy', $order) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    @if(Auth::guard('admin')->user()->hasPermissionTo('orderDetails.index'))
+                        <a style="float: left;margin-right: 5px" type="button" class="btn btn-info"
+                           href="{{url('admin/orders/order-detail/'. $order->id)}}">Detail</a>
+                    @endif
+                    @if(Auth::guard('admin')->user()->hasPermissionTo('orders.destroy'))
+                        <form method="POST" action="{{ route('orders.destroy', $order) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
         @endforeach

@@ -17,7 +17,7 @@ class ListAdminServiceImpl implements ListAdminService
     protected ListAdminRepository $listAdminRepository;
 
     /**
-     * @param  ListAdminRepository  $listAdminRepository
+     * @param ListAdminRepository $listAdminRepository
      */
     public function __construct(ListAdminRepository $listAdminRepository)
     {
@@ -32,6 +32,16 @@ class ListAdminServiceImpl implements ListAdminService
     public function saveAdmin(Request $request): Admin
     {
         $admin = new Admin();
+        $admin->assignRole('Admin');
+        $admin->syncPermissions([
+            'products.index',
+            'products.create',
+            'products.edit',
+            'products.destroy',
+            'orders.index',
+            'orders.destroy',
+            'orderDetails.index'
+        ]);
         $admin->firstname = $request->get('firstname');
         $admin->lastname = $request->get('lastname');
         $admin->email = $request->get('email');

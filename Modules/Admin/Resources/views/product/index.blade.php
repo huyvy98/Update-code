@@ -3,8 +3,10 @@
 @section('title', 'Tomosia')
 @section('headerText','Quản lý sản phẩm')
 @section('content')
-    <a style="float: right;margin-bottom: 5px" type="button" class="btn btn-primary"
-       href="{{route('products.create')}}">Add New</a>
+    @if(Auth::guard('admin')->user()->hasPermissionTo('products.create'))
+        <a style="float: right;margin-bottom: 5px" type="button" class="btn btn-primary"
+           href="{{route('products.create')}}">Add New</a>
+    @endcan
     <form method="GET">
         @csrf
         @method('GET')
@@ -35,13 +37,17 @@
                 <td>{{$product->description}}</td>
                 <td><img src="/storage/{{$product->image}}" width="50px" height="50px"/></td>
                 <td>
-                    <a style="float: left;margin-right: 5px" type="button" class="btn btn-warning"
-                       href="{{ route('products.edit' , $product)}}">Edit</a>
-                    <form method="POST" action="{{ route('products.destroy', $product) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    @if(Auth::guard('admin')->user()->hasPermissionTo('products.edit'))
+                        <a style="float: left;margin-right: 5px" type="button" class="btn btn-warning"
+                           href="{{ route('products.edit' , $product)}}">Edit</a>
+                    @endif
+                    @if(Auth::guard('admin')->user()->hasPermissionTo('products.destroy'))
+                        <form method="POST" action="{{ route('products.destroy', $product) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
         @endforeach

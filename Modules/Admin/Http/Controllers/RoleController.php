@@ -30,22 +30,9 @@ class RoleController extends Controller
 
     public function index()
     {
-//        $role = Role::create(['guard_name' => 'admin','name'=>'super']);
-//
-//        $per = Permission::create(['guard_name' => 'admin','name'=>'addA']);
-//        $per = Permission::create(['guard_name' => 'admin','name' => 'editA']);
-//        $per = Permission::create(['guard_name' => 'admin','name' => 'deleteA']);
-//        $per = Permission::create(['guard_name' => 'admin','name' => 'viewA']);
-
-//        $role = Role::query()->where('id',1)->first();
-//        $role->syncPermissions(Permission::all());
-//        $admin = Admin::query()->where('id',1)->first();
+        $admin = Admin::query()->where('id',1)->first();
 //        $admin->syncPermissions(Permission::all());
-////////        dd($admin);
-//        $admin->assignRole(['SuperAdmin']);
-//        $user = Admin::role('super')->get();
-//        dd($user);
-//        app()['cache']->forget('spatie.permission.cache');
+        $admin->assignRole(['SuperAdmin']);
     }
 
 //    public function create()

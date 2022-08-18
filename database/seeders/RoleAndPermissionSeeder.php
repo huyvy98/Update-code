@@ -45,12 +45,6 @@ class RoleAndPermissionSeeder extends Seeder
                 'orderDetails.index'
             ]
         );
-
-//        $admin = Admin::query()->where('id',1)->first();
-//        $admin->syncPermissions(Permission::all());
-//
-//        $admin = Admin::query()->where('id',1)->first();
-//        $admin->assignRole('SuperAdmin');
     }
 }
 

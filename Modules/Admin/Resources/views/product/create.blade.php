@@ -4,7 +4,7 @@
 @section('headerText','Thêm sản phẩm')
 @section('content')
 
-    <form method="POST" enctype="multipart/form-data" action="{{route('products.create')}}">
+    <form method="POST" enctype="multipart/form-data" action="{{ route('products.create') }}">
         @csrf
         {{ csrf_field() }}
         <input type="hidden" name="_method" value="POST">

@@ -8,11 +8,9 @@
            href="{{route('products.create')}}">Add New</a>
     @endcan
     <form method="GET">
-        @csrf
-        @method('GET')
-        <input style="width: 300px; float: left" type="search" name="searchName" class="form-control"
+        <input style="width: 300px; float: left" type="search" name="searchName" class="form-control" value="{{ old('searchName') }}"
                placeholder="Name">
-        <input style="width: 300px;margin-left: 5px" type="search" name="productPrice" class="form-control"
+        <input style="width: 300px;margin-left: 5px" type="search" name="productPrice" class="form-control" value="{{ old('productPrice') }}"
                placeholder="Price">
         <button style="position: absolute;top: 65px;right: 585px" type="submit" class="btn btn-primary mb-3">Search
         </button>
@@ -53,7 +51,7 @@
         @endforeach
         </tbody>
     </table>
-    {{$products->links()}}
+    {{ $products->withQueryString()->links() }}
     <p>
         This view is loaded from module: {!! config('admin.name') !!}
     </p>

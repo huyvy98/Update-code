@@ -54,7 +54,9 @@ class OrderServiceImpl implements OrderService
 
     public function updateStatus(Request $request, int $id): Order
     {
-        $find = $this->orderRepository->getOrderDetail($id);
-        return $this->orderRepository->change();
+        $findOrder = $this->orderRepository->findById($id);
+        $findOrder->status = $request->get('change');
+
+        return $this->orderRepository->change($findOrder);
     }
 }

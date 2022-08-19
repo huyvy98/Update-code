@@ -46,4 +46,9 @@ class OrderRepoImpl implements OrderRepository
 
         return $order;
     }
+
+    public function findById(int $id): ?Order
+    {
+        return Order::query()->findOrFail($id);
+    }
 }

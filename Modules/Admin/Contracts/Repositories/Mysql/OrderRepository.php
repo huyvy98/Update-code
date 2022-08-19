@@ -30,4 +30,10 @@ interface OrderRepository
      * @return Order
      */
     public function change(Order $order): Order;
+
+    /**
+     * @param int $id
+     * @return Order|null
+     */
+    public function findById(int $id): ?Order;
 }

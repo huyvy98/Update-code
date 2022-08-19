@@ -3,7 +3,7 @@
             <li class="breadcrumb-item"><a href="{{route('products.index')}}">Home</a></li>
             @php
                 $segments = '';
-                $requestSegments = Request::segments();
+                $requestSegments = \Illuminate\Support\Facades\Request::segments();
                 $numSegment = count($requestSegments);
             @endphp
             @for($i = 0; $i <= $numSegment - 1; $i++)

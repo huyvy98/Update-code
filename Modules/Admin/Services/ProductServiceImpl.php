@@ -31,7 +31,11 @@ class ProductServiceImpl implements ProductService
      */
     public function getAll(Request $request): LengthAwarePaginator
     {
-        return $this->productRepository->getProduct($request->input('searchName'), $request->input('productPrice'));
+        return $this->productRepository->getProduct(
+            $request->input('searchName'),
+            $request->input('minPrice'),
+            $request->input('maxPrice')
+        );
     }
 
     /**

@@ -28,16 +28,18 @@ class ProductRepoImpl implements ProductRepository
      * Get all product
      *
      * @param string|null $name
-     * @param int|null $price
+     * @param int|null $min
+     * @param int|null $max
      * @return LengthAwarePaginator
      */
-    public function getProduct(?string $name, ?int $price): LengthAwarePaginator
+    public function getProduct(?string $name, ?int $min, ?int $max): LengthAwarePaginator
     {
         return Product::query()->when($name, function (Builder $builder) use ($name) {
-            $builder->where('name','like','%'.$name.'%');
+            $builder->where('name', 'like', '%' . $name . '%');
         })
-            ->when($price, function (Builder $builder) use ($price) {
-                $builder->where('price', $price);
+            ->when($min, function (Builder $builder) use ($min, $max) {
+                $builder->whereBetween('price', [$min, $max])
+                ->orWhereIn('price', [$min,$max]);
             })
             ->paginate(10);
     }

@@ -10,7 +10,9 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Tên người đặt hàng</th>
-            <th scope="col">Thông tin thêm</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Trạng thái</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -18,13 +20,25 @@
         @foreach($orders as $order)
             <tr>
                 <td>{{$loop->index+1}}</td>
-                <td>{{$order->user->firstname}}</td>
-                <td>{{$order->request_detail}}</td>
+                <td>{{$order->user->firstname .' '. $order->user->lastname}}</td>
+                <td>{{$order->user->address}}</td>
+                <td>{{$order->user->phone}}</td>
+
+            @if($order->status == 1)
+                    <td style="color: seagreen">Đơn hàng đã xác nhận</td>
+                @else
+                    <td style="color: red">Đơn hàng chưa xác nhận</td>
+                @endif
                 <td>
                     @if(Auth::guard('admin')->user()->hasPermissionTo('orderDetails.index'))
                         <a style="float: left;margin-right: 5px" type="button" class="btn btn-info"
                            href="{{url('admin/orders/order-detail/'. $order->id)}}">Detail</a>
                     @endif
+
+                    <select name="change">
+                        <option value="0">Chuyển sang chưa xác nhận</option>
+                        <option value="1">Xác nhận đơn hàng</option>
+                    </select>
                     @if(Auth::guard('admin')->user()->hasPermissionTo('orders.destroy'))
                         <form method="POST" action="{{ route('orders.destroy', $order) }}">
                             @csrf

@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Contracts\Repositories\Mysql;
 
+use App\Models\Order;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
@@ -23,4 +24,10 @@ interface OrderRepository
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection;
+
+    /**
+     * @param Order $order
+     * @return Order
+     */
+    public function change(Order $order): Order;
 }

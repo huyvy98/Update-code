@@ -43,7 +43,11 @@ class OrderController extends Controller
         return redirect()->route('orders.index');
     }
 
-    public function show($id)
+    /**
+     * @param $id
+     * @return View
+     */
+    public function show($id): View
     {
         $orderDetails = $this->orderService->getOrderDetail($id);
         return view('admin::order.show',compact('orderDetails'));

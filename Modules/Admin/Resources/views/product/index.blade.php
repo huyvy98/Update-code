@@ -8,10 +8,15 @@
            href="{{route('products.create')}}">Add New</a>
     @endcan
     <form method="GET">
-        <input style="width: 300px; float: left" type="search" name="searchName" class="form-control" value="{{ old('searchName') }}"
+        <input style="width: 300px; float: left" type="search" name="searchName" class="form-control"
+               value="{{ old('searchName') }}"
                placeholder="Name">
-        <input style="width: 300px;margin-left: 5px" type="search" name="productPrice" class="form-control" value="{{ old('productPrice') }}"
-               placeholder="Price">
+        <input style="width: 150px;margin-left: 5px" type="search" name="minPrice" class="form-control"
+               value="{{ old('minPrice') }}"
+               placeholder="From">
+        <input style="width: 150px;position: absolute;left: 475px;top: 65px" type="search" name="maxPrice" class="form-control"
+               value="{{ old('maxPrice') }}"
+               placeholder="To">
         <button style="position: absolute;top: 65px;right: 585px" type="submit" class="btn btn-primary mb-3">Search
         </button>
     </form>

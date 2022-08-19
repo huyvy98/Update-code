@@ -37,6 +37,8 @@ class ProductController extends Controller
     public function index(Request $request): View
     {
         $products = $this->productService->getAll($request);
+//        dd($products);
+        session()->flashInput($request->input());
         return view('admin::product.index', compact('products'));
     }
 

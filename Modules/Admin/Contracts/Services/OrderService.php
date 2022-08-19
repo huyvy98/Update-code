@@ -2,6 +2,8 @@
 
 namespace Modules\Admin\Contracts\Services;
 
+use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
@@ -23,4 +25,7 @@ interface OrderService
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection;
+
+
+    public function updateStatus(Request $request, int $id): Order;
 }

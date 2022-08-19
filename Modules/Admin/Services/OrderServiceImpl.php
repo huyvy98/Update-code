@@ -2,6 +2,8 @@
 
 namespace Modules\Admin\Services;
 
+use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Modules\Admin\Contracts\Repositories\Mysql\OrderRepository;
@@ -41,8 +43,18 @@ class OrderServiceImpl implements OrderService
         return $this->orderRepository->getAllOrder();
     }
 
+    /**
+     * @param int $id
+     * @return Collection
+     */
     public function getOrderDetail(int $id): Collection
     {
         return $this->orderRepository->getOrderDetail($id);
+    }
+
+    public function updateStatus(Request $request, int $id): Order
+    {
+        $find = $this->orderRepository->getOrderDetail($id);
+        return $this->orderRepository->change();
     }
 }

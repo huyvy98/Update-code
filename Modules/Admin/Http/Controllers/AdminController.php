@@ -25,6 +25,7 @@ class AdminController extends Controller
     public function __construct(ListAdminService $listAdminService)
     {
         $this->listAdminService = $listAdminService;
+        $this->middleware('CheckLogout');
     }
 
     /**
@@ -34,8 +35,7 @@ class AdminController extends Controller
     public function index(): View
     {
         $admins = $this->listAdminService->getAll();
-        /** @var Admin $auth */
-        $auth = Auth::guard('admin')->user();
+
         return view('admin::admin.index', compact('admins'));
     }
 
@@ -61,10 +61,8 @@ class AdminController extends Controller
     public function edit(int $id): View
     {
         $admins = $this->listAdminService->editAdmin($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $admins->roles->pluck('name', 'name')->all();
 
-        return view('admin::admin.edit',compact('admins','roles','userRole'));
+        return view('admin::admin.edit',compact('admins'));
     }
 
     /**
@@ -87,6 +85,6 @@ class AdminController extends Controller
     {
         $this->listAdminService->destroy($id);
 
-        return Redirect::route('admin.index')->with('message','success');
+        return Redirect::route('admin.index');
     }
 }

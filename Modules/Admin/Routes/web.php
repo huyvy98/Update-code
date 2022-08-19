@@ -18,7 +18,6 @@ use Modules\Admin\Http\Controllers\LogoutController;
 use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
 
-Route::get('/login', 'LoginSimpleController@index')->name('login');
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index')->middleware(
         'auth:admin',
@@ -55,13 +54,14 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::get('/roles', [\Modules\Admin\Http\Controllers\RoleController::class, 'index']);
+
     Route::group(['prefix' => 'orders', 'middleware' => 'CheckLogout'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index');
         Route::delete('/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
         Route::get('/order-detail/{id}', [OrderController::class, 'show']);
     });
 
-    Route::get('/login', [LoginController::class, 'show'])->name('admin.show');
+    Route::get('/login', [LoginController::class, 'show'])->name('admin.show')->middleware('CheckLogin');
     Route::post('/login', [LoginController::class, 'login'])->name('admin.login');
     Route::get('/logout', [LogoutController::class, 'logout'])->name('admin.logout');
 });

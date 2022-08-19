@@ -35,4 +35,15 @@ class OrderRepoImpl implements OrderRepository
     {
         return OrderDetail::with('order', 'product')->where('order_id', $id)->get();
     }
+
+    /**
+     * @param Order $order
+     * @return Order
+     */
+    public function change(Order $order): Order
+    {
+        $order->save();
+
+        return $order;
+    }
 }

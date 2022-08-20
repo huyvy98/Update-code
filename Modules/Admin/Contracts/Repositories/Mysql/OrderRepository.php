@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 interface OrderRepository
 {
     /**
-     * @param int $id
+     * @param  int  $id
      * @return void
      */
     public function destroy(int $id): void;
@@ -20,20 +20,26 @@ interface OrderRepository
     public function getAllOrder(): LengthAwarePaginator;
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection;
 
     /**
-     * @param Order $order
-     * @return Order
+     * @param  int  $id
+     * @return void
      */
-    public function change(Order $order): Order;
+    public function changeStatus(int $id): void;
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return Order|null
      */
     public function findById(int $id): ?Order;
+
+    /**
+     * @param  int  $id
+     * @return Collection
+     */
+    public function findUser(int $id): Collection;
 }

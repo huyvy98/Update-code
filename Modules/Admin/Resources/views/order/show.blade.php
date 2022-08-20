@@ -3,6 +3,26 @@
 @section('title', 'Tomosia')
 @section('headerText','Thông tin order')
 @section('content')
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Tên khách hàng</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($userFinds as $user)
+            <tr>
+                <td>{{$user->user->firstname}}</td>
+                <td>{{$user->user->phone}}</td>
+                <td>{{$user->user->address}}</td>
+                <td>{{$user->user->email}}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -31,7 +51,8 @@
         @foreach($orderDetails as $order)
             @php $total += $order->product->price*$order->quantity @endphp
         @endforeach
-                <td style="position:absolute; right: 190px"><span style="color: #058cb1; float: right">Tổng tiền thanh toán: {{ number_format($total) }} VND</span></td>
+        <td style="position:absolute; right: 190px"><span style="color: #058cb1; float: right">Tổng tiền thanh toán: {{ number_format($total) }} VND</span>
+        </td>
         </tfoot>
     </table>
 

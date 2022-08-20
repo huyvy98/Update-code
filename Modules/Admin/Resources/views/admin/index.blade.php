@@ -42,7 +42,7 @@
                         <form method="POST" action="{{ route('admin.destroy', $admin) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" onclick="return confirm('Bạn có muốn xóa không?')" class="btn btn-danger">Delete</button>
                         </form>
                     @endif
                 </td>

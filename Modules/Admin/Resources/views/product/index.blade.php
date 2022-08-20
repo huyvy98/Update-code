@@ -14,7 +14,8 @@
         <input style="width: 150px;margin-left: 5px" type="search" name="minPrice" class="form-control"
                value="{{ old('minPrice') }}"
                placeholder="From">
-        <input style="width: 150px;position: absolute;left: 475px;top: 65px" type="search" name="maxPrice" class="form-control"
+        <input style="width: 150px;position: absolute;left: 475px;top: 65px" type="search" name="maxPrice"
+               class="form-control"
                value="{{ old('maxPrice') }}"
                placeholder="To">
         <button style="position: absolute;top: 65px;right: 585px" type="submit" class="btn btn-primary mb-3">Search
@@ -48,7 +49,7 @@
                         <form method="POST" action="{{ route('products.destroy', $product) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" onclick="return confirm('Bạn có muốn xóa không?')" class="btn btn-danger">Delete</button>
                         </form>
                     @endif
                 </td>

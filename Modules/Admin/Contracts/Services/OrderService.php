@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 interface OrderService
 {
     /**
-     * @param int $id
+     * @param  int  $id
      * @return void
      */
     public function destroy(int $id): void;
@@ -21,11 +21,20 @@ interface OrderService
     public function getAllOrder(): LengthAwarePaginator;
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection;
 
+    /**
+     * @param  int  $id
+     * @return Collection
+     */
+    public function findUser(int $id): Collection;
 
-    public function updateStatus(Request $request, int $id): Order;
+    /**
+     * @param  int  $id
+     * @return void
+     */
+    public function updateStatus(int $id): void;
 }

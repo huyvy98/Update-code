@@ -4,7 +4,9 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\Models\OrderDetail;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Modules\Admin\Contracts\Services\OrderService;
 
@@ -16,7 +18,7 @@ class OrderController extends Controller
     protected OrderService $orderService;
 
     /**
-     * @param OrderService $orderService
+     * @param  OrderService  $orderService
      */
     public function __construct(OrderService $orderService)
     {
@@ -33,7 +35,7 @@ class OrderController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return RedirectResponse
      */
     public function destroy(int $id): RedirectResponse
@@ -43,13 +45,22 @@ class OrderController extends Controller
         return redirect()->route('orders.index');
     }
 
+    public function change(int $id): RedirectResponse
+    {
+        $this->orderService->updateStatus($id);
+
+        return Redirect::route('orders.index');
+    }
+
     /**
-     * @param $id
+     * @param  int  $id
      * @return View
      */
-    public function show($id): View
+    public function show(int $id): View
     {
         $orderDetails = $this->orderService->getOrderDetail($id);
-        return view('admin::order.show',compact('orderDetails'));
+        $userFinds = $this->orderService->findUser($id);
+
+        return view('admin::order.show', compact('orderDetails', 'userFinds'));
     }
 }

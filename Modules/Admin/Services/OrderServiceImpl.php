@@ -52,11 +52,21 @@ class OrderServiceImpl implements OrderService
         return $this->orderRepository->getOrderDetail($id);
     }
 
-    public function updateStatus(Request $request, int $id): Order
+    /**
+     * @param  int  $id
+     * @return Collection
+     */
+    public function findUser(int $id): Collection
     {
-        $findOrder = $this->orderRepository->findById($id);
-        $findOrder->status = $request->get('change');
+        return $this->orderRepository->findUser($id);
+    }
 
-        return $this->orderRepository->change($findOrder);
+    /**
+     * @param  int  $id
+     * @return void
+     */
+    public function updateStatus(int $id): void
+    {
+        $this->orderRepository->changeStatus($id);
     }
 }

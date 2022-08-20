@@ -57,6 +57,7 @@ Route::prefix('admin')->group(function () {
 
     Route::group(['prefix' => 'orders', 'middleware' => 'CheckLogout'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index');
+        Route::post('/{id}', [OrderController::class, 'change'])->name('orders.change');
         Route::delete('/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
         Route::get('/order-detail/{id}', [OrderController::class, 'show']);
     });

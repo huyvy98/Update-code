@@ -30,13 +30,15 @@ class LoginRequest extends FormRequest
     }
 
     /**
+     * display message
+     *
      * @return array
      */
     public function messages(): array
     {
         return [
-          'email.required' => ':attributes khong de trong',
-          'password.required' => ':attributes khong de trong',
+            'email.required' => ':attributes khong de trong',
+            'password.required' => ':attributes khong de trong',
         ];
     }
 }

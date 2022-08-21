@@ -28,9 +28,9 @@ interface ProductRepository
     /**
      * Get all product from database
      *
-     * @param string|null $name
-     * @param int|null $min
-     * @param int|null $max
+     * @param  string|null  $name
+     * @param  int|null  $min
+     * @param  int|null  $max
      * @return LengthAwarePaginator
      */
     public function getProduct(?string $name, ?int $min, ?int $max): LengthAwarePaginator;

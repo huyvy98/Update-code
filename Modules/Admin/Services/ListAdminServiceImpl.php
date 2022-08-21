@@ -25,11 +25,22 @@ class ListAdminServiceImpl implements ListAdminService
         $this->listAdminRepository = $listAdminRepository;
     }
 
+    /**
+     * get all admin
+     *
+     * @return LengthAwarePaginator
+     */
     public function getAll(): LengthAwarePaginator
     {
         return $this->listAdminRepository->getAllAdmin();
     }
 
+    /**
+     *
+     *
+     * @param  Request  $request
+     * @return Admin
+     */
     public function saveAdmin(Request $request): Admin
     {
         $admin = new Admin();
@@ -39,7 +50,9 @@ class ListAdminServiceImpl implements ListAdminService
         $admin->email = $request->get('email');
         $admin->phone = $request->get('phone');
         $admin->password = Hash::make($request->get('password'));
+
         $this->listAdminRepository->save($admin);
+
         return $admin;
     }
 
@@ -52,6 +65,7 @@ class ListAdminServiceImpl implements ListAdminService
         $admin->email = $request->get('email');
         $admin->phone = $request->get('phone');
         $admin->password = Hash::make($request->get('password'));
+
         return $this->listAdminRepository->updateAdmin($admin);
     }
 

@@ -1,5 +1,7 @@
 <?php
+
 namespace Modules\Admin\Services;
+
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +18,7 @@ class UserService
 
     /**
      * UserService constructor
-     * @param UserRepository $userRepository
+     * @param  UserRepository  $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -35,19 +37,19 @@ class UserService
 
     /**
      * Validate user data
-     * @param array $data
+     * @param  array  $data
      * @return String
      */
     public function saveUsertData(array $data): string
     {
-        $validator = Validator::make($data,[
+        $validator = Validator::make($data, [
             'firstname' => 'required',
-            'lastname'=> 'required',
-            'address'=> 'required',
-            'email'=> 'required',
-            'phone'=> 'required',
-            'image'=> 'required',
-            'password'=> 'required',
+            'lastname' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'image' => 'required',
+            'password' => 'required',
         ]);
         if ($validator->fails()) {
             throw new InvalidArgumentException($validator->errors()->first());

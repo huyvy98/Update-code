@@ -13,7 +13,7 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Save Product to database
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return Product
      */
 
@@ -27,19 +27,19 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Get all product
      *
-     * @param string|null $name
-     * @param int|null $min
-     * @param int|null $max
+     * @param  string|null  $name
+     * @param  int|null  $min
+     * @param  int|null  $max
      * @return LengthAwarePaginator
      */
     public function getProduct(?string $name, ?int $min, ?int $max): LengthAwarePaginator
     {
         return Product::query()->when($name, function (Builder $builder) use ($name) {
-            $builder->where('name', 'like', '%' . $name . '%');
+            $builder->where('name', 'like', '%'.$name.'%');
         })
             ->when($min, function (Builder $builder) use ($min, $max) {
                 $builder->whereBetween('price', [$min, $max])
-                ->orWhereIn('price', [$min,$max]);
+                    ->orWhereIn('price', [$min, $max]);
             })
             ->paginate(10);
     }
@@ -55,7 +55,7 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Create product
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return Product
      */
 
@@ -69,7 +69,7 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Update product
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return Product
      */
     public function updateProduct(Product $product): Product
@@ -82,7 +82,7 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Delete product
      *
-     * @param int $id
+     * @param  int  $id
      * @return void
      */
 
@@ -94,7 +94,7 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Find product by id
      *
-     * @param int $id
+     * @param  int  $id
      * @return Product|null
      */
     public function findById(int $id): ?Product

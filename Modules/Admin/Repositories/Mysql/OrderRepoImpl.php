@@ -30,7 +30,7 @@ class OrderRepoImpl implements OrderRepository
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection
@@ -44,7 +44,7 @@ class OrderRepoImpl implements OrderRepository
      */
     public function changeStatus(int $id): void
     {
-        Order::query()->where('id',$id)->update(['status'=>'1']);
+        Order::query()->where('id', $id)->update(['status' => '1']);
     }
 
     public function findById(int $id): ?Order

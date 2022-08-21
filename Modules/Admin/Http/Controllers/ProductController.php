@@ -41,7 +41,6 @@ class ProductController extends Controller
         session()->flashInput($request->input());
 
         return view('admin::product.index', compact('products'));
-
     }
 
     /**
@@ -62,7 +61,7 @@ class ProductController extends Controller
     {
         $this->productService->saveProductData($request);
 
-        return Redirect::route('products.index');
+        return Redirect::route('products.index')->with('message', 'Đã thêm mới sản phẩm');
     }
 
     /**
@@ -87,7 +86,7 @@ class ProductController extends Controller
     {
         $this->productService->updateProduct($request, $id);
 
-        return Redirect::route('products.index');
+        return Redirect::route('products.index')->with('message', 'Đã cập nhật sản phẩm ');
     }
 
     /**
@@ -99,6 +98,6 @@ class ProductController extends Controller
     {
         $this->productService->destroy($id);
 
-        return Redirect::route('products.index');
+        return Redirect::route('products.index')->with('message', 'Đã xóa sản phẩm ');
     }
 }

@@ -12,7 +12,7 @@ use Modules\Admin\Http\Requests\LoginRequest;
 class LoginServiceImpl implements LoginService
 {
     /**
-     * @param LoginRequest $request
+     * @param  LoginRequest  $request
      * @return RedirectResponse
      */
     public function login(LoginRequest $request): RedirectResponse

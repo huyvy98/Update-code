@@ -22,6 +22,8 @@ class LoginController extends Controller
     }
 
     /**
+     * Show form login
+     *
      * @return View
      */
     public function show(): View
@@ -30,7 +32,9 @@ class LoginController extends Controller
     }
 
     /**
-     * @param LoginRequest $request
+     * Login
+     *
+     * @param  LoginRequest  $request
      * @return RedirectResponse
      */
     public function login(LoginRequest $request): RedirectResponse

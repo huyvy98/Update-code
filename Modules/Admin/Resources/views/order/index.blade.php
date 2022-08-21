@@ -32,7 +32,7 @@
                 <td style="display: inline-block">
                     @if(Auth::guard('admin')->user()->hasPermissionTo('orderDetails.index'))
                         <a style="float: left;margin-right: 5px" type="button" class="btn btn-info"
-                           href="{{url('admin/orders/order-detail/'. $order->id)}}">Detail</a>
+                           href="{{url('admins/orders/order-detail/'. $order->id)}}">Detail</a>
                     @endif
                     @if($order->status == 0)
                         <form method="POST" action="{{ route('orders.change', $order) }}"

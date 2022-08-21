@@ -10,7 +10,9 @@ use Modules\Admin\Contracts\Repositories\Mysql\OrderDetailRepository;
 class OrderDetailRepoImpl implements OrderDetailRepository
 {
     /**
-     * @param int $id
+     * Delete Order detail
+     *
+     * @param  int  $id
      * @return void
      */
     public function destroy(int $id): void
@@ -19,7 +21,9 @@ class OrderDetailRepoImpl implements OrderDetailRepository
     }
 
     /**
-     * @param int $id
+     * Get order detail by id
+     *
+     * @param  int  $id
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection
@@ -28,7 +32,9 @@ class OrderDetailRepoImpl implements OrderDetailRepository
     }
 
     /**
-     * @param int $idUs
+     * Find user by id
+     *
+     * @param  int  $idUs
      * @return Collection
      */
     public function findUser(int $idUs): Collection

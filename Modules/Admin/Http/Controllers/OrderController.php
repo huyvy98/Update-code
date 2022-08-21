@@ -26,6 +26,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
      * @return View
      */
     public function index(): View
@@ -42,17 +44,19 @@ class OrderController extends Controller
     {
         $this->orderService->destroy($id);
 
-        return redirect()->route('orders.index');
+        return redirect()->route('orders.index')->with('message', 'Đã xóa đơn hàng ');
     }
 
     public function change(int $id): RedirectResponse
     {
         $this->orderService->updateStatus($id);
 
-        return Redirect::route('orders.index');
+        return Redirect::route('orders.index')->with('message', 'Đã chuyển trạng thái đơn hàng');
     }
 
     /**
+     * Show a new resource.
+     *
      * @param  int  $id
      * @return View
      */

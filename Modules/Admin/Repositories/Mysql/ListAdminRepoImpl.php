@@ -8,6 +8,12 @@ use Modules\Admin\Contracts\Repositories\Mysql\ListAdminRepository;
 
 class ListAdminRepoImpl implements ListAdminRepository
 {
+    /**
+     * Save admin
+     *
+     * @param  Admin  $admin
+     * @return Admin
+     */
     public function save(Admin $admin): Admin
     {
         $admin->save();
@@ -15,16 +21,33 @@ class ListAdminRepoImpl implements ListAdminRepository
         return $admin;
     }
 
+    /**
+     * Get all admin
+     *
+     * @return LengthAwarePaginator
+     */
     public function getAllAdmin(): LengthAwarePaginator
     {
         return Admin::query()->paginate(5);
     }
 
+    /**
+     * Delete admin
+     *
+     * @param  int  $id
+     * @return void
+     */
     public function destroy(int $id): void
     {
         Admin::destroy($id);
     }
 
+    /**
+     * Create new admin
+     *
+     * @param  Admin  $admin
+     * @return Admin
+     */
     public function createAdmin(Admin $admin): Admin
     {
         $admin->query()->create();
@@ -32,6 +55,12 @@ class ListAdminRepoImpl implements ListAdminRepository
         return $admin;
     }
 
+    /**
+     * Update admin
+     *
+     * @param  Admin  $admin
+     * @return Admin
+     */
     public function updateAdmin(Admin $admin): Admin
     {
         $admin->update();
@@ -39,6 +68,12 @@ class ListAdminRepoImpl implements ListAdminRepository
         return $admin;
     }
 
+    /**
+     * Find admin by ID
+     *
+     * @param  int  $id
+     * @return Admin|null
+     */
     public function findById(int $id): ?Admin
     {
         return Admin::query()->findOrFail($id);

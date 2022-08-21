@@ -18,7 +18,7 @@ class CheckLoginSuper
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admin')->user()->hasRole('super')) {
+        if (Auth::guard('admin')->user()->hasRole('SuperAdmin')) {
             return Redirect::route('admin.index');
         }
 

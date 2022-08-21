@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Redirect;
 class LogoutController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @param Request $request
+     * Logout
+     *
+     * @param  Request  $request
      * @return RedirectResponse
      */
     public function logout(Request $request): RedirectResponse

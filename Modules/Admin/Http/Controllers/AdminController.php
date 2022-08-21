@@ -25,10 +25,10 @@ class AdminController extends Controller
     public function __construct(ListAdminService $listAdminService)
     {
         $this->listAdminService = $listAdminService;
-        $this->middleware('CheckLogout');
     }
 
     /**
+     *Display a listing of the resource.
      *
      * @return View
      */
@@ -51,7 +51,7 @@ class AdminController extends Controller
     {
         $this->listAdminService->saveAdmin($request);
 
-        return Redirect::route('admin.index');
+        return Redirect::route('admin.index')->with('message', 'Thêm mới thành công');
     }
 
     /**
@@ -62,7 +62,7 @@ class AdminController extends Controller
     {
         $admins = $this->listAdminService->editAdmin($id);
 
-        return view('admin::admin.edit',compact('admins'));
+        return view('admin::admin.edit', compact('admins'));
     }
 
     /**
@@ -74,7 +74,7 @@ class AdminController extends Controller
     {
         $this->listAdminService->updateAdmin($request, $id);
 
-        return Redirect::route('admin.index');
+        return Redirect::route('admin.index')->with('message', 'Cập nhật thành công');
     }
 
     /**
@@ -85,6 +85,6 @@ class AdminController extends Controller
     {
         $this->listAdminService->destroy($id);
 
-        return Redirect::route('admin.index');
+        return Redirect::route('admin.index')->with('message', 'Đã xóa thành công');
     }
 }

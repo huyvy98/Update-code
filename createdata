@@ -1,5 +1,5 @@
 
-// insert Admin
+// insert Admin password 111111
 insert into admin(id,firstname,email,password) values(1,'Huy','m@gmail.com','$2y$10$7vtiCoKzX1Yi9alp5Nk1u.GZNzmgBB9G5mgDIScefAPZRdmVbMmZG');
 
 

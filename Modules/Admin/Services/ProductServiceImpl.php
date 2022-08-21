@@ -18,7 +18,7 @@ class ProductServiceImpl implements ProductService
 
     /**
      * ProductService constructor
-     * @param ProductRepository $productRepository
+     * @param  ProductRepository  $productRepository
      */
     public function __construct(ProductRepository $productRepository)
     {
@@ -26,7 +26,7 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return LengthAwarePaginator
      */
     public function getAll(Request $request): LengthAwarePaginator
@@ -39,7 +39,7 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return Product
      */
     public function saveProductData(Request $request): Product
@@ -61,7 +61,7 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return Product|null
      */
     public function editProduct(int $id): ?Product
@@ -70,7 +70,7 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @param $id
      * @return Product
      */
@@ -90,7 +90,7 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return void
      */
     public function destroy(int $id): void

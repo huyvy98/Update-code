@@ -9,12 +9,12 @@
     </div>
 @endif
 
-@if(Session::has('success'))
+@if(Session::has('message'))
     <div class="row">
         <div class="col-12">
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{ Session::get('success') }}</strong>
+                <strong>{{ Session::get('message') }}</strong>
             </div>
         </div>
     </div>

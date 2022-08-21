@@ -18,31 +18,34 @@ use Modules\Admin\Http\Controllers\LogoutController;
 use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.index')->middleware(
-        'auth:admin',
-        'permission:superadmin.admin.index'
-    );
-    Route::get('/create', [AdminController::class, 'create'])->name('admin.create')->middleware(
-        'auth:admin',
-        'permission:superadmin.admin.create'
-    );
-    Route::post('/create', [AdminController::class, 'store'])->middleware(
-        'auth:admin',
-        'permission:superadmin.admin.create'
-    );
-    Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit')->middleware(
-        'auth:admin',
-        'permission:superadmin.admin.edit'
-    );
-    Route::post('/edit/{id}', [AdminController::class, 'update'])->middleware(
-        'auth:admin',
-        'permission:superadmin.admin.edit'
-    );
-    Route::delete('/{id}', [AdminController::class, 'destroy'])->name('admin.destroy')->middleware(
-        'auth:admin',
-        'permission:superadmin.admin.destroy'
-    );
+Route::group(['prefix'=>'admins'], function () {
+    Route::group(['prefix'=>'admin'], function (){
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index')->middleware(
+            'auth:admin',
+            'permission:superadmin.admin.index'
+        );
+        Route::get('/create', [AdminController::class, 'create'])->name('admin.create')->middleware(
+            'auth:admin',
+            'permission:superadmin.admin.create'
+        );
+        Route::post('/create', [AdminController::class, 'store'])->middleware(
+            'auth:admin',
+            'permission:superadmin.admin.create'
+        );
+        Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit')->middleware(
+            'auth:admin',
+            'permission:superadmin.admin.edit'
+        );
+        Route::post('/edit/{id}', [AdminController::class, 'update'])->middleware(
+            'auth:admin',
+            'permission:superadmin.admin.edit'
+        );
+        Route::delete('/{id}', [AdminController::class, 'destroy'])->name('admin.destroy')->middleware(
+            'auth:admin',
+            'permission:superadmin.admin.destroy'
+        );
+    });
+
 
     Route::group(['prefix' => 'products', 'middleware' => 'CheckLogout'], function () {
         Route::get('/', [ProductController::class, 'index'])->name('products.index');

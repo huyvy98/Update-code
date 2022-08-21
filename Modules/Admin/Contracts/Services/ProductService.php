@@ -9,33 +9,43 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface ProductService
 {
     /**
-     * @param Request $request
+     * get all product
+     *
+     * @param  Request  $request
      * @return LengthAwarePaginator
      */
     public function getAll(Request $request): LengthAwarePaginator;
 
     /**
-     * @param Request $request
+     * save product to database
+     *
+     * @param  Request  $request
      * @return Product
      */
     public function saveProductData(Request $request): Product;
 
     /**
-     * @param Request $request
-     * @param int $id
+     * update product
+     *
+     * @param  Request  $request
+     * @param  int  $id
      * @return Product
      *
      */
     public function updateProduct(Request $request, int $id): Product;
 
     /**
-     * @param int $id
+     * edit product
+     *
+     * @param  int  $id
      * @return Product|null
      */
     public function editProduct(int $id): ?Product;
 
     /**
-     * @param int $id
+     * delete product
+     *
+     * @param  int  $id
      * @return void
      */
     public function destroy(int $id): void;

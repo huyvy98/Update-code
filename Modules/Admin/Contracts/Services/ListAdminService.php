@@ -9,17 +9,23 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface ListAdminService
 {
     /**
+     * get all admin
+     *
      * @return LengthAwarePaginator
      */
     public function getAll(): LengthAwarePaginator;
 
     /**
+     * save admin to database
+     *
      * @param  Request  $request
      * @return Admin
      */
     public function saveAdmin(Request $request): Admin;
 
     /**
+     * update admin
+     *
      * @param  Request  $request
      * @param  int  $id
      * @return Admin
@@ -27,12 +33,16 @@ interface ListAdminService
     public function updateAdmin(Request $request, int $id): Admin;
 
     /**
+     * edit admin
+     *
      * @param  int  $id
      * @return Admin|null
      */
     public function editAdmin(int $id): ?Admin;
 
     /**
+     * delete admin
+     *
      * @param  int  $id
      * @return void
      */

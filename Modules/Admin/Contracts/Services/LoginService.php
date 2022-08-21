@@ -8,7 +8,9 @@ use Modules\Admin\Http\Requests\LoginRequest;
 interface LoginService
 {
     /**
-     * @param LoginRequest $request
+     * Login admin
+     *
+     * @param  LoginRequest  $request
      * @return RedirectResponse
      */
     public function login(LoginRequest $request): RedirectResponse;

@@ -24,6 +24,7 @@
 
     @include('admin::dashboard.shared.breadcrumb')
 
+    @include('admin::dashboard.shared.flash-message')
     <div class="c-body">
         <main class="c-main">
 

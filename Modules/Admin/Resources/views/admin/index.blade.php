@@ -1,6 +1,7 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
+@section('linkUrl','admin')
 @section('headerText','Trang quan li admin')
 @section('content')
 

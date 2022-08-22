@@ -42,7 +42,7 @@
                 @if(!empty($product->category[0]['name']))
                     <td>
                         @foreach($product->category as $key =>$val)
-                            <li style="list-style-type: none">{{$val['name']}}</li>
+                            <li >{{$val['name']}}</li>
                         @endforeach
                     </td>
                 @else

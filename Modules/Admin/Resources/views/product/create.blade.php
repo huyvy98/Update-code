@@ -18,7 +18,7 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Category</label>
-            <select name="category">
+            <select name="category[]" multiple>
                 @foreach($category as $cate)
                     <option value="{{$cate->id}}">{{$cate->name}}</option>
                 @endforeach

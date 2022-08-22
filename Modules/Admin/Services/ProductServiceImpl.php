@@ -44,7 +44,7 @@ class ProductServiceImpl implements ProductService
      */
     public function saveProductData(Request $request): Product
     {
-        $category = $request->get('category');
+        $category = $request->input('category');
         if ($request->has('image')) {
             $filePath = $request['image']->storeAs('uploads', request('image')->getClientOriginalName(), 'public');
         }
@@ -89,7 +89,7 @@ class ProductServiceImpl implements ProductService
         $data = $this->productRepository->updateProduct($product);
 
 //        dd($data->category());
-        $data->category()->syncWithoutDetaching($category);
+        $data->category()->toggle($category);
         return $data;
     }
 

@@ -1,6 +1,7 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
+@section('linkUrl','products')
 @section('headerText','Quản lý sản phẩm')
 @section('content')
     @if(Auth::guard('admin')->user()->hasPermissionTo('products.create'))
@@ -26,6 +27,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
+            <th scope="col">Category</th>
             <th scope="col">Price</th>
             <th scope="col">Description</th>
             <th scope="col">Image</th>
@@ -37,6 +39,15 @@
             <tr>
                 <td>{{$loop->index+1}}</td>
                 <td>{{$product->name}}</td>
+                @if(!empty($product->category[0]['name']))
+                    <td>
+                        @foreach($product->category as $key =>$val)
+                            <li style="list-style-type: none">{{$val['name']}}</li>
+                        @endforeach
+                    </td>
+                @else
+                    <td></td>
+                @endif
                 <td>{{number_format($product->price)}} VND</td>
                 <td>{{$product->description}}</td>
                 <td><img src="/storage/{{$product->image}}" width="50px" height="50px"/></td>
@@ -49,7 +60,9 @@
                         <form method="POST" action="{{ route('products.destroy', $product) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('Bạn có muốn xóa không?')" class="btn btn-danger">Delete</button>
+                            <button type="submit" onclick="return confirm('Bạn có muốn xóa không?')"
+                                    class="btn btn-danger">Delete
+                            </button>
                         </form>
                     @endif
                 </td>

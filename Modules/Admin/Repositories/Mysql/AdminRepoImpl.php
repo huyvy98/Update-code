@@ -4,9 +4,9 @@ namespace Modules\Admin\Repositories\Mysql;
 
 use App\Models\Admin;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Modules\Admin\Contracts\Repositories\Mysql\ListAdminRepository;
+use Modules\Admin\Contracts\Repositories\Mysql\AdminRepository;
 
-class ListAdminRepoImpl implements ListAdminRepository
+class AdminRepoImpl implements AdminRepository
 {
     /**
      * Save admin

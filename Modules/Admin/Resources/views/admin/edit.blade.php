@@ -30,7 +30,7 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Password</label>
-            <input class="form-control" type="password" name="password" value="{{ old('password', $admins->password) }}"
+            <input class="form-control" type="password" name="password"
                    placeholder="Password">
         </div>
         @error('password')

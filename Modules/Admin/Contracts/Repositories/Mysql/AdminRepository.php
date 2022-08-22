@@ -5,7 +5,7 @@ namespace Modules\Admin\Contracts\Repositories\Mysql;
 use App\Models\Admin;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-interface ListAdminRepository
+interface AdminRepository
 {
     /**
      * Find product by id

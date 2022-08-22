@@ -22,7 +22,13 @@
 
     @include('admin::dashboard.shared.header')
 
-    @include('admin::dashboard.shared.breadcrumb')
+    <div class="c-subheader px-3">
+        <ol class="breadcrumb border-0 m-0">
+            <li class="breadcrumb-item"><a href="{{route('products.index')}}">Home</a></li>
+            <li class="breadcrumb-item">@yield('linkUrl')</li>
+        </ol>
+    </div>
+    </header>
 
     @include('admin::dashboard.shared.flash-message')
     <div class="c-body">

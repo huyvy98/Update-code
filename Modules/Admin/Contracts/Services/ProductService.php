@@ -49,4 +49,9 @@ interface ProductService
      * @return void
      */
     public function destroy(int $id): void;
+
+    /**
+     * @return mixed
+     */
+    public function getCategory();
 }

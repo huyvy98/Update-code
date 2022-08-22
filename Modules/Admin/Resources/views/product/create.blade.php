@@ -1,6 +1,7 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
+@section('linkUrl','products / create')
 @section('headerText','Thêm sản phẩm')
 @section('content')
 
@@ -13,6 +14,17 @@
             <input class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Name Product">
         </div>
         @error('name')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="form-group">
+            <label for="exampleInputEmail1">Category</label>
+            <select name="category">
+                @foreach($category as $cate)
+                    <option value="{{$cate->id}}">{{$cate->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        @error('category')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <div class="form-group">

@@ -1,6 +1,7 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
+@section('linkUrl','orders')
 @section('headerText','Quản lý order')
 @section('content')
     {{--    <a style="float: right;margin-bottom: 5px" type="button" class="btn btn-primary"--}}
@@ -39,7 +40,7 @@
                               style="float: right; margin:0 0 0 5px">
                             @csrf
                             @method('POST')
-                            <button type="submit" class="btn btn-success">Xác nhận</button>
+                            <button type="submit" onclick="return confirm('Bạn có muốn chuyển trạng thái đơn hàng?')" class="btn btn-success">Xác nhận</button>
                         </form>
                     @endif
                     @if(Auth::guard('admin')->user()->hasPermissionTo('orders.destroy'))

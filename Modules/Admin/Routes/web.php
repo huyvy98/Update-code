@@ -56,7 +56,7 @@ Route::group(['prefix'=>'admins'], function () {
         Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     });
 
-    Route::get('/roles', [\Modules\Admin\Http\Controllers\RoleController::class, 'index']);
+//    Route::get('/roles', [\Modules\Admin\Http\Controllers\RoleController::class, 'index']);
 
     Route::group(['prefix' => 'orders', 'middleware' => 'CheckLogout'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index');

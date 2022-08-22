@@ -1,6 +1,7 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
+@section('linkUrl','orders / detail')
 @section('headerText','Thông tin order')
 @section('content')
     <table class="table table-dark table-striped">

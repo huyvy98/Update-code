@@ -8,23 +8,23 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Modules\Admin\Contracts\Services\ListAdminService;
+use Modules\Admin\Contracts\Services\AdminService;
 use Modules\Admin\Http\Requests\AdminRequest;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
     /**
-     * @var ListAdminService
+     * @var AdminService
      */
-    public ListAdminService $listAdminService;
+    public AdminService $adminService;
 
     /**
-     * @param  ListAdminService  $listAdminService
+     * @param AdminService $adminService
      */
-    public function __construct(ListAdminService $listAdminService)
+    public function __construct(AdminService $adminService)
     {
-        $this->listAdminService = $listAdminService;
+        $this->adminService = $adminService;
     }
 
     /**
@@ -34,7 +34,7 @@ class AdminController extends Controller
      */
     public function index(): View
     {
-        $admins = $this->listAdminService->getAll();
+        $admins = $this->adminService->getAll();
 
         return view('admin::admin.index', compact('admins'));
     }
@@ -49,41 +49,41 @@ class AdminController extends Controller
 
     public function store(AdminRequest $request): RedirectResponse
     {
-        $this->listAdminService->saveAdmin($request);
+        $this->adminService->saveAdmin($request);
 
         return Redirect::route('admin.index')->with('message', 'Thêm mới thành công');
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return View
      */
     public function edit(int $id): View
     {
-        $admins = $this->listAdminService->editAdmin($id);
+        $admins = $this->adminService->editAdmin($id);
 
         return view('admin::admin.edit', compact('admins'));
     }
 
     /**
-     * @param  AdminRequest  $request
-     * @param  int  $id
+     * @param AdminRequest $request
+     * @param int $id
      * @return RedirectResponse
      */
     public function update(AdminRequest $request, int $id): RedirectResponse
     {
-        $this->listAdminService->updateAdmin($request, $id);
+        $this->adminService->updateAdmin($request, $id);
 
         return Redirect::route('admin.index')->with('message', 'Cập nhật thành công');
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return RedirectResponse
      */
     public function destroy(int $id): RedirectResponse
     {
-        $this->listAdminService->destroy($id);
+        $this->adminService->destroy($id);
 
         return Redirect::route('admin.index')->with('message', 'Đã xóa thành công');
     }

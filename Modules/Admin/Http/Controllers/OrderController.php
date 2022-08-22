@@ -33,6 +33,7 @@ class OrderController extends Controller
     public function index(): View
     {
         $orders = $this->orderService->getAllOrder();
+
         return view('admin::order.index', compact('orders'));
     }
 

@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
+use phpDocumentor\Reflection\Types\Mixed_;
 
 class ProductRepoImpl implements ProductRepository
 {
@@ -100,5 +101,10 @@ class ProductRepoImpl implements ProductRepository
     public function findById(int $id): ?Product
     {
         return Product::query()->findOrFail($id);
+    }
+
+    public function getCategory()
+    {
+        return Category::query()->get();
     }
 }

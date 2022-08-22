@@ -1,17 +1,10 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
+@section('linkUrl','products / edit')
 @section('headerText','Sửa sản phẩm')
 @section('content')
 
-    @if(Session::has('success'))
-        <div class="alert alert-success">
-            {{ Session::get('success') }}
-            @php
-                Session::forget('success');
-            @endphp
-        </div>
-    @endif
     <form method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -22,6 +15,24 @@
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <div class="form-group">
+            <label for="exampleInputEmail1">Category</label>
+            <select name="category">
+                @if(!empty($product->category[0]['name']))
+                    @foreach($category as $cate)
+                        <option
+                            value="{{$cate->id}}" {{old('category',$products->category[0]['id']) == $cate->id ? 'selected' : ''}}>{{$cate->name}}
+                        </option>
+                    @endforeach
+                @else
+                    @foreach($category as $cate)
+                        <option
+                            value="{{$cate->id}}">{{$cate->name}}
+                        </option>
+                    @endforeach
+                @endif
+            </select>
+        </div>
+        <div class="form-group">
             <label for="exampleInputEmail1">Price</label>
             <input class="form-control" type="number" name="price" value="{{ old('price', $products->price) }}">
         </div>
@@ -30,7 +41,8 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Description</label>
-            <input class="form-control" type="text" name="description" value="{{ old('description', $products->description) }}">
+            <input class="form-control" type="text" name="description"
+                   value="{{ old('description', $products->description) }}">
         </div>
         @error('description')
         <div class="alert alert-danger">{{ $message }}</div>

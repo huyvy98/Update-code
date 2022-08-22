@@ -6,21 +6,21 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
-use Modules\Admin\Contracts\Repositories\Mysql\ListAdminRepository;
-use Modules\Admin\Contracts\Services\ListAdminService;
+use Modules\Admin\Contracts\Repositories\Mysql\AdminRepository;
+use Modules\Admin\Contracts\Services\AdminService;
 use Spatie\Permission\Models\Permission;
 
-class ListAdminServiceImpl implements ListAdminService
+class AdminServiceImpl implements AdminService
 {
     /**
-     * @var ListAdminRepository $listAdminRepository
+     * @var AdminRepository $listAdminRepository
      */
-    protected ListAdminRepository $listAdminRepository;
+    protected AdminRepository $listAdminRepository;
 
     /**
-     * @param  ListAdminRepository  $listAdminRepository
+     * @param AdminRepository $listAdminRepository
      */
-    public function __construct(ListAdminRepository $listAdminRepository)
+    public function __construct(AdminRepository $listAdminRepository)
     {
         $this->listAdminRepository = $listAdminRepository;
     }
@@ -38,7 +38,7 @@ class ListAdminServiceImpl implements ListAdminService
     /**
      *
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return Admin
      */
     public function saveAdmin(Request $request): Admin
@@ -64,7 +64,11 @@ class ListAdminServiceImpl implements ListAdminService
         $admin->lastname = $request->get('lastname');
         $admin->email = $request->get('email');
         $admin->phone = $request->get('phone');
-        $admin->password = Hash::make($request->get('password'));
+        if (empty($request->get('password'))) {
+            $admin->password = $request->get(old('password'));
+        } else {
+            $admin->password = Hash::make($request->get('password'));
+        }
 
         return $this->listAdminRepository->updateAdmin($admin);
     }

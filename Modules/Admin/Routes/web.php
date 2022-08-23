@@ -18,9 +18,11 @@ use Modules\Admin\Http\Controllers\LogoutController;
 use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
 
-Route::get('/admins/login', [LoginController::class, 'show'])->name('auth.show');
-Route::post('/admins/login', [LoginController::class, 'login'])->name('auth.login');
-Route::group(['prefix' => 'admins', 'middleware' => ['auth:admin']], function () {
+Route::group(['middleware'=>'guest'], function(){
+    Route::get('/admins/login', [LoginController::class, 'show'])->name('auth.show');
+    Route::post('/admins/login', [LoginController::class, 'login'])->name('auth.login');
+});
+Route::group(['prefix' => 'admins','middleware'=>['auth']], function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.index')->middleware(
             'permission:superadmin.admin.index'
@@ -66,6 +68,6 @@ Route::group(['prefix' => 'admins', 'middleware' => ['auth:admin']], function ()
         Route::get('/order-detail/{id}', [OrderController::class, 'show'])->middleware('permission:orderDetails.index');
     });
 
-    Route::get('/logout', [LogoutController::class, 'logout'])->name('auth.logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 });
 

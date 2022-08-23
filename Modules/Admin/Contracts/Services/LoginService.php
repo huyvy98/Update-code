@@ -14,4 +14,9 @@ interface LoginService
      * @return RedirectResponse
      */
     public function login(LoginRequest $request): RedirectResponse;
+
+    /**
+     * @return RedirectResponse
+     */
+    public function logout(): RedirectResponse;
 }

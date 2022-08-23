@@ -18,10 +18,20 @@ class LoginServiceImpl implements LoginService
     public function login(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->only(['email', 'password']);
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return Redirect::route('products.index');
         } else {
+            session()->flash('error', 'Email or Password is incorrect');
             return Redirect::back()->withInput();
         }
+    }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function logout(): RedirectResponse
+    {
+        Auth::guard('admin')->logout();
+        return Redirect::route('auth.show');
     }
 }

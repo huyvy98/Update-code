@@ -2,12 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Transformers\ErrorResource;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Modules\Api\Transformers\ErrorResource;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -41,7 +41,7 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->renderable(function (AuthenticationException $e, $request) {
-            return $this->makeErrorResponse(401, $e->getMessage(), null);
+            return redirect()->route('auth.show');
         });
 
         $this->renderable(function (ApiException $e, $request) {

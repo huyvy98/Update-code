@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h1 style="color: #E4DCCF; text-align: center">Login</h1>
                 <p style="color: #E4DCCF; text-align: center" class="text-medium-emphasis">Sign In to your account</p>
-                <form method="POST" action="{{route('admin.login')}}">
+                <form method="POST" action="{{route('auth.login')}}">
                     @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label" style="color: #E4DCCF">Email address</label>

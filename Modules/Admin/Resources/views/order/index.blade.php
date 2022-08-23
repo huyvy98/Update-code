@@ -4,8 +4,6 @@
 @section('linkUrl','orders')
 @section('headerText','Quản lý order')
 @section('content')
-    {{--    <a style="float: right;margin-bottom: 5px" type="button" class="btn btn-primary"--}}
-    {{--       href="{{route('products.create')}}">Add New</a>--}}
     <table class="table table-striped">
         <thead>
         <tr>
@@ -34,21 +32,29 @@
                     @if(Auth::guard('admin')->user()->hasPermissionTo('orderDetails.index'))
                         <a style="float: left;margin-right: 5px" type="button" class="btn btn-info"
                            href="{{url('admins/orders/order-detail/'. $order->id)}}">Detail</a>
+                    @else
+
                     @endif
                     @if($order->status == 0)
                         <form method="POST" action="{{ route('orders.change', $order) }}"
                               style="float: right; margin:0 0 0 5px">
                             @csrf
                             @method('POST')
-                            <button type="submit" onclick="return confirm('Bạn có muốn chuyển trạng thái đơn hàng?')" class="btn btn-success">Xác nhận</button>
+                            <button type="submit" onclick="return confirm('Bạn có muốn chuyển trạng thái đơn hàng?')"
+                                    class="btn btn-success">Xác nhận
+                            </button>
                         </form>
                     @endif
                     @if(Auth::guard('admin')->user()->hasPermissionTo('orders.destroy'))
                         <form method="POST" action="{{ route('orders.destroy', $order) }}" style="float: left">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('Bạn có muốn xóa không?')" class="btn btn-danger">Delete</button>
+                            <button type="submit" onclick="return confirm('Bạn có muốn xóa không?')"
+                                    class="btn btn-danger">Delete
+                            </button>
                         </form>
+                    @else
+
                     @endif
                 </td>
             </tr>

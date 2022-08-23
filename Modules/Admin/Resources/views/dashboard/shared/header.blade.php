@@ -27,7 +27,7 @@
                                     <svg class="c-icon">
                                     <use xlink:href="{{ url('/icons/sprites/free.svg#cil-account-logout') }}"></use>
                                     </svg>
-                                    <a class="btn btn-lock" href="{{ route('admin.logout') }}">Logout</a>
+                                    <a class="btn btn-lock" href="{{ route('auth.logout') }}">Logout</a>
                             </div>
                         </div>
                     @endif

@@ -30,7 +30,7 @@
     @endif
     @if(Auth::guard('admin')->check())
         <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{route('admin.logout')}}">
+            <a class="c-sidebar-nav-link" href="{{route('auth.logout')}}">
                 <i class="cil-contact c-sidebar-nav-icon"></i>
                 Logout
             </a>

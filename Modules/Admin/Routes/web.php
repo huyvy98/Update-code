@@ -18,54 +18,54 @@ use Modules\Admin\Http\Controllers\LogoutController;
 use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
 
-Route::group(['prefix'=>'admins'], function () {
-    Route::group(['prefix'=>'admin'], function (){
+Route::get('/admins/login', [LoginController::class, 'show'])->name('auth.show');
+Route::post('/admins/login', [LoginController::class, 'login'])->name('auth.login');
+Route::group(['prefix' => 'admins', 'middleware' => ['auth:admin']], function () {
+    Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.index')->middleware(
-            'auth:admin',
             'permission:superadmin.admin.index'
         );
         Route::get('/create', [AdminController::class, 'create'])->name('admin.create')->middleware(
-            'auth:admin',
             'permission:superadmin.admin.create'
         );
-        Route::post('/create', [AdminController::class, 'store'])->middleware(
-            'auth:admin',
-            'permission:superadmin.admin.create'
-        );
+        Route::post('/create', [AdminController::class, 'store'])->middleware('permission:superadmin.admin.create');
         Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit')->middleware(
-            'auth:admin',
             'permission:superadmin.admin.edit'
         );
-        Route::post('/edit/{id}', [AdminController::class, 'update'])->middleware(
-            'auth:admin',
-            'permission:superadmin.admin.edit'
-        );
+        Route::post('/edit/{id}', [AdminController::class, 'update'])->middleware('permission:superadmin.admin.edit');
         Route::delete('/{id}', [AdminController::class, 'destroy'])->name('admin.destroy')->middleware(
-            'auth:admin',
             'permission:superadmin.admin.destroy'
         );
     });
 
-
-    Route::group(['prefix' => 'products', 'middleware' => 'CheckLogout'], function () {
-        Route::get('/', [ProductController::class, 'index'])->name('products.index');
-        Route::get('/create', [ProductController::class, 'create'])->name('products.create');
-        Route::post('/create', [ProductController::class, 'store']);
-        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
-        Route::post('/edit/{id}', [ProductController::class, 'update']);
-        Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('products.index')->middleware(
+            'permission:products.index'
+        );
+        Route::get('/create', [ProductController::class, 'create'])->name('products.create')->middleware(
+            'permission:products.create'
+        );
+        Route::post('/create', [ProductController::class, 'store'])->middleware('permission:products.create');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('products.edit')->middleware(
+            'permission:products.edit'
+        );
+        Route::post('/edit/{id}', [ProductController::class, 'update'])->middleware('permission:products.edit');
+        Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware(
+            'permission:products.destroy'
+        );
     });
 
-//    Route::get('/roles', [\Modules\Admin\Http\Controllers\RoleController::class, 'index']);
+//    Route::get('/roles', [RoleController::class, 'index']);
 
-    Route::group(['prefix' => 'orders', 'middleware' => 'CheckLogout'], function () {
-        Route::get('/', [OrderController::class, 'index'])->name('orders.index');
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', [OrderController::class, 'index'])->name('orders.index')->middleware('permission:orders.index');
         Route::post('/{id}', [OrderController::class, 'change'])->name('orders.change');
-        Route::delete('/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
-        Route::get('/order-detail/{id}', [OrderController::class, 'show']);
+        Route::delete('/{id}', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware(
+            'permission:orders.destroy'
+        );
+        Route::get('/order-detail/{id}', [OrderController::class, 'show'])->middleware('permission:orderDetails.index');
     });
 
-    Route::get('/login', [LoginController::class, 'show'])->name('admin.show')->middleware('CheckLogin');
-    Route::post('/login', [LoginController::class, 'login'])->name('admin.login');
-    Route::get('/logout', [LogoutController::class, 'logout'])->name('admin.logout');
+    Route::get('/logout', [LogoutController::class, 'logout'])->name('auth.logout');
 });
+

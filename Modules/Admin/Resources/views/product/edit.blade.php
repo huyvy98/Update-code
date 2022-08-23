@@ -16,20 +16,12 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Category</label>
-            <select name="category">
-                @if(!empty($product->category[0]['name']))
-                    @foreach($category as $cate)
-                        <option
-                            value="{{$cate->id}}" {{old('category',$products->category[0]['id']) == $cate->id ? 'selected' : ''}}>{{$cate->name}}
-                        </option>
-                    @endforeach
-                @else
+            <select name="category[]" multiple>
                     @foreach($category as $cate)
                         <option
                             value="{{$cate->id}}">{{$cate->name}}
                         </option>
                     @endforeach
-                @endif
             </select>
         </div>
         <div class="form-group">

@@ -30,7 +30,9 @@ class RoleController extends Controller
 
     public function index()
     {
-//        $admin = Admin::query()->where('id',1)->first();
-//        $admin->assignRole('SuperAdmin');
+        $admin = Admin::query()->where('id',2)->first();
+
+//        dd($admin);
+        $admin->syncPermissions(Permission::all());
     }
 }

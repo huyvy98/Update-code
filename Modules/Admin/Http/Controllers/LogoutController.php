@@ -20,11 +20,7 @@ class LogoutController extends Controller
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return Redirect::route('admin.show');
+        return Redirect::route('auth.show');
     }
 
 

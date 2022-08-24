@@ -2,7 +2,6 @@
 
 namespace Modules\User\Contracts\Services;
 
-use App\Models\User;
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
 
@@ -16,7 +15,12 @@ interface AuthService
 
     /**
      * @param  RegisterUserRequest  $request
-     * @return User
+     * @return mixed
      */
-    public function register(RegisterUserRequest $request): User;
+    public function registerUser(RegisterUserRequest $request);
+
+    /**
+     * @return mixed
+     */
+    public function logout();
 }

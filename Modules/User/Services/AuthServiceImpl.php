@@ -3,6 +3,7 @@
 namespace Modules\User\Services;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -28,15 +29,16 @@ class AuthServiceImpl implements AuthService
 
     /**
      * @param LoginUserRequest $request
-     * @return mixed|void
+     * @return JsonResponse
      */
-    public function login(LoginUserRequest $request)
+    public function login(LoginUserRequest $request): JsonResponse
     {
         $credentials = $request->only(['email', 'password']);
         if (Auth::attempt($credentials)) {
             return response()->json([
                 'status' => '200',
-                'message' => 'Login Success'
+                'message' => 'Login Success',
+                'infoUser' => Auth::user(),
             ]);
         } else {
             return response()->json([
@@ -49,22 +51,41 @@ class AuthServiceImpl implements AuthService
 
     /**
      * @param RegisterUserRequest $request
-     * @return User
+     * @return JsonResponse
      */
-    public function register(RegisterUserRequest $request): User
+    public function registerUser(RegisterUserRequest $request): JsonResponse
     {
-        $user = new User();
-        $user->firstname = $request->input('firstname');
-        $user->lastname = $request->input('lastname');
-        $user->address = $request->input('address');
-        $user->email = $request->input('email');
-        $user->phone = $request->input('phone');
-        $user->password = Hash::make($request->input('password'));
-        $data = $this->authRepository->save($user);
+        if ($request->input('password') === $request->input('password_conf')) {
+            $user = new User();
+            $user->firstname = $request->input('firstname');
+            $user->lastname = $request->input('lastname');
+            $user->address = $request->input('address');
+            $user->email = $request->input('email');
+            $user->phone = $request->input('phone');
+            $user->password = Hash::make($request->input('password'));
+            $data = $this->authRepository->save($user);
 
+        }
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $data
         ], 201);
+    }
+
+    public function logout(): JsonResponse
+    {
+        Auth::logout();
+
+        return response()->json(['message' => 'User successfully signed out']);
+    }
+
+    public function createNewToken($token): JsonResponse
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user()
+        ]);
     }
 }

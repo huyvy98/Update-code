@@ -9,7 +9,7 @@ class RegisterUserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     *
      */
     public function rules(): array
     {
@@ -20,12 +20,12 @@ class RegisterUserRequest extends FormRequest
             'phone' => 'required',
             'email' => 'required|email|max:100|unique:users',
             'password' => 'required|confirmed',
-            'password_conf' => 'required'
+            'password_confirmation' => 'required'
         ];
     }
 
     /**
-     * @return array
+     *
      */
     public function messages(): array
     {
@@ -45,7 +45,7 @@ class RegisterUserRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @return array
+     *
      */
     public function attributes(): array
     {
@@ -59,5 +59,10 @@ class RegisterUserRequest extends FormRequest
             'password_conf' => 'Xac nhan mat khau'
         ];
 
+    }
+
+    public function authorize(): bool
+    {
+        return true;
     }
 }

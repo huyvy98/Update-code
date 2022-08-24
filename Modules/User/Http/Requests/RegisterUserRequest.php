@@ -11,10 +11,24 @@ class RegisterUserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|confirmed',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => ':attribute khong trong',
+            'email.email' => 'Truong nhap phai dinh dang mail',
+            'password' => ':attribute khong trong'
         ];
     }
 

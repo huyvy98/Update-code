@@ -14,15 +14,15 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Http\Controllers\ProductController;
 use Modules\Admin\Http\Controllers\LoginController;
-use Modules\Admin\Http\Controllers\LogoutController;
 use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
 
-Route::group(['middleware'=>'guest'], function(){
+Route::group(['middleware' => 'guest'], function () {
     Route::get('/admins/login', [LoginController::class, 'show'])->name('auth.show');
     Route::post('/admins/login', [LoginController::class, 'login'])->name('auth.login');
 });
-Route::group(['prefix' => 'admins','middleware'=>['auth']], function () {
+
+Route::group(['prefix' => 'admins', 'middleware' => ['auth']], function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.index')->middleware(
             'permission:superadmin.admin.index'
@@ -56,8 +56,6 @@ Route::group(['prefix' => 'admins','middleware'=>['auth']], function () {
             'permission:products.destroy'
         );
     });
-
-//    Route::get('/roles', [RoleController::class, 'index']);
 
     Route::group(['prefix' => 'orders'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index')->middleware('permission:orders.index');

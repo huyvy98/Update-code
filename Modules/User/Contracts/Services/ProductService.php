@@ -17,4 +17,9 @@ interface ProductService
      * @return Product|null
      */
     public function findProduct(int $id): ?Product;
+
+    /**
+     * @return LengthAwarePaginator
+     */
+    public function getCategory(): LengthAwarePaginator;
 }

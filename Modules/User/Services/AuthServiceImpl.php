@@ -19,7 +19,7 @@ class AuthServiceImpl implements AuthService
     private AuthRepository $authRepository;
 
     /**
-     * @param  AuthRepository  $authRepository
+     * @param AuthRepository $authRepository
      */
     public function __construct(AuthRepository $authRepository)
     {
@@ -27,44 +27,44 @@ class AuthServiceImpl implements AuthService
     }
 
     /**
-     * @param  LoginUserRequest  $request
+     * @param LoginUserRequest $request
      * @return mixed|void
      */
     public function login(LoginUserRequest $request)
     {
         $credentials = $request->only(['email', 'password']);
         if (Auth::attempt($credentials)) {
-            return Redirect::route('user.index');
+            return response()->json([
+                'status' => '200',
+                'message' => 'Login Success'
+            ]);
         } else {
-            return Redirect::back()->withInput();
+            return response()->json([
+                'status' => '400',
+                'message' => 'Fails'
+            ]);
         }
+        $this->createNewToken($token);
     }
 
     /**
-     * @param  RegisterUserRequest  $request
+     * @param RegisterUserRequest $request
      * @return User
      */
     public function register(RegisterUserRequest $request): User
     {
-        return $this->create($request);
-    }
+        $user = new User();
+        $user->firstname = $request->input('firstname');
+        $user->lastname = $request->input('lastname');
+        $user->address = $request->input('address');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->password = Hash::make($request->input('password'));
+        $data = $this->authRepository->save($user);
 
-    /**
-     * @param  RegisterUserRequest  $request
-     * @return User
-     */
-    public function create(RegisterUserRequest $request): User
-    {
-        if ($request->input('password') === $request->input('password_conf')) {
-            $user = new User();
-            $user->firstname = $request->input('firstname');
-            $user->lastname = $request->input('lastname');
-            $user->address = $request->input('address');
-            $user->email = $request->input('email');
-            $user->phone = $request->input('phone');
-            $user->password = Hash::make($request->input('password'));
-            $data = $this->authRepository->save($user);
-        }
-        return $data;
+        return response()->json([
+            'message' => 'User successfully registered',
+            'user' => $data
+        ], 201);
     }
 }

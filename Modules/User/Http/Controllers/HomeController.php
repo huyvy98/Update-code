@@ -27,6 +27,8 @@ class HomeController extends Controller
     public function index(): View
     {
         $listProduct = $this->productService->getAllProduct();
-        return view('user::user.index', compact('listProduct'));
+        $listCate = $this->productService->getCategory();
+
+        return view('user::users.index', compact('listProduct','listCate'));
     }
 }

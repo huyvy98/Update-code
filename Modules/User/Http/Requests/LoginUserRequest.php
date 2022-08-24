@@ -11,10 +11,20 @@ class LoginUserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+          'email.required' => ':attribute khong trong',
+          'email.email' => 'Truong nhap phai dinh dang mail',
+          'password' => ':attribute khong trong'
         ];
     }
 

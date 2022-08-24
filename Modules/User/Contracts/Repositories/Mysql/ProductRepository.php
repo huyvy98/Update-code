@@ -17,4 +17,9 @@ interface ProductRepository
      * @return LengthAwarePaginator
      */
     public function getAllProduct(): LengthAwarePaginator;
+
+    /**
+     * @return LengthAwarePaginator
+     */
+    public function getCategory(): LengthAwarePaginator;
 }

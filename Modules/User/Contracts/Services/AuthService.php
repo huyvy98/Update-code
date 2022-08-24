@@ -19,10 +19,4 @@ interface AuthService
      * @return User
      */
     public function register(RegisterUserRequest $request): User;
-
-    /**
-     * @param  RegisterUserRequest  $request
-     * @return User
-     */
-    public function create(RegisterUserRequest $request): User;
 }

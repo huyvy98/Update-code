@@ -12,17 +12,9 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\User\Http\Controllers\auth\LoginController;
+use Modules\User\Http\Controllers\auth\LogoutController;
+use Modules\User\Http\Controllers\auth\RegisterController;
 use Modules\User\Http\Controllers\HomeController;
-use Modules\User\Http\Controllers\LoginController;
-use Modules\User\Http\Controllers\RegisterController;
-use Modules\User\Http\Controllers\LogoutController;
 
-Route::get('/', [HomeController::class,'index'])->name('users.index');
-
-
-Route::get('/login',[LoginController::class, 'show'])->name('user.show');
-Route::post('login',[LoginController::class, 'login'])->name('user.login');
-Route::get('/logout',[LogoutController::class, 'logout'])->name('user.logout');
-Route::get('/register',[RegisterController::class, 'show'])->name('user.showRegister');
-Route::post('/register',[RegisterController::class, 'register'])->name('user.register');
 

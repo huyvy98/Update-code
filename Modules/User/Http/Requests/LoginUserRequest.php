@@ -22,12 +22,18 @@ class LoginUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-          'email.required' => ':attribute khong trong',
-          'email.email' => 'Truong nhap phai dinh dang mail',
-          'password' => ':attribute khong trong'
+          'required' => ':attribute không được để trống',
+          'email' => ':attribute phải đúng định dạng',
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'email' => 'Email',
+            'password' => 'Password'
+        ];
+    }
     /**
      * Determine if the user is authorized to make this request.
      *

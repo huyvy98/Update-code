@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\AuthController;
+use Modules\User\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,16 @@ use Modules\User\Http\Controllers\AuthController;
 //});
 Route::group(['middleware'=>'api', 'prefix'=>'auth'], function (){
     Route::post('/login',[AuthController::class,'login']);
+
     Route::post('/register', [AuthController::class, 'register']);
+
     Route::post('/logout',[AuthController::class,'logout']);
+
+//    Route::get('/order',[OrderController::class,'getCart']);
+//    Route::post('/order/{id}',[OrderController::class,'addToCart']);
+//    Route::post('/updateCart/{id}',[OrderController::class,'updateCart']);
+
+//    Route::post('/deleteCart/{id}',[OrderController::class,'destroy']);
 });
+
+Route::post('/buy-on-cart',[OrderController::class,'buyOnCart']);

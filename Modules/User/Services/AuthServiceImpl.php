@@ -21,7 +21,7 @@ class AuthServiceImpl implements AuthService
     private AuthRepository $authRepository;
 
     /**
-     * @param  AuthRepository  $authRepository
+     * @param AuthRepository $authRepository
      */
     public function __construct(AuthRepository $authRepository)
     {
@@ -29,41 +29,30 @@ class AuthServiceImpl implements AuthService
     }
 
     /**
-     * @param  LoginUserRequest  $request
+     * @param LoginUserRequest $request
      * @return JsonResponse
      */
     public function login(LoginUserRequest $request): JsonResponse
     {
-        $va = Validator::make($request->validated());
-        if($va->fails()){}
-
-        $credentials = $request->only(['email', 'password']);
-        if (Auth::attempt($credentials)) {
-            return response()->json([
-                'status' => '200',
-                'message' => 'Login Success',
-                'infoUser' => Auth::user(),
-            ]);
-        } else {
-            return response()->json([
-                'status' => '400',
-                'message' => 'Fails'
-            ]);
+        if(!$request->validated()){
+            return response()->json($request->errors());
         }
-        $this->createNewToken($token);
+        $credentials = $request->only(['email', 'password']);
+        if (! $token = Auth::attempt($credentials)) {
+            return response()->json(['error' => 'Email hoặc mật khẩu không đúng!!'], 401);
+        }
+        return $this->createNewToken($token);
     }
 
     /**
-     * @param  RegisterUserRequest $request
+     * @param RegisterUserRequest $request
      * @return JsonResponse
      */
     public function registerUser(RegisterUserRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all());
-        if($validator->fails()){
-            return response()->json($validator->errors(), 422);
+        if(!$request->validated()){
+            return response()->json($request->errors());
         }
-        if ($request->input('password') === $request->input('password_confirmation')) {
             $user = new User();
             $user->firstname = $request->input('firstname');
             $user->lastname = $request->input('lastname');
@@ -72,7 +61,7 @@ class AuthServiceImpl implements AuthService
             $user->phone = $request->input('phone');
             $user->password = Hash::make($request->input('password'));
             $data = $this->authRepository->save($user);
-        }
+
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $data
@@ -86,13 +75,25 @@ class AuthServiceImpl implements AuthService
         return response()->json(['message' => 'User successfully signed out']);
     }
 
+    /**
+     * @param $token
+     * @return JsonResponse
+     */
     public function createNewToken($token): JsonResponse
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return JsonResponse
+     */
+    public function refresh() {
+        return $this->createNewToken(auth()->refresh());
     }
 }

@@ -17,11 +17,11 @@
         <div class="form-group">
             <label for="exampleInputEmail1">Category</label>
             <select name="category[]" multiple>
-                    @foreach($category as $cate)
-                        <option
-                            value="{{$cate->id}}">{{$cate->name}}
-                        </option>
-                    @endforeach
+                @foreach($category as $key => $cate)
+                    <option
+                        value="{{$cate->id}}" {{ old('category', $products->category)->contains($cate->id) ? 'selected' : '' }}>{{$cate->name}}
+                    </option>
+                @endforeach
             </select>
         </div>
         <div class="form-group">

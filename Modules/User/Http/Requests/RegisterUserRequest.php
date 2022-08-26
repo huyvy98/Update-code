@@ -2,10 +2,19 @@
 
 namespace Modules\User\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterUserRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,8 +23,8 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
+            'firstname' => 'required',
+            'lastname' => 'required',
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required|email|max:100|unique:users',
@@ -33,12 +42,11 @@ class RegisterUserRequest extends FormRequest
             'required' => ':attribute không được để trống',
             'string' => ':attribute bắt buộc phải là kiểu chuỗi Aa -> Zz',
             'email' => ':attribute không đúng định dạng ',
-            'numeric' => ':attribute phải là  số từ 0 -> 9',
+            'regex' => ':attribute phải là  số từ 0 -> 9',
             'max' => ':attribute phải ít hơn hay bằng :max ký tự ',
             'min' => ':attribute phải nhỏ hơn hay bằng :min ký tự ',
             'confirmed' => ':attribute nhập lại không giống nhau',
             'unique' => ':attribute đã được sử dụng'
-
         ];
     }
 
@@ -56,13 +64,7 @@ class RegisterUserRequest extends FormRequest
             'phone' => 'So dien thoai',
             'email' => 'Email',
             'password' => 'Mat khau',
-            'password_conf' => 'Xac nhan mat khau'
+            'password_confirmation' => 'Xac nhan mat khau'
         ];
-
-    }
-
-    public function authorize(): bool
-    {
-        return true;
     }
 }

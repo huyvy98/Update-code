@@ -12,6 +12,7 @@ use Modules\User\Contracts\Repositories\Mysql\AuthRepository;
 use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
+use Modules\User\Transformers\AuthResource;
 
 class AuthServiceImpl implements AuthService
 {
@@ -21,7 +22,7 @@ class AuthServiceImpl implements AuthService
     private AuthRepository $authRepository;
 
     /**
-     * @param AuthRepository $authRepository
+     * @param  AuthRepository  $authRepository
      */
     public function __construct(AuthRepository $authRepository)
     {
@@ -29,71 +30,75 @@ class AuthServiceImpl implements AuthService
     }
 
     /**
-     * @param LoginUserRequest $request
-     * @return JsonResponse
+     * @param  LoginUserRequest  $request
+     * @return AuthResource
      */
-    public function login(LoginUserRequest $request): JsonResponse
+    public function login(LoginUserRequest $request): AuthResource
     {
-        if(!$request->validated()){
-            return response()->json($request->errors());
+        if (!$request->validated()) {
+            return AuthResource::make($request);
         }
         $credentials = $request->only(['email', 'password']);
-        if (! $token = Auth::attempt($credentials)) {
-            return response()->json(['error' => 'Email hoặc mật khẩu không đúng!!'], 401);
+        if (!$token = Auth::attempt($credentials)) {
+            $error = ['error' => 'Email hoặc mật khẩu không đúng!!'];
+            return AuthResource::make($error);
         }
-        return $this->createNewToken($token);
+        $tokenCreate = $this->createNewToken($token);
+
+        return AuthResource::make($tokenCreate);
     }
 
     /**
-     * @param RegisterUserRequest $request
-     * @return JsonResponse
+     * @param  RegisterUserRequest  $request
+     * @return AuthResource
      */
-    public function registerUser(RegisterUserRequest $request): JsonResponse
+    public function registerUser(RegisterUserRequest $request): AuthResource
     {
-        if(!$request->validated()){
-            return response()->json($request->errors());
+        if (!$request->validated()) {
+            return AuthResource::make($request);
         }
-            $user = new User();
-            $user->firstname = $request->input('firstname');
-            $user->lastname = $request->input('lastname');
-            $user->address = $request->input('address');
-            $user->email = $request->input('email');
-            $user->phone = $request->input('phone');
-            $user->password = Hash::make($request->input('password'));
-            $data = $this->authRepository->save($user);
 
-        return response()->json([
-            'message' => 'User successfully registered',
-            'user' => $data
-        ], 201);
+        $user = new User();
+        $user->firstname = $request->input('firstname');
+        $user->lastname = $request->input('lastname');
+        $user->address = $request->input('address');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->password = Hash::make($request->input('password'));
+        $data = $this->authRepository->save($user);
+
+        return AuthResource::make($data);
     }
 
-    public function logout(): JsonResponse
+    public function logout(): AuthResource
     {
         Auth::logout();
+        $message = ['message' => 'User successfully signed out'];
 
-        return response()->json(['message' => 'User successfully signed out']);
+        return AuthResource::make($message);
     }
 
     /**
      * @param $token
-     * @return JsonResponse
+     * @return AuthResource
      */
-    public function createNewToken($token): JsonResponse
+    public function createNewToken($token): AuthResource
     {
-        return response()->json([
+        $data = [
             'access_token' => $token,
             'token_type' => 'bearer',
             'user' => auth()->user()
-        ]);
+        ];
+        return AuthResource::make($data);
     }
 
     /**
      * Refresh a token.
      *
-     * @return JsonResponse
+     * @return mixed
      */
-    public function refresh() {
+    public function refresh()
+    {
         return $this->createNewToken(auth()->refresh());
     }
 }

@@ -4,23 +4,24 @@ namespace Modules\User\Contracts\Services;
 
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
+use Modules\User\Transformers\AuthResource;
 
 interface AuthService
 {
     /**
      * @param  LoginUserRequest  $request
-     * @return mixed
+     * @return AuthResource
      */
-    public function login(LoginUserRequest $request);
+    public function login(LoginUserRequest $request): AuthResource;
 
     /**
      * @param  RegisterUserRequest  $request
-     * @return mixed
+     * @return AuthResource
      */
-    public function registerUser(RegisterUserRequest $request);
+    public function registerUser(RegisterUserRequest $request): AuthResource;
 
     /**
-     * @return mixed
+     * @return AuthResource
      */
-    public function logout();
+    public function logout(): AuthResource;
 }

@@ -2,11 +2,12 @@
 
 namespace Modules\User\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\User\Contracts\Services\OrderService;
+use Modules\User\Http\Requests\OrderRequest;
+use Modules\User\Transformers\OrderResource;
 
 class OrderController extends Controller
 {
@@ -22,47 +23,16 @@ class OrderController extends Controller
     {
         $this->orderService = $orderService;
     }
-//
-//    public function getCart(): JsonResponse
-//    {
-//        return $this->orderService->getCart();
-//    }
-//
-//    /**
-//     * @param int $id
-//     * @return JsonResponse
-//     */
-//    public function addToCart(int $id): JsonResponse
-//    {
-//        return $this->orderService->addToCart($id);
-//    }
-//
-//    /**
-//     * @param Request $request
-//     * @return JsonResponse
-//     */
-//    public function updateCart(Request $request): JsonResponse
-//    {
-//        return $this->orderService->updateCart($request);
-//    }
 
     /**
      * Show the form for editing the specified resource.
-     * @param Request $request
-     * @return JsonResponse
+     * @param  OrderRequest  $request
+     * @return OrderResource
      */
-    public function buyOnCart(Request $request): JsonResponse
+    public function buyOnCart(OrderRequest $request): OrderResource
     {
-        return $this->orderService->buyOnCart($request);
-    }
+        $data = $this->orderService->buyOnCart($request);
 
-//    /**
-//     * Remove the specified resource from storage.
-//     * @param int $id
-//     * @return JsonResponse
-//     */
-//    public function destroy(int $id): JsonResponse
-//    {
-//        return $this->orderService->deleteCart($id);
-//    }
+        return $data;
+    }
 }

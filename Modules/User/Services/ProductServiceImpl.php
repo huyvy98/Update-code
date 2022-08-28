@@ -39,7 +39,7 @@ class ProductServiceImpl implements ProductService
         return $this->productRepository->findById($id);
     }
 
-    public function getCategory(): LengthAwarePaginator
+    public function getCategory()
     {
         return $this->productRepository->getCategory();
     }

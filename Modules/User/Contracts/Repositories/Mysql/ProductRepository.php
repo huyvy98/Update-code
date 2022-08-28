@@ -19,7 +19,7 @@ interface ProductRepository
     public function getAllProduct(): LengthAwarePaginator;
 
     /**
-     * @return LengthAwarePaginator
+     * @return mixed
      */
-    public function getCategory(): LengthAwarePaginator;
+    public function getCategory();
 }

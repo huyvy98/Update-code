@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\AuthController;
 use Modules\User\Http\Controllers\OrderController;
-
+use Modules\User\Http\Controllers\CategoryProductController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,9 +15,6 @@ use Modules\User\Http\Controllers\OrderController;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 Route::group(['middleware'=>'api', 'prefix'=>'auth'], function (){
     Route::post('/login',[AuthController::class,'login']);
 
@@ -26,11 +22,10 @@ Route::group(['middleware'=>'api', 'prefix'=>'auth'], function (){
 
     Route::post('/logout',[AuthController::class,'logout']);
 
-//    Route::get('/order',[OrderController::class,'getCart']);
-//    Route::post('/order/{id}',[OrderController::class,'addToCart']);
-//    Route::post('/updateCart/{id}',[OrderController::class,'updateCart']);
-
-//    Route::post('/deleteCart/{id}',[OrderController::class,'destroy']);
 });
 
 Route::post('/buy-on-cart',[OrderController::class,'buyOnCart']);
+
+Route::post('/categories',[CategoryProductController::class, 'index']);
+
+Route::post('/category-product/{slug}',[CategoryProductController::class,'show']);

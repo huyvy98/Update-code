@@ -24,10 +24,10 @@ class ProductRepoImpl implements ProductRepository
     }
 
     /**
-     * @return LengthAwarePaginator
+     * @return mixed
      */
-    public function getCategory(): LengthAwarePaginator
+    public function getCategory()
     {
-        return Category::query()->paginate(2);
+        return Category::all();
     }
 }

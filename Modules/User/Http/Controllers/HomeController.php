@@ -3,6 +3,7 @@
 namespace Modules\User\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Modules\User\Contracts\Services\ProductService;
 
@@ -22,13 +23,14 @@ class HomeController extends Controller
     }
 
     /**
-     * @return View
+     * @return JsonResponse
      */
-    public function index(): View
+    public function index(): JsonResponse
     {
-        $listProduct = $this->productService->getAllProduct();
         $listCate = $this->productService->getCategory();
 
-        return view('user::users.index', compact('listProduct','listCate'));
+        return response()->json([
+            'category' => $listCate
+        ]);
     }
 }

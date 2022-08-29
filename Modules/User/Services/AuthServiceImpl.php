@@ -3,16 +3,14 @@
 namespace Modules\User\Services;
 
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use Modules\User\Contracts\Repositories\Mysql\AuthRepository;
 use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
-use Modules\User\Transformers\AuthResource;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthServiceImpl implements AuthService
 {
@@ -39,19 +37,13 @@ class AuthServiceImpl implements AuthService
             return $request;
         }
         $credentials = $request->only(['email', 'password']);
-        if (!$token = Auth::attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             $error = ['error' => 'Email hoặc mật khẩu không đúng!!'];
 
             return $error;
         }
 
-        $data = [
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'user' => auth()->user(),
-        ];
-
-        return $data;
+        return $this->createNewToken($token);
     }
 
     /**
@@ -82,6 +74,7 @@ class AuthServiceImpl implements AuthService
     public function logout()
     {
         Auth::logout();
+        Session::flush();
         $message = ['message' => 'User successfully signed out'];
 
         return $message;
@@ -91,7 +84,7 @@ class AuthServiceImpl implements AuthService
      * @param $token
      * @return mixed
      */
-    public function createNewToken($token)
+    public function createNewToken( $token )
     {
         $data = [
             'access_token' => $token,

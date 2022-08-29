@@ -7,10 +7,10 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\User;
-use Modules\User\Contracts\Repositories\Mysql\CategoryProductRepository;
+use Modules\User\Contracts\Repositories\Mysql\CategoryRepository;
 use Modules\User\Contracts\Repositories\Mysql\OrderRepository;
 
-class CategoryProductRepoImpl implements CategoryProductRepository
+class CategoryRepoImpl implements CategoryRepository
 {
     /**
      * @return mixed
@@ -21,11 +21,11 @@ class CategoryProductRepoImpl implements CategoryProductRepository
     }
 
     /**
-     * @param  string  $slug
+     * @param int $id
      * @return Category
      */
-    public function findCateBySlug(string $slug): Category
+    public function findCateById(int $id): Category
     {
-        return Category::with('products')->where('name', $slug)->first();
+        return Category::with('products')->where('id', $id)->first();
     }
 }

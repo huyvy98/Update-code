@@ -17,7 +17,7 @@ class OrderServiceImpl implements OrderService
     protected OrderRepository $orderRepository;
 
     /**
-     * @param  OrderRepository  $orderRepository
+     * @param OrderRepository $orderRepository
      */
     public function __construct(OrderRepository $orderRepository)
     {
@@ -25,14 +25,12 @@ class OrderServiceImpl implements OrderService
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void
     {
-        if ($id) {
-            $this->orderRepository->destroy($id);
-        }
+        $this->orderRepository->destroy($id);
     }
 
     /**
@@ -44,7 +42,7 @@ class OrderServiceImpl implements OrderService
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection
@@ -53,7 +51,7 @@ class OrderServiceImpl implements OrderService
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return Collection
      */
     public function findUser(int $id): Collection
@@ -62,7 +60,7 @@ class OrderServiceImpl implements OrderService
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function updateStatus(int $id): void

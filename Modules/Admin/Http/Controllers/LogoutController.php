@@ -14,12 +14,12 @@ class LogoutController extends Controller
     /**
      * Logout
      *
-     * @param  Request  $request
      * @return RedirectResponse
      */
-    public function logout(Request $request): RedirectResponse
+    public function logout(): RedirectResponse
     {
         Auth::logout();
+
         return Redirect::route('auth.show');
     }
 

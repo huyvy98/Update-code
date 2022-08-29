@@ -33,11 +33,9 @@ class AuthServiceImpl implements AuthService
      */
     public function login(LoginUserRequest $request)
     {
-        if (!$request->validated()) {
-            return $request;
-        }
         $credentials = $request->only(['email', 'password']);
-        if (!$token = JWTAuth::attempt($credentials)) {
+        $token = auth('api')->attempt($credentials);
+        if (!$token) {
             $error = ['error' => 'Email hoặc mật khẩu không đúng!!'];
 
             return $error;
@@ -52,10 +50,6 @@ class AuthServiceImpl implements AuthService
      */
     public function registerUser(RegisterUserRequest $request)
     {
-        if (!$request->validated()) {
-            return $request;
-        }
-
         $user = new User();
         $user->firstname = $request->input('firstname');
         $user->lastname = $request->input('lastname');
@@ -84,12 +78,13 @@ class AuthServiceImpl implements AuthService
      * @param $token
      * @return mixed
      */
-    public function createNewToken( $token )
+    public function createNewToken($token)
     {
         $data = [
             'access_token' => $token,
             'token_type' => 'bearer',
-            'user' => auth()->user()
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->guard('api')->user()
         ];
 
         return $data;

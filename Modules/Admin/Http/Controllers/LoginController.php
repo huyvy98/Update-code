@@ -42,6 +42,9 @@ class LoginController extends Controller
         return $this->loginService->login($request);
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function logout():RedirectResponse
     {
         return $this->loginService->logout();

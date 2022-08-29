@@ -2,16 +2,19 @@
 
 namespace Modules\Admin\Contracts\Services;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Modules\Admin\Http\Requests\ProductRequest;
+use Modules\Admin\Http\Requests\ProductRequestImage;
 
 interface ProductService
 {
     /**
      * get all product
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return LengthAwarePaginator
      */
     public function getAll(Request $request): LengthAwarePaginator;
@@ -19,25 +22,24 @@ interface ProductService
     /**
      * save product to database
      *
-     * @param  Request  $request
+     * @param ProductRequest $request
      * @return Product
      */
-    public function saveProductData(Request $request): Product;
+    public function saveProductData(ProductRequest $request): Product;
 
     /**
      * update product
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param ProductRequestImage $request
+     * @param int $id
      * @return Product
-     *
      */
-    public function updateProduct(Request $request, int $id): Product;
+    public function updateProduct(ProductRequestImage $request, int $id): Product;
 
     /**
      * edit product
      *
-     * @param  int  $id
+     * @param int $id
      * @return Product|null
      */
     public function editProduct(int $id): ?Product;
@@ -45,7 +47,7 @@ interface ProductService
     /**
      * delete product
      *
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void;

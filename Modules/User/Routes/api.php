@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\AuthController;
 use Modules\User\Http\Controllers\OrderController;
-use Modules\User\Http\Controllers\CategoryProductController;
+use Modules\User\Http\Controllers\CategoryController;
+use Modules\User\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,15 +20,19 @@ Route::post('auth/login',[AuthController::class,'login']);
 
 Route::post('auth/register', [AuthController::class, 'register']);
 
-Route::group(['middleware'=>'api', 'prefix'=>'auth'], function (){
-
-
+Route::group(['middleware'=>'api'], function (){
     Route::post('/logout',[AuthController::class,'logout']);
 
+    Route::post('/buy-on-cart',[OrderController::class,'buyOnCart']);
+
+    Route::get('/categories',[CategoryController::class, 'index']);
+
+    Route::get('/categories/{id}',[CategoryController::class,'show']);
+
+    Route::get('/products',[ProductController::class, 'index']);
+
+//    Route::get('/products/{id}',[ProductController::class,'show']);
 });
 
-Route::post('/buy-on-cart',[OrderController::class,'buyOnCart']);
 
-Route::post('/categories',[CategoryProductController::class, 'index']);
 
-Route::post('/category-product/{slug}',[CategoryProductController::class,'show']);

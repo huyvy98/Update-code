@@ -11,7 +11,7 @@ interface OrderRepository
     /**
      * Delete order
      *
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void;
@@ -26,7 +26,7 @@ interface OrderRepository
     /**
      * Get order detail by id
      *
-     * @param  int  $id
+     * @param int $id
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection;
@@ -34,7 +34,7 @@ interface OrderRepository
     /**
      * Change status order
      *
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function changeStatus(int $id): void;
@@ -42,7 +42,7 @@ interface OrderRepository
     /**
      * Find order by id
      *
-     * @param  int  $id
+     * @param int $id
      * @return Order|null
      */
     public function findById(int $id): ?Order;
@@ -50,7 +50,7 @@ interface OrderRepository
     /**
      * Find user by id
      *
-     * @param  int  $id
+     * @param int $id
      * @return Collection
      */
     public function findUser(int $id): Collection;

@@ -23,7 +23,7 @@ class SuccessResource extends Resource
      * @param int $code
      * @param string $message
      */
-    public function __construct($resource = null, $code = 200, $message = "Successful")
+    public function __construct($resource = null, $code = 200, string $message = "Successful")
     {
         parent::__construct($resource, new MetaResource($code, $message, null));
     }

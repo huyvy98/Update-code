@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\auth\LoginController;
 use Modules\User\Http\Controllers\auth\LogoutController;
 use Modules\User\Http\Controllers\auth\RegisterController;
-use Modules\User\Http\Controllers\HomeController;
+use Modules\User\Http\Controllers\ProductController;
 
 

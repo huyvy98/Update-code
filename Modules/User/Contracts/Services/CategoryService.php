@@ -2,11 +2,12 @@
 
 namespace Modules\User\Contracts\Services;
 
+use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Modules\User\Transformers\CategoryProductResource;
+use Modules\User\Transformers\CategoryResource;
 
-interface CategoryProductService
+interface CategoryService
 {
     /**
      * @return mixed
@@ -14,8 +15,8 @@ interface CategoryProductService
     public function getCategory();
 
     /**
-     * @param  string  $slug
+     * @param int $id
      * @return mixed
      */
-    public function show(string $slug);
+    public function show(int $id);
 }

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
 use Modules\Admin\Contracts\Services\ProductService;
+use Modules\Admin\Http\Requests\ProductRequest;
+use Modules\Admin\Http\Requests\ProductRequestImage;
 
 class ProductServiceImpl implements ProductService
 {
@@ -39,10 +41,10 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param Request $request
+     * @param ProductRequest $request
      * @return Product
      */
-    public function saveProductData(Request $request): Product
+    public function saveProductData(ProductRequest $request): Product
     {
         $category = $request->input('category');
         if ($request->has('image')) {
@@ -70,11 +72,11 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param Request $request
+     * @param ProductRequestImage $request
      * @param $id
      * @return Product
      */
-    public function updateProduct(Request $request, $id): Product
+    public function updateProduct(ProductRequestImage $request, $id): Product
     {
         $category = $request->get('category');
         $product = $this->productRepository->findById($id);
@@ -88,8 +90,7 @@ class ProductServiceImpl implements ProductService
         }
         $data = $this->productRepository->updateProduct($product);
 
-
-        $data->category()->toggle($category);
+        $data->category()->sync($category);
 
         return $data;
     }
@@ -103,6 +104,9 @@ class ProductServiceImpl implements ProductService
         $this->productRepository->destroy($id);
     }
 
+    /**
+     * @return mixed
+     */
     public function getCategory()
     {
         return $this->productRepository->getCategory();

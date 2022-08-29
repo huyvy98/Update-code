@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Contracts\Repositories\Mysql\AdminRepository;
 use Modules\Admin\Contracts\Services\AdminService;
+use Modules\Admin\Http\Requests\AdminRequest;
 use Spatie\Permission\Models\Permission;
 
 class AdminServiceImpl implements AdminService
@@ -37,11 +38,10 @@ class AdminServiceImpl implements AdminService
 
     /**
      *
-     *
-     * @param Request $request
+     * @param AdminRequest $request
      * @return Admin
      */
-    public function saveAdmin(Request $request): Admin
+    public function saveAdmin(AdminRequest $request): Admin
     {
         $admin = new Admin();
         $admin->assignRole('Admin');
@@ -56,7 +56,12 @@ class AdminServiceImpl implements AdminService
         return $admin;
     }
 
-    public function updateAdmin(Request $request, int $id): Admin
+    /**
+     * @param AdminRequest $request
+     * @param int $id
+     * @return Admin
+     */
+    public function updateAdmin(AdminRequest $request, int $id): Admin
     {
         $admin = $this->listAdminRepository->findById($id);
 

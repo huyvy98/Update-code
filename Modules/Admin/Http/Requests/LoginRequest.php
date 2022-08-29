@@ -24,7 +24,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string',
+            'email' => 'required|email',
             'password' => 'required',
         ];
     }
@@ -37,8 +37,21 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => ':attributes khong de trong',
-            'password.required' => ':attributes khong de trong',
+            'required' => ':attributes không để trống',
+            'email' => ':attributes đúng định dạng',
+        ];
+    }
+
+    /**
+     * display message
+     *
+     * @return array
+     */
+    public function attributes(): array
+    {
+        return [
+            'email' => 'Email',
+            'password' => 'Password',
         ];
     }
 }

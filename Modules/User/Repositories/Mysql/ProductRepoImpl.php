@@ -10,24 +10,27 @@ use Modules\User\Contracts\Repositories\Mysql\ProductRepository;
 class ProductRepoImpl implements ProductRepository
 {
     /**
-     * @param int $idProduct
-     * @return Product|null
+     * @param int $id
+     * @return Product
      */
-    public function findById(int $idProduct): ?Product
+    public function findById(int $id): Product
     {
-        return Product::query()->findOrFail($idProduct);
-    }
-
-    public function getAllProduct(): LengthAwarePaginator
-    {
-        return Product::query()->paginate(9);
+        return Product::with('category')->where('id', $id)->first();
     }
 
     /**
      * @return mixed
      */
-    public function getCategory()
+    public function getAllProduct()
     {
-        return Category::all();
+        return Product::query()->get();
     }
+
+//    /**
+//     * @return mixed
+//     */
+//    public function getCategory()
+//    {
+//        return Category::all();
+//    }
 }

@@ -8,18 +8,18 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 interface ProductRepository
 {
     /**
-     * @param int $idProduct
-     * @return Product|null
+     * @param int $id
+     * @return Product
      */
-    public function findById(int $idProduct): ?Product;
-
-    /**
-     * @return LengthAwarePaginator
-     */
-    public function getAllProduct(): LengthAwarePaginator;
+    public function findById(int $id): Product;
 
     /**
      * @return mixed
      */
-    public function getCategory();
+    public function getAllProduct();
+
+//    /**
+//     * @return mixed
+//     */
+//    public function getCategory();
 }

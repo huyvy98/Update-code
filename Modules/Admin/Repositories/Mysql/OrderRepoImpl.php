@@ -13,7 +13,7 @@ use Modules\Admin\Contracts\Repositories\Mysql\OrderRepository;
 class OrderRepoImpl implements OrderRepository
 {
     /**
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void
@@ -30,7 +30,7 @@ class OrderRepoImpl implements OrderRepository
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return Collection
      */
     public function getOrderDetail(int $id): Collection
@@ -39,7 +39,7 @@ class OrderRepoImpl implements OrderRepository
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function changeStatus(int $id): void
@@ -47,13 +47,17 @@ class OrderRepoImpl implements OrderRepository
         Order::query()->where('id', $id)->update(['status' => '1']);
     }
 
+    /**
+     * @param int $id
+     * @return Order|null
+     */
     public function findById(int $id): ?Order
     {
         return Order::query()->findOrFail($id);
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      * @return Collection
      */
     public function findUser(int $id): Collection

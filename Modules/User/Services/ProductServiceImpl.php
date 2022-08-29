@@ -23,24 +23,37 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @return LengthAwarePaginator
+     * @return mixed
      */
-    public function getAllProduct(): LengthAwarePaginator
+    public function getAllProduct()
     {
-        return $this->productRepository->getAllProduct();
+        $listProduct = $this->productRepository->getAllProduct();
+
+        return $listProduct;
     }
 
     /**
      * @param int $id
-     * @return Product|null
+     * @return mixed
      */
-    public function findProduct(int $id): ?Product
+    public function show(int $id)
     {
-        return $this->productRepository->findById($id);
+        $productShow = $this->productRepository->findById($id);
+
+        return $productShow;
     }
 
-    public function getCategory()
-    {
-        return $this->productRepository->getCategory();
-    }
+//    /**
+//     * @param int $id
+//     * @return Product|null
+//     */
+//    public function findProduct(int $id): ?Product
+//    {
+//        return $this->productRepository->findById($id);
+//    }
+//
+//    public function getCategory()
+//    {
+//        return $this->productRepository->getCategory();
+//    }
 }

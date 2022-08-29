@@ -4,12 +4,12 @@ namespace Modules\User\Services;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Modules\User\Contracts\Repositories\Mysql\OrderRepository;
 use Modules\User\Contracts\Services\OrderService;
-use Modules\User\Transformers\OrderResource;
+use Modules\User\Emails\MailNotify;
+use Modules\User\Http\Requests\OrderRequest;
 
 class OrderServiceImpl implements OrderService
 {
@@ -24,26 +24,16 @@ class OrderServiceImpl implements OrderService
     }
 
     /**
-     * @param  Request  $request
-     * @return mixed
+     * @param OrderRequest $request
+     * @return array
      */
-    public function buyOnCart(Request $request)
+    public function buyOnCart(OrderRequest $request): array
     {
         $cart = $request->all();
-        if (!$request->validated()) {
-            return $request;
-        }
-
-        if (Auth::check()) {
-            $order = new Order();
-            $order->user_id = Auth::user()->id;
-            $order->status = "0";
-            $this->orderRepository->addToOrder($order);
-        } else {
-            $error = ['error' =>'Please login'];
-
-            return $error;
-        }
+        $order = new Order();
+        $order->user_id = Auth::guard('api')->user()->id;
+        $order->status = "0";
+        $this->orderRepository->addToOrder($order);
 
         foreach ($cart as $key => $item) {
             $orderDetail = new OrderDetail();

@@ -5,6 +5,7 @@ namespace Modules\Admin\Contracts\Services;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Modules\Admin\Http\Requests\AdminRequest;
 
 interface AdminService
 {
@@ -18,24 +19,24 @@ interface AdminService
     /**
      * save admin to database
      *
-     * @param  Request  $request
+     * @param AdminRequest $request
      * @return Admin
      */
-    public function saveAdmin(Request $request): Admin;
+    public function saveAdmin(AdminRequest $request): Admin;
 
     /**
      * update admin
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param AdminRequest $request
+     * @param int $id
      * @return Admin
      */
-    public function updateAdmin(Request $request, int $id): Admin;
+    public function updateAdmin(AdminRequest $request, int $id): Admin;
 
     /**
      * edit admin
      *
-     * @param  int  $id
+     * @param int $id
      * @return Admin|null
      */
     public function editAdmin(int $id): ?Admin;
@@ -43,7 +44,7 @@ interface AdminService
     /**
      * delete admin
      *
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void;

@@ -12,16 +12,17 @@ use Modules\Admin\Http\Requests\LoginRequest;
 class LoginServiceImpl implements LoginService
 {
     /**
-     * @param  LoginRequest  $request
+     * @param LoginRequest $request
      * @return RedirectResponse
      */
     public function login(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->only(['email', 'password']);
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::guard('admin')->attempt($credentials)) {
             return Redirect::route('products.index');
         } else {
             session()->flash('error', 'Email or Password is incorrect');
+
             return Redirect::back()->withInput();
         }
     }
@@ -32,6 +33,7 @@ class LoginServiceImpl implements LoginService
     public function logout(): RedirectResponse
     {
         Auth::guard('admin')->logout();
+
         return Redirect::route('auth.show');
     }
 }

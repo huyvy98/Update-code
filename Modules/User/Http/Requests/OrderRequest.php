@@ -27,6 +27,9 @@ class OrderRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributes(): array
     {
         return [

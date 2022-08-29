@@ -103,6 +103,9 @@ class ProductRepoImpl implements ProductRepository
         return Product::query()->findOrFail($id);
     }
 
+    /**
+     * @return mixed
+     */
     public function getCategory()
     {
         return Category::query()->get();

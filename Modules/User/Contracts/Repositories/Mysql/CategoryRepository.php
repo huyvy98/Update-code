@@ -3,8 +3,9 @@
 namespace Modules\User\Contracts\Repositories\Mysql;
 
 use App\Models\Category;
+use App\Models\Product;
 
-interface CategoryProductRepository
+interface CategoryRepository
 {
     /**
      * @return mixed
@@ -12,8 +13,8 @@ interface CategoryProductRepository
     public function getCategory();
 
     /**
-     * @param  string  $slug
+     * @param int $id
      * @return Category
      */
-    public function findCateBySlug(string $slug): Category;
+    public function findCateById(int $id): Category;
 }

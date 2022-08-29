@@ -23,6 +23,7 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['prefix' => 'admins', 'middleware' => ['auth']], function () {
+
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.index')->middleware(
             'permission:superadmin.admin.index'

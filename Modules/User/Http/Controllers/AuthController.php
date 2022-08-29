@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
+use Modules\User\Transformers\AuthResource;
 
 class AuthController extends Controller
 {
@@ -22,18 +23,24 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function login(LoginUserRequest $request)
+    public function login(LoginUserRequest $request): AuthResource
     {
-        return $this->authService->login($request);
+        $data = $this->authService->login($request);
+
+        return AuthResource::make($data);
     }
 
-    public function register(RegisterUserRequest $request)
+    public function register(RegisterUserRequest $request): AuthResource
     {
-        return $this->authService->registerUser($request);
+        $data = $this->authService->registerUser($request);
+
+        return AuthResource::make($data);
     }
 
-    public function logout()
+    public function logout(): AuthResource
     {
-        return $this->authService->logout();
+        $data = $this->authService->logout();
+
+        return AuthResource::make($data);
     }
 }

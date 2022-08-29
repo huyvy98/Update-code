@@ -22,7 +22,7 @@ class AuthServiceImpl implements AuthService
     private AuthRepository $authRepository;
 
     /**
-     * @param  AuthRepository  $authRepository
+     * @param AuthRepository $authRepository
      */
     public function __construct(AuthRepository $authRepository)
     {
@@ -30,32 +30,38 @@ class AuthServiceImpl implements AuthService
     }
 
     /**
-     * @param  LoginUserRequest  $request
-     * @return AuthResource
+     * @param LoginUserRequest $request
+     * @return mixed
      */
-    public function login(LoginUserRequest $request): AuthResource
+    public function login(LoginUserRequest $request)
     {
         if (!$request->validated()) {
-            return AuthResource::make($request);
+            return $request;
         }
         $credentials = $request->only(['email', 'password']);
         if (!$token = Auth::attempt($credentials)) {
             $error = ['error' => 'Email hoặc mật khẩu không đúng!!'];
-            return AuthResource::make($error);
-        }
-        $tokenCreate = $this->createNewToken($token);
 
-        return AuthResource::make($tokenCreate);
+            return $error;
+        }
+
+        $data = [
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'user' => auth()->user(),
+        ];
+
+        return $data;
     }
 
     /**
-     * @param  RegisterUserRequest  $request
-     * @return AuthResource
+     * @param RegisterUserRequest $request
+     * @return mixed
      */
-    public function registerUser(RegisterUserRequest $request): AuthResource
+    public function registerUser(RegisterUserRequest $request)
     {
         if (!$request->validated()) {
-            return AuthResource::make($request);
+            return $request;
         }
 
         $user = new User();
@@ -67,29 +73,33 @@ class AuthServiceImpl implements AuthService
         $user->password = Hash::make($request->input('password'));
         $data = $this->authRepository->save($user);
 
-        return AuthResource::make($data);
+        return $data;
     }
 
-    public function logout(): AuthResource
+    /**
+     * @return mixed
+     */
+    public function logout()
     {
         Auth::logout();
         $message = ['message' => 'User successfully signed out'];
 
-        return AuthResource::make($message);
+        return $message;
     }
 
     /**
      * @param $token
-     * @return AuthResource
+     * @return mixed
      */
-    public function createNewToken($token): AuthResource
+    public function createNewToken($token)
     {
         $data = [
             'access_token' => $token,
             'token_type' => 'bearer',
             'user' => auth()->user()
         ];
-        return AuthResource::make($data);
+
+        return $data;
     }
 
     /**

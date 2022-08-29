@@ -9,13 +9,13 @@ use Modules\User\Transformers\CategoryProductResource;
 interface CategoryProductService
 {
     /**
-     * @return CategoryProductResource
+     * @return mixed
      */
-    public function getCategory(): CategoryProductResource;
+    public function getCategory();
 
     /**
      * @param  string  $slug
-     * @return CategoryProductResource
+     * @return mixed
      */
-    public function show(string $slug): CategoryProductResource;
+    public function show(string $slug);
 }

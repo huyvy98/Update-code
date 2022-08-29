@@ -10,7 +10,7 @@ interface OrderService
 {
     /**
      * @param  Request  $request
-     * @return OrderResource
+     * @return mixed
      */
-    public function buyOnCart(Request $request): OrderResource;
+    public function buyOnCart(Request $request);
 }

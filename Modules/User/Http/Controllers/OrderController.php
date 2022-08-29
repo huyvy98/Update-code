@@ -2,8 +2,6 @@
 
 namespace Modules\User\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\User\Contracts\Services\OrderService;
 use Modules\User\Http\Requests\OrderRequest;
@@ -26,13 +24,13 @@ class OrderController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param  OrderRequest  $request
+     * @param OrderRequest $request
      * @return OrderResource
      */
     public function buyOnCart(OrderRequest $request): OrderResource
     {
         $data = $this->orderService->buyOnCart($request);
 
-        return $data;
+        return OrderResource::make($data);
     }
 }

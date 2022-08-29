@@ -28,7 +28,9 @@ class CategoryProductController extends Controller
      */
     public function show(string $slug): CategoryProductResource
     {
-        return $this->categoryProductService->show($slug);
+        $data = $this->categoryProductService->show($slug);
+
+        return CategoryProductResource::make($data);
     }
 
     /**
@@ -36,6 +38,8 @@ class CategoryProductController extends Controller
      */
     public function index(): CategoryProductResource
     {
-        return $this->categoryProductService->getCategory();
+        $data = $this->categoryProductService->getCategory();
+
+        return CategoryProductResource::make($data);
     }
 }

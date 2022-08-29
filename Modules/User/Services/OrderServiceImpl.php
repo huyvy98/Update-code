@@ -25,13 +25,13 @@ class OrderServiceImpl implements OrderService
 
     /**
      * @param  Request  $request
-     * @return OrderResource
+     * @return mixed
      */
-    public function buyOnCart(Request $request): OrderResource
+    public function buyOnCart(Request $request)
     {
         $cart = $request->all();
         if (!$request->validated()) {
-            return OrderResource::make($request);
+            return $request;
         }
 
         if (Auth::check()) {
@@ -42,7 +42,7 @@ class OrderServiceImpl implements OrderService
         } else {
             $error = ['error' =>'Please login'];
 
-            return OrderResource::make($error);
+            return $error;
         }
 
         foreach ($cart as $key => $item) {
@@ -59,7 +59,7 @@ class OrderServiceImpl implements OrderService
         ];
 //        Mail::to(Auth::user()->email)->send(new MailNotify($data));
 
-        return OrderResource::make($data);
+        return $data;
     }
 
 

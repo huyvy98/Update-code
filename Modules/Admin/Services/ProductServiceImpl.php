@@ -88,6 +88,7 @@ class ProductServiceImpl implements ProductService
         }
         $data = $this->productRepository->updateProduct($product);
 
+
         $data->category()->toggle($category);
 
         return $data;

@@ -14,7 +14,7 @@ class CateProductServiceImpl implements CategoryProductService
     protected CategoryProductRepository $categoryProductRepository;
 
     /**
-     * @param  CategoryProductRepository  $categoryProductRepository
+     * @param CategoryProductRepository $categoryProductRepository
      */
     public function __construct(CategoryProductRepository $categoryProductRepository)
     {
@@ -22,25 +22,23 @@ class CateProductServiceImpl implements CategoryProductService
     }
 
     /**
-     * @param  string  $slug
-     * @return CategoryProductResource
+     * @param string $slug
+     * @return mixed
      */
-    public function show(string $slug): CategoryProductResource
+    public function show(string $slug)
     {
         $cateShow = $this->categoryProductRepository->findCateBySlug($slug);
-        $data = CategoryProductResource::make($cateShow);
 
-        return $data;
+        return $cateShow;
     }
 
     /**
-     * @return CategoryProductResource
+     * @return mixed
      */
-    public function getCategory(): CategoryProductResource
+    public function getCategory()
     {
-        $listCate =  $this->categoryProductRepository->getCategory();
-        $data = CategoryProductResource::make($listCate);
+        $listCate = $this->categoryProductRepository->getCategory();
 
-        return $data;
+        return $listCate;
     }
 }

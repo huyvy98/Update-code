@@ -12,7 +12,7 @@ interface ProductRepository
     /**
      * Find product by id
      *
-     * @param  int  $id
+     * @param int $id
      * @return Product|null
      */
     public function findById(int $id): ?Product;
@@ -20,7 +20,7 @@ interface ProductRepository
     /**
      * Save product to database
      *
-     * @param  Product  $product
+     * @param Product $product
      * @return Product
      */
     public function save(Product $product): Product;
@@ -29,9 +29,9 @@ interface ProductRepository
     /**
      * Get all product from database
      *
-     * @param  string|null  $name
-     * @param  int|null  $min
-     * @param  int|null  $max
+     * @param string|null $name
+     * @param int|null $min
+     * @param int|null $max
      * @return LengthAwarePaginator
      */
     public function getProduct(?string $name, ?int $min, ?int $max): LengthAwarePaginator;
@@ -39,7 +39,7 @@ interface ProductRepository
     /**
      * Create product
      *
-     * @param  Product  $product
+     * @param Product $product
      * @return Product
      */
     public function createProduct(Product $product): Product;
@@ -47,14 +47,14 @@ interface ProductRepository
     /**
      * Update product
      *
-     * @param  Product  $product
+     * @param Product $product
      * @return Product|null
      */
     public function updateProduct(Product $product): ?Product;
 
     /**
      * Delete product
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void;

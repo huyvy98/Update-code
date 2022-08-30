@@ -20,6 +20,14 @@
             </a>
         </li>
     @endif
+    @if(Auth::guard('admin')->user()->hasPermissionTo('products.index'))
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('categories.index')}}">
+                <i class="cil-house c-sidebar-nav-icon"></i>
+                Category
+            </a>
+        </li>
+    @endif
     @if(Auth::guard('admin')->user()->hasPermissionTo('orders.index'))
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{route('orders.index')}}">

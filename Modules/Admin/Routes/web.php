@@ -16,6 +16,7 @@ use Modules\Admin\Http\Controllers\ProductController;
 use Modules\Admin\Http\Controllers\LoginController;
 use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
+use Modules\Admin\Http\Controllers\CategoryController;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/admins/login', [LoginController::class, 'show'])->name('auth.show');
@@ -23,7 +24,6 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['prefix' => 'admins', 'middleware' => ['auth']], function () {
-
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.index')->middleware(
             'permission:superadmin.admin.index'
@@ -38,6 +38,23 @@ Route::group(['prefix' => 'admins', 'middleware' => ['auth']], function () {
         Route::post('/edit/{id}', [AdminController::class, 'update'])->middleware('permission:superadmin.admin.edit');
         Route::delete('/{id}', [AdminController::class, 'destroy'])->name('admin.destroy')->middleware(
             'permission:superadmin.admin.destroy'
+        );
+    });
+
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('categories.index')->middleware(
+            'permission:products.index'
+        );
+        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create')->middleware(
+            'permission:products.create'
+        );
+        Route::post('/create', [CategoryController::class, 'store'])->middleware('permission:products.create');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit')->middleware(
+            'permission:products.edit'
+        );
+        Route::post('/edit/{id}', [CategoryController::class, 'update'])->middleware('permission:products.edit');
+        Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy')->middleware(
+            'permission:products.destroy'
         );
     });
 

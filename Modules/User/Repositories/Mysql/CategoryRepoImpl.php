@@ -18,10 +18,10 @@ class CategoryRepoImpl implements CategoryRepository
 
     /**
      * @param int $id
-     * @return Category
+     * @return Collection
      */
-    public function findInCateById(int $id): Category
+    public function findInCateById(int $id): Collection
     {
-        return Category::query()->with('products')->where('id', $id)->first();
+        return Category::query()->with('products')->where('id', $id)->get();
     }
 }

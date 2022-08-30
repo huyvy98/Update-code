@@ -13,5 +13,5 @@ interface OrderService
      * @param OrderRequest $request
      * @return array
      */
-    public function buyOnCart(OrderRequest $request): array;
+    public function order(OrderRequest $request): array;
 }

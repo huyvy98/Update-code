@@ -27,9 +27,9 @@ class OrderController extends Controller
      * @param OrderRequest $request
      * @return OrderResource
      */
-    public function buyOnCart(OrderRequest $request): OrderResource
+    public function order(OrderRequest $request): OrderResource
     {
-        $data = $this->orderService->buyOnCart($request);
+        $data = $this->orderService->order($request);
 
         return OrderResource::make($data);
     }

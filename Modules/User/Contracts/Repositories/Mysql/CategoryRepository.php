@@ -14,7 +14,7 @@ interface CategoryRepository
 
     /**
      * @param int $id
-     * @return Category
+     * @return Collection
      */
-    public function findInCateById(int $id): Category;
+    public function findInCateById(int $id): Collection;
 }

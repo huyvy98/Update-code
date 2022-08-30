@@ -25,9 +25,9 @@ class CateServiceImpl implements CategoryService
 
     /**
      * @param int $id
-     * @return Category
+     * @return Collection
      */
-    public function show(int $id): Category
+    public function show(int $id): Collection
     {
         $cateShow = $this->categoryProductRepository->findInCateById($id);
 

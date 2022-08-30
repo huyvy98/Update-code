@@ -23,7 +23,7 @@ Route::post('auth/register', [AuthController::class, 'register']);
 Route::group(['middleware' => 'api'], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::post('/buy-on-cart', [OrderController::class, 'buyOnCart']);
+    Route::post('/orders', [OrderController::class, 'order']);
 
     Route::get('/categories', [CategoryController::class, 'index']);
 

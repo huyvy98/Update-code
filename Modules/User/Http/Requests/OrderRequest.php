@@ -22,8 +22,8 @@ class OrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => ':attribute không được để trống',
-            'distinct' => ':attribute sản phẩm đã có trong giỏ hàng'
+            'required' => ':attribute trống',
+            'distinct' => ':attribute đã có trong giỏ hàng'
         ];
     }
 

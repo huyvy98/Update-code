@@ -27,7 +27,7 @@ class OrderServiceImpl implements OrderService
      * @param OrderRequest $request
      * @return array
      */
-    public function buyOnCart(OrderRequest $request): array
+    public function order(OrderRequest $request): array
     {
         $cart = $request->all();
         $order = new Order();

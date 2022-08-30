@@ -4,6 +4,7 @@
 @section('linkUrl','orders / detail')
 @section('headerText','Thông tin order')
 @section('content')
+
     <table class="table table-dark table-striped">
         <thead>
         <tr>
@@ -16,7 +17,7 @@
         <tbody>
         @foreach($userFinds as $user)
             <tr>
-                <td>{{$user->user->firstname}}</td>
+                <td>{{$user->user->firstname . " " . $user->user->lastname }}</td>
                 <td>{{$user->user->phone}}</td>
                 <td>{{$user->user->address}}</td>
                 <td>{{$user->user->email}}</td>
@@ -24,6 +25,7 @@
         @endforeach
         </tbody>
     </table>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -32,7 +34,6 @@
             <th scope="col">Giá</th>
             <th scope="col">Số lượng</th>
             <th scope="col">Tổng tiền</th>
-
         </tr>
         </thead>
         <tbody>

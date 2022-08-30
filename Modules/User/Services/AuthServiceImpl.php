@@ -2,15 +2,17 @@
 
 namespace Modules\User\Services;
 
+use App\Exceptions\ApiException;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Securities\Authentications\AuthenticationManager;
+use App\Securities\Authentications\BasicAuthentication;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
+use Modules\Api\Constants\UserStatus;
 use Modules\User\Contracts\Repositories\Mysql\AuthRepository;
 use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Modules\User\Repositories\Auth;
 
 class AuthServiceImpl implements AuthService
 {
@@ -19,36 +21,44 @@ class AuthServiceImpl implements AuthService
      */
     private AuthRepository $authRepository;
 
+    /** @var AuthenticationManager */
+    private AuthenticationManager $authenticationManager;
+
     /**
      * @param AuthRepository $authRepository
+     * @param AuthenticationManager $authenticationManager
      */
-    public function __construct(AuthRepository $authRepository)
+    public function __construct(AuthRepository $authRepository, AuthenticationManager $authenticationManager)
     {
         $this->authRepository = $authRepository;
+        $this->authenticationManager = $authenticationManager;
     }
 
     /**
      * @param LoginUserRequest $request
-     * @return mixed
+     * @return Auth
      */
-    public function login(LoginUserRequest $request)
+    public function login(LoginUserRequest $request): Auth
     {
-        $credentials = $request->only(['email', 'password']);
-        $token = auth('api')->attempt($credentials);
-        if (!$token) {
-            $error = ['error' => 'Email hoặc mật khẩu không đúng!!'];
-
-            return $error;
+        $basicAuth = new BasicAuthentication("api", $request->get('email'), $request->get('password'));
+        $authenticatedObject = $this->authenticationManager->authenticate($basicAuth);
+        if ($authenticatedObject->getUserDetails()->status === UserStatus::INACTIVE) {
+            throw ApiException::forbidden('Your account has been disabled');
         }
 
-        return $this->createNewToken($token);
+        /**
+         * @var Auth $authToken
+         */
+        $authToken = $authenticatedObject->getAuthenticatedCertificates();
+
+        return $authToken;
     }
 
     /**
      * @param RegisterUserRequest $request
-     * @return mixed
+     * @return User
      */
-    public function registerUser(RegisterUserRequest $request)
+    public function registerUser(RegisterUserRequest $request): User
     {
         $user = new User();
         $user->firstname = $request->input('firstname');
@@ -63,40 +73,33 @@ class AuthServiceImpl implements AuthService
     }
 
     /**
-     * @return mixed
+     * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         Auth::logout();
-        Session::flush();
-        $message = ['message' => 'User successfully signed out'];
-
-        return $message;
     }
 
-    /**
-     * @param $token
-     * @return mixed
-     */
-    public function createNewToken($token)
-    {
-        $data = [
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->guard('api')->user()
-        ];
-
-        return $data;
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return mixed
-     */
-    public function refresh()
-    {
-        return $this->createNewToken(auth()->refresh());
-    }
+//    /**
+//     * @param $token
+//     * @return mixed
+//     */
+//    public function createNewToken($token)
+//    {
+//        $data = [
+//            'access_token' => $token
+//        ];
+//
+//        return $data;
+//    }
+//
+//    /**
+//     * Refresh a token.
+//     *
+//     * @return mixed
+//     */
+//    public function refresh()
+//    {
+//        return $this->createNewToken(auth()->refresh());
+//    }
 }

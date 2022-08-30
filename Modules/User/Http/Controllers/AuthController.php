@@ -23,6 +23,10 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
+    /**
+     * @param LoginUserRequest $request
+     * @return AuthResource
+     */
     public function login(LoginUserRequest $request): AuthResource
     {
         $data = $this->authService->login($request);
@@ -30,6 +34,10 @@ class AuthController extends Controller
         return AuthResource::make($data);
     }
 
+    /**
+     * @param RegisterUserRequest $request
+     * @return AuthResource
+     */
     public function register(RegisterUserRequest $request): AuthResource
     {
         $data = $this->authService->registerUser($request);
@@ -37,10 +45,11 @@ class AuthController extends Controller
         return AuthResource::make($data);
     }
 
-    public function logout(): AuthResource
+    /**
+     * @return AuthResource
+     */
+    public function logout()
     {
-        $data = $this->authService->logout();
-
-        return AuthResource::make($data);
+        $this->authService->logout();
     }
 }

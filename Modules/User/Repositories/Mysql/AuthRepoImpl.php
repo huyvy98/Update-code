@@ -17,7 +17,7 @@ class AuthRepoImpl implements AuthRepository
     }
 
     /**
-     * @param  User  $user
+     * @param User $user
      * @return User
      */
     public function save(User $user): User

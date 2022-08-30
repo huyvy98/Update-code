@@ -2,6 +2,8 @@
 
 namespace Modules\User\Providers;
 
+use App\Securities\Authentications\AuthenticationManager;
+use App\Securities\Authentications\BasicAuthenticationManager;
 use Illuminate\Support\ServiceProvider;
 use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Contracts\Services\CategoryService;
@@ -25,6 +27,7 @@ class BootstrapServiceProvider extends ServiceProvider
         $this->app->bind(AuthService::class, AuthServiceImpl::class);
         $this->app->bind(OrderService::class, OrderServiceImpl::class);
         $this->app->bind(CategoryService::class, CateServiceImpl::class);
+        $this->app->bind(AuthenticationManager::class, BasicAuthenticationManager::class);
 
     }
 

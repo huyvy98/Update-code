@@ -5,12 +5,12 @@
     <div class="card-group d-block d-md-flex row">
         <div class="card col-md-7 p-4 mb-0">
             <div class="card-body">
-                <h1 style="color: #E4DCCF; text-align: center">Login</h1>
-                <p style="color: #E4DCCF; text-align: center" class="text-medium-emphasis">Sign In to your account</p>
+                <h1 style="color: #cd810c; text-align: center">Login Admin</h1>
+                <p style="color: #cd810c; text-align: center" class="text-medium-emphasis">Sign In to your account</p>
                 <form method="POST" action="{{route('auth.login')}}">
                     @csrf
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label" style="color: #E4DCCF">Email address</label>
+                        <label for="exampleInputEmail1" class="form-label" style="color: #cd810c">Email address</label>
                         <input type="email" name="email" class="form-control" id="exampleInputEmail1"
                                placeholder="Your email"
                                value="{{old('email')}}">
@@ -19,7 +19,7 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label" style="color: #E4DCCF">Password</label>
+                        <label for="exampleInputPassword1" class="form-label" style="color: #cd810c">Password</label>
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1"
                                placeholder="Your password"
                                value="{{old('password')}}">

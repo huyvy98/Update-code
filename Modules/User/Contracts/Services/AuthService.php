@@ -2,27 +2,27 @@
 
 namespace Modules\User\Contracts\Services;
 
-use Illuminate\Http\JsonResponse;
+use App\Models\User;
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
-use Modules\User\Transformers\AuthResource;
+use Modules\User\Repositories\Auth;
 
 interface AuthService
 {
     /**
-     * @param  LoginUserRequest  $request
-     * @return mixed
+     * @param LoginUserRequest $request
+     * @return Auth
      */
-    public function login(LoginUserRequest $request);
+    public function login(LoginUserRequest $request): Auth;
 
     /**
-     * @param  RegisterUserRequest  $request
-     * @return mixed
+     * @param RegisterUserRequest $request
+     * @return User
      */
-    public function registerUser(RegisterUserRequest $request);
+    public function registerUser(RegisterUserRequest $request): User;
 
     /**
-     * @return mixed
+     * @return void
      */
-    public function logout();
+    public function logout(): void;
 }

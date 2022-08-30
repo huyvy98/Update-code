@@ -17,7 +17,7 @@ interface AuthRepository
     /**
      * Save user
      *
-     * @param  User  $user
+     * @param User $user
      * @return User
      */
     public function save(User $user): User;

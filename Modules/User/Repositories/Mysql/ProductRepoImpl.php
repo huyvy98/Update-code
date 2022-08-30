@@ -15,10 +15,8 @@ class ProductRepoImpl implements ProductRepository
      */
     public function findById(int $id): Collection
     {
-        $products = Product::with('category')->whereHas('category', function ($query) use ($id) {
+        return Product::with('category')->whereHas('category', function ($query) use ($id) {
             $query->where('id', $id);
         })->get();
-
-        return $products;
     }
 }

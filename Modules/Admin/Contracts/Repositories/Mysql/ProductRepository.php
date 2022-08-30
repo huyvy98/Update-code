@@ -4,6 +4,7 @@ namespace Modules\Admin\Contracts\Repositories\Mysql;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface ProductRepository
@@ -59,7 +60,7 @@ interface ProductRepository
     public function destroy(int $id): void;
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getCategory();
+    public function getCategory(): Collection;
 }

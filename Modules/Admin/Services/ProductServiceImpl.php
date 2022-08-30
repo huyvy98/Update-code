@@ -4,6 +4,7 @@ namespace Modules\Admin\Services;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
@@ -46,7 +47,7 @@ class ProductServiceImpl implements ProductService
      */
     public function saveProductData(ProductRequest $request): Product
     {
-        $category = $request->input('category');
+        $category = $request->get('category');
         if ($request->has('image')) {
             $filePath = $request['image']->storeAs('uploads', request('image')->getClientOriginalName(), 'public');
         }
@@ -105,9 +106,9 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getCategory()
+    public function getCategory(): Collection
     {
         return $this->productRepository->getCategory();
     }

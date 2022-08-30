@@ -3,6 +3,7 @@
 namespace Modules\User\Services;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Collection;
 use Modules\User\Contracts\Repositories\Mysql\CategoryRepository;
 use Modules\User\Contracts\Services\CategoryService;
 use Modules\User\Transformers\CategoryResource;
@@ -24,19 +25,19 @@ class CateServiceImpl implements CategoryService
 
     /**
      * @param int $id
-     * @return mixed
+     * @return Category
      */
-    public function show(int $id)
+    public function show(int $id): Category
     {
-        $cateShow = $this->categoryProductRepository->findCateById($id);
+        $cateShow = $this->categoryProductRepository->findInCateById($id);
 
         return $cateShow;
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getCategory()
+    public function getCategory(): Collection
     {
         $listCate = $this->categoryProductRepository->getCategory();
 

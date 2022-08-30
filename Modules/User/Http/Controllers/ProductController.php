@@ -22,16 +22,6 @@ class ProductController extends Controller
     }
 
     /**
-     * @return mixed
-     */
-    public function index(): ProductResource
-    {
-        $listProduct = $this->productService->getAllProduct();
-
-        return ProductResource::make($listProduct);
-    }
-
-    /**
      * @param int $id
      * @return ProductResource
      */

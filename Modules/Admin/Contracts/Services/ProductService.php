@@ -4,6 +4,7 @@ namespace Modules\Admin\Contracts\Services;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Http\Requests\ProductRequest;
@@ -53,7 +54,7 @@ interface ProductService
     public function destroy(int $id): void;
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getCategory();
+    public function getCategory(): Collection;
 }

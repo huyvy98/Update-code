@@ -5,6 +5,7 @@ namespace Modules\Admin\Repositories\Mysql;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Contracts\Repositories\Mysql\ProductRepository;
 use phpDocumentor\Reflection\Types\Mixed_;
@@ -104,9 +105,9 @@ class ProductRepoImpl implements ProductRepository
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getCategory()
+    public function getCategory(): Collection
     {
         return Category::query()->get();
     }

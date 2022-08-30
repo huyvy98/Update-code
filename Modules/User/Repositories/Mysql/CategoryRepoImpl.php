@@ -3,29 +3,25 @@
 namespace Modules\User\Repositories\Mysql;
 
 use App\Models\Category;
-use App\Models\Order;
-use App\Models\OrderDetail;
-use App\Models\Product;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Modules\User\Contracts\Repositories\Mysql\CategoryRepository;
-use Modules\User\Contracts\Repositories\Mysql\OrderRepository;
 
 class CategoryRepoImpl implements CategoryRepository
 {
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getCategory()
+    public function getCategory(): Collection
     {
-        return Category::all();
+        return Category::query()->get();
     }
 
     /**
      * @param int $id
      * @return Category
      */
-    public function findCateById(int $id): Category
+    public function findInCateById(int $id): Category
     {
-        return Category::with('products')->where('id', $id)->first();
+        return Category::query()->with('products')->where('id', $id)->first();
     }
 }

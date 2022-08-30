@@ -3,18 +3,18 @@
 namespace Modules\User\Contracts\Repositories\Mysql;
 
 use App\Models\Category;
-use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 interface CategoryRepository
 {
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getCategory();
+    public function getCategory(): Collection;
 
     /**
      * @param int $id
      * @return Category
      */
-    public function findCateById(int $id): Category;
+    public function findInCateById(int $id): Category;
 }

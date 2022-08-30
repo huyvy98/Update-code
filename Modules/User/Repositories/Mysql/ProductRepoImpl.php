@@ -4,33 +4,24 @@ namespace Modules\User\Repositories\Mysql;
 
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Modules\User\Contracts\Repositories\Mysql\ProductRepository;
 
 class ProductRepoImpl implements ProductRepository
 {
+
     /**
      * @param int $id
-     * @return Product
+     * @return Collection
      */
-    public function findById(int $id): Product
-    {
-        return Product::with('category')->where('id', $id)->first();
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getAllProduct()
+    public function findById(int $id): Collection
     {
-        return Product::query()->get();
-    }
+        $category = Category::query()->where('id', $id)->first();
+        $product = $category->products()->get();
 
-//    /**
-//     * @return mixed
-//     */
-//    public function getCategory()
-//    {
-//        return Category::all();
-//    }
+        return $product;
+    }
 }

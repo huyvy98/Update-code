@@ -4,27 +4,15 @@ namespace Modules\User\Contracts\Services;
 
 use App\Models\Product;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 interface ProductService
 {
     /**
-     * @return mixed
-     */
-    public function getAllProduct();
-
-    /**
      * @param int $id
-     * @return mixed
+     * @return Collection
      */
-    public function show(int $id);
-//    /**
-//     * @param int $id
-//     * @return Product|null
-//     */
-//    public function findProduct(int $id): ?Product;
-//
-//    /**
-//     * @return mixed
-//     */
-//    public function getCategory();
+    public function show(int $id): Collection;
 }

@@ -24,6 +24,8 @@ class OrderServiceImpl implements OrderService
     }
 
     /**
+     * Create new order and add new order detail
+     *
      * @param OrderRequest $request
      * @return array
      */
@@ -33,7 +35,7 @@ class OrderServiceImpl implements OrderService
         $order = new Order();
         $order->user_id = Auth::guard('api')->user()->id;
         $order->status = "0";
-        $this->orderRepository->addToOrder($order);
+        $this->orderRepository->createOrder($order);
 
         foreach ($cart as $key => $item) {
             $orderDetail = new OrderDetail();
@@ -45,7 +47,9 @@ class OrderServiceImpl implements OrderService
 
         $data = [
             'message' => 'Success order',
-            'orderID' => $order->id,
+            'order_id' => $order->id,
+            'product_id' => $item['product_id'],
+            'quantity' => $item['quantity']
         ];
 //        Mail::to(Auth::user()->email)->send(new MailNotify($data));
 

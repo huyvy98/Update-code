@@ -8,13 +8,9 @@ use Illuminate\Database\Eloquent\Collection;
 interface CategoryRepository
 {
     /**
+     * Get all category
+     *
      * @return Collection
      */
-    public function getCategory(): Collection;
-
-    /**
-     * @param int $id
-     * @return Collection
-     */
-    public function findInCateById(int $id): Collection;
+    public function get(): Collection;
 }

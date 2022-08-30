@@ -22,6 +22,8 @@ class ProductController extends Controller
     }
 
     /**
+     * Show product on category
+     *
      * @param int $id
      * @return ProductResource
      */

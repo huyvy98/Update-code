@@ -10,13 +10,15 @@ use Modules\User\Contracts\Repositories\Mysql\ProductRepository;
 class ProductRepoImpl implements ProductRepository
 {
     /**
-     * @param int $id
+     * Find product on category
+     *
+     * @param  int  $category_id
      * @return Collection
      */
-    public function findById(int $id): Collection
+    public function findById(int $category_id): Collection
     {
-        return Product::with('category')->whereHas('category', function ($query) use ($id) {
-            $query->where('id', $id);
+        return Product::query()->whereHas('category', function ($query) use ($category_id) {
+            $query->where('id', $category_id);
         })->get();
     }
 }

@@ -24,6 +24,8 @@ class AuthController extends Controller
     }
 
     /**
+     * Login user
+     *
      * @param LoginUserRequest $request
      * @return AuthResource
      */
@@ -35,6 +37,8 @@ class AuthController extends Controller
     }
 
     /**
+     * Register user
+     *
      * @param RegisterUserRequest $request
      * @return AuthResource
      */
@@ -46,9 +50,11 @@ class AuthController extends Controller
     }
 
     /**
-     * @return AuthResource
+     * Logout
+     *
+     * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         $this->authService->logout();
     }

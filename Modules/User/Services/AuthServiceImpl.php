@@ -13,6 +13,7 @@ use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
 use Modules\User\Repositories\Auth;
+use Illuminate\Support\Facades\Auth as Authenticate;
 
 class AuthServiceImpl implements AuthService
 {
@@ -42,9 +43,6 @@ class AuthServiceImpl implements AuthService
     {
         $basicAuth = new BasicAuthentication("api", $request->get('email'), $request->get('password'));
         $authenticatedObject = $this->authenticationManager->authenticate($basicAuth);
-        if ($authenticatedObject->getUserDetails()->status === UserStatus::INACTIVE) {
-            throw ApiException::forbidden('Your account has been disabled');
-        }
 
         /**
          * @var Auth $authToken
@@ -77,29 +75,6 @@ class AuthServiceImpl implements AuthService
      */
     public function logout(): void
     {
-        Auth::logout();
+        Authenticate::logout();
     }
-
-//    /**
-//     * @param $token
-//     * @return mixed
-//     */
-//    public function createNewToken($token)
-//    {
-//        $data = [
-//            'access_token' => $token
-//        ];
-//
-//        return $data;
-//    }
-//
-//    /**
-//     * Refresh a token.
-//     *
-//     * @return mixed
-//     */
-//    public function refresh()
-//    {
-//        return $this->createNewToken(auth()->refresh());
-//    }
 }

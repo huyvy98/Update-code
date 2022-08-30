@@ -26,12 +26,14 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param int $id
+     * Show product on category
+     *
+     * @param int $category_id
      * @return Collection
      */
-    public function show(int $id): Collection
+    public function show(int $category_id): Collection
     {
-        $productShow = $this->productRepository->findById($id);
+        $productShow = $this->productRepository->findById($category_id);
 
         return $productShow;
     }

@@ -9,19 +9,12 @@ use Modules\User\Contracts\Repositories\Mysql\CategoryRepository;
 class CategoryRepoImpl implements CategoryRepository
 {
     /**
+     * Get all category
+     *
      * @return Collection
      */
-    public function getCategory(): Collection
+    public function get(): Collection
     {
         return Category::query()->get();
-    }
-
-    /**
-     * @param int $id
-     * @return Collection
-     */
-    public function findInCateById(int $id): Collection
-    {
-        return Category::query()->with('products')->where('id', $id)->get();
     }
 }

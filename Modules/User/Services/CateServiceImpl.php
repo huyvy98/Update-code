@@ -24,22 +24,13 @@ class CateServiceImpl implements CategoryService
     }
 
     /**
-     * @param int $id
+     * Get all category
+     *
      * @return Collection
      */
-    public function show(int $id): Collection
+    public function get(): Collection
     {
-        $cateShow = $this->categoryProductRepository->findInCateById($id);
-
-        return $cateShow;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getCategory(): Collection
-    {
-        $listCate = $this->categoryProductRepository->getCategory();
+        $listCate = $this->categoryProductRepository->get();
 
         return $listCate;
     }

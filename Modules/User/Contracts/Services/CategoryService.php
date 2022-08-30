@@ -11,13 +11,9 @@ use Modules\User\Transformers\CategoryResource;
 interface CategoryService
 {
     /**
+     * Get all category
+     *
      * @return Collection
      */
-    public function getCategory(): Collection;
-
-    /**
-     * @param int $id
-     * @return Collection
-     */
-    public function show(int $id): Collection;
+    public function get(): Collection;
 }

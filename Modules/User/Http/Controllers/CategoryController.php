@@ -23,22 +23,13 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param int $id
-     * @return CategoryResource
-     */
-    public function show(int $id): CategoryResource
-    {
-        $data = $this->categoryProductService->show($id);
-
-        return CategoryResource::make($data);
-    }
-
-    /**
+     * Get all category
+     *
      * @return CategoryResource
      */
     public function index(): CategoryResource
     {
-        $data = $this->categoryProductService->getCategory();
+        $data = $this->categoryProductService->get();
 
         return CategoryResource::make($data);
     }

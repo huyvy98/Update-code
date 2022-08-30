@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 interface ProductRepository
 {
     /**
-     * @param int $id
+     * Find product on category
+     *
+     * @param  int  $category_id
      * @return Collection
      */
-    public function findById(int $id): Collection;
+    public function findById(int $category_id): Collection;
 }

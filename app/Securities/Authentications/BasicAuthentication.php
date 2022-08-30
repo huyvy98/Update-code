@@ -2,7 +2,7 @@
 
 namespace App\Securities\Authentications;
 
-use Modules\Api\Repositories\Auth;
+use Modules\User\Repositories\Auth;
 
 class BasicAuthentication implements Authentication
 {

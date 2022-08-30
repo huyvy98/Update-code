@@ -8,15 +8,8 @@ use Modules\User\Contracts\Repositories\Mysql\AuthRepository;
 class AuthRepoImpl implements AuthRepository
 {
     /**
-     * @param  int  $id
-     * @return User|null
-     */
-    public function findById(int $id): ?User
-    {
-        return User::query()->findOrFail($id);
-    }
-
-    /**
+     * Save user
+     *
      * @param User $user
      * @return User
      */

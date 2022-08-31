@@ -12,13 +12,15 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Find product on category
      *
-     * @param  int  $category_id
+     * @param int $categoryId
      * @return Collection
      */
-    public function findById(int $category_id): Collection
+    public function getByCateId(int $categoryId): Collection
     {
-        return Product::query()->whereHas('category', function ($query) use ($category_id) {
-            $query->where('id', $category_id);
-        })->get();
+        return Product::query()
+            ->whereHas('category', function ($query) use ($categoryId) {
+                $query->where('id', $categoryId);
+            })
+            ->get();
     }
 }

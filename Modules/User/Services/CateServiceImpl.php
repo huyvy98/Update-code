@@ -13,14 +13,14 @@ class CateServiceImpl implements CategoryService
     /**
      * @var CategoryRepository
      */
-    protected CategoryRepository $categoryProductRepository;
+    protected CategoryRepository $categoryRepository;
 
     /**
-     * @param CategoryRepository $categoryProductRepository
+     * @param CategoryRepository $categoryRepository
      */
-    public function __construct(CategoryRepository $categoryProductRepository)
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->categoryProductRepository = $categoryProductRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -28,10 +28,10 @@ class CateServiceImpl implements CategoryService
      *
      * @return Collection
      */
-    public function get(): Collection
+    public function getCategory(): Collection
     {
-        $listCate = $this->categoryProductRepository->get();
+        $categories = $this->categoryRepository->get();
 
-        return $listCate;
+        return $categories;
     }
 }

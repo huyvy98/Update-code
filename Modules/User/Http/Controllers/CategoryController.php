@@ -12,14 +12,14 @@ class CategoryController extends Controller
     /**
      * @var CategoryService
      */
-    protected CategoryService $categoryProductService;
+    protected CategoryService $categoryService;
 
     /**
-     * @param  CategoryService  $categoryProductService
+     * @param  CategoryService  $categoryService
      */
-    public function __construct(CategoryService $categoryProductService)
+    public function __construct(CategoryService $categoryService)
     {
-        $this->categoryProductService = $categoryProductService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function index(): CategoryResource
     {
-        $data = $this->categoryProductService->get();
+        $data = $this->categoryService->getCategory();
 
         return CategoryResource::make($data);
     }

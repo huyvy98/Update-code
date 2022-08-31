@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Modules\User\Contracts\Repositories\Mysql\OrderRepository;
 use Modules\User\Contracts\Services\OrderService;
-use Modules\User\Emails\MailNotify;
 use Modules\User\Http\Requests\OrderRequest;
 
 class OrderServiceImpl implements OrderService
@@ -36,25 +35,22 @@ class OrderServiceImpl implements OrderService
         $order->user_id = Auth::guard('api')->user()->id;
         $order->status = "0";
         $this->orderRepository->createOrder($order);
+        $data = [];
+        foreach ($cart['cart'] as $key => $item) {
+            $data[$key]['product_id'] = $item['product_id'];
+            $data[$key]['quantity'] = $item['quantity'];
+            $data[$key]['order_id'] = $order->id;
 
-        foreach ($cart as $key => $item) {
-            $orderDetail = new OrderDetail();
-            $orderDetail->order_id = $order->id;
-            $orderDetail->product_id = $item['product_id'];
-            $orderDetail->quantity = $item['quantity'];
-            $this->orderRepository->addToOrderDetail($orderDetail);
         }
-
+        OrderDetail::query()->where('order_id', $order->id)->insert($data);
         $data = [
             'message' => 'Success order',
             'order_id' => $order->id,
-            'product_id' => $item['product_id'],
-            'quantity' => $item['quantity']
+            'order_user_name' => Auth::guard('api')->user()->firstname . " " . Auth::guard('api')->user()->lastname
         ];
 //        Mail::to(Auth::user()->email)->send(new MailNotify($data));
 
         return $data;
     }
-
 
 }

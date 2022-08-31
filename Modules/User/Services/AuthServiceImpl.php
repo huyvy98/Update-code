@@ -7,49 +7,41 @@ use App\Models\User;
 use App\Securities\Authentications\AuthenticationManager;
 use App\Securities\Authentications\BasicAuthentication;
 use Illuminate\Support\Facades\Hash;
-use Modules\Api\Constants\UserStatus;
-use Modules\User\Contracts\Repositories\Mysql\AuthRepository;
+use Modules\User\Contracts\Repositories\Mysql\UserRepository;
 use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Http\Requests\LoginUserRequest;
 use Modules\User\Http\Requests\RegisterUserRequest;
-use Modules\User\Repositories\Auth;
-use Illuminate\Support\Facades\Auth as Authenticate;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceImpl implements AuthService
 {
     /**
-     * @var AuthRepository
+     * @var UserRepository
      */
-    private AuthRepository $authRepository;
-
-    /** @var AuthenticationManager */
-    private AuthenticationManager $authenticationManager;
+    private UserRepository $userRepository;
 
     /**
-     * @param AuthRepository $authRepository
-     * @param AuthenticationManager $authenticationManager
+     * @param UserRepository $userRepository
      */
-    public function __construct(AuthRepository $authRepository, AuthenticationManager $authenticationManager)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->authRepository = $authRepository;
-        $this->authenticationManager = $authenticationManager;
+        $this->userRepository = $userRepository;
     }
 
     /**
      * @param LoginUserRequest $request
-     * @return Auth
+     * @return array
      */
-    public function login(LoginUserRequest $request): Auth
+    public function login(LoginUserRequest $request): array
     {
-        $basicAuth = new BasicAuthentication("api", $request->get('email'), $request->get('password'));
-        $authenticatedObject = $this->authenticationManager->authenticate($basicAuth);
-
-        /**
-         * @var Auth $authToken
-         */
-        $authToken = $authenticatedObject->getAuthenticatedCertificates();
-
-        return $authToken;
+        $credentials = $request->only(['email', 'password']);
+        $token = auth('api')->attempt($credentials);
+        if (!$token) {
+            throw ApiException::forbidden('Email or password was incorrect');
+        }
+        return $token = [
+            'access_token' => $token
+        ];
     }
 
     /**
@@ -58,14 +50,16 @@ class AuthServiceImpl implements AuthService
      */
     public function registerUser(RegisterUserRequest $request): User
     {
-        $user = new User();
-        $user->firstname = $request->input('firstname');
-        $user->lastname = $request->input('lastname');
-        $user->address = $request->input('address');
-        $user->email = $request->input('email');
-        $user->phone = $request->input('phone');
-        $user->password = Hash::make($request->input('password'));
-        $data = $this->authRepository->save($user);
+        if (User::query()->where('email') != $request->input('email')) {
+            $user = new User();
+            $user->firstname = $request->input('firstname');
+            $user->lastname = $request->input('lastname');
+            $user->address = $request->input('address');
+            $user->email = $request->input('email');
+            $user->phone = $request->input('phone');
+            $user->password = Hash::make($request->input('password'));
+            $data = $this->userRepository->save($user);
+        }
 
         return $data;
     }
@@ -75,6 +69,19 @@ class AuthServiceImpl implements AuthService
      */
     public function logout(): void
     {
-        Authenticate::logout();
+        Auth::guard('api')->logout();
+    }
+
+    /**
+     * @param $token
+     * @return array
+     */
+    private function createNewToken($token): array
+    {
+        $data = [
+            'access_token' => $token
+        ];
+
+        return $data;
     }
 }

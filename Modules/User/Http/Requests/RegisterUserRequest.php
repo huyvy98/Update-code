@@ -5,7 +5,7 @@ namespace Modules\User\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterUserRequest extends FormRequest
+class   RegisterUserRequest extends FormRequest
 {
     /**
      * @return bool
@@ -27,7 +27,7 @@ class RegisterUserRequest extends FormRequest
             'lastname' => 'required',
             'address' => 'required',
             'phone' => 'required',
-            'email' => 'required|email|max:100|unique:users',
+            'email' => 'required|email|max:100',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required'
         ];

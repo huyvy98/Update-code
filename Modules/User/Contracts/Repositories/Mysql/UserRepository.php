@@ -4,7 +4,7 @@ namespace Modules\User\Contracts\Repositories\Mysql;
 
 use App\Models\User;
 
-interface AuthRepository
+interface UserRepository
 {
     /**
      * Save user

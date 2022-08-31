@@ -13,8 +13,8 @@ interface ProductRepository
     /**
      * Find product on category
      *
-     * @param  int  $category_id
+     * @param int $categoryId
      * @return Collection
      */
-    public function findById(int $category_id): Collection;
+    public function getByCateId(int $categoryId): Collection;
 }

@@ -3,9 +3,9 @@
 namespace Modules\User\Repositories\Mysql;
 
 use App\Models\User;
-use Modules\User\Contracts\Repositories\Mysql\AuthRepository;
+use Modules\User\Contracts\Repositories\Mysql\UserRepository;
 
-class AuthRepoImpl implements AuthRepository
+class UserRepoImpl implements UserRepository
 {
     /**
      * Save user

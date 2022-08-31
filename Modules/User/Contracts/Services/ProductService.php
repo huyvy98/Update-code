@@ -13,8 +13,8 @@ interface ProductService
     /**
      * Show product on category
      *
-     * @param  int  $category_id
+     * @param int $categoryId
      * @return Collection
      */
-    public function show(int $category_id): Collection;
+    public function getProductByCategoryId(int $categoryId): Collection;
 }

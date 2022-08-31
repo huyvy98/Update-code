@@ -13,9 +13,9 @@ interface AuthService
      * Login user
      *
      * @param LoginUserRequest $request
-     * @return Auth
+     * @return array
      */
-    public function login(LoginUserRequest $request): Auth;
+    public function login(LoginUserRequest $request): array;
 
     /**
      * Register user

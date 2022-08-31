@@ -24,12 +24,12 @@ class ProductController extends Controller
     /**
      * Show product on category
      *
-     * @param int $id
+     * @param int $categoryId
      * @return ProductResource
      */
-    public function show(int $id): ProductResource
+    public function getProduct(int $categoryId): ProductResource
     {
-        $data = $this->productService->show($id);
+        $data = $this->productService->getProductByCategoryId($categoryId);
 
         return ProductResource::make($data);
     }

@@ -46,9 +46,7 @@ class OrderServiceImpl implements OrderService
         }
         OrderDetail::query()->where('order_id', $order->id)->insert($data);
         $data = [
-            'message' => 'Success order',
-            'order_id' => $order->id,
-            'order_user_name' => Auth::guard('api')->user()->firstname . " " . Auth::guard('api')->user()->lastname
+            'order_id' => $order->id
         ];
 //        Mail::to(Auth::user()->email)->send(new MailNotify($data));
 

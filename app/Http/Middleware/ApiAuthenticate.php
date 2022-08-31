@@ -13,11 +13,14 @@ class ApiAuthenticate
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure(Request): (Response|RedirectResponse) $next
+     * @param Closure $next
+     * @param null $guard
      * @return Response|RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $guard = null)
     {
+        if ($guard != null)
+            auth()->shouldUse($guard);
         return $next($request);
     }
 }

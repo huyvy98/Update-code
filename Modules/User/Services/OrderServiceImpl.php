@@ -35,6 +35,8 @@ class OrderServiceImpl implements OrderService
         $order->user_id = Auth::guard('api')->user()->id;
         $order->status = "0";
         $this->orderRepository->createOrder($order);
+
+        // Difference between array_push() and $array[]
         $data = [];
         foreach ($cart['cart'] as $key => $item) {
             $data[$key]['product_id'] = $item['product_id'];

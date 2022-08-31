@@ -16,6 +16,9 @@ use Modules\User\Http\Controllers\ProductController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// Thêm 1 api detail của user khi đăng nhập
+
 Route::post('auth/login', [AuthController::class, 'login']);
 
 Route::post('auth/register', [AuthController::class, 'register']);

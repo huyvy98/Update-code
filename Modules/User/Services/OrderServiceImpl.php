@@ -5,6 +5,7 @@ namespace Modules\User\Services;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Modules\User\Contracts\Repositories\Mysql\OrderDetailRepository;
@@ -36,29 +37,30 @@ class OrderServiceImpl implements OrderService
      */
     public function order(OrderRequest $request): array
     {
-        $cart = $request->all();
-//        foreach ($cart['cart'] as $item) {
-//            $find[] = [
-//                'product_id' => $item['product_id']
-//            ];
-//        }
-//        $product = Product::query()->whereIn('id', $find)->get('price')->toArray();
-//        dd($product);
-//
+        $data = $request->all();
         $order = new Order();
         $order->user_id = Auth::guard('api')->user()->id;
         $order->status = "0";
-        $this->orderRepository->create($order);
-        // query price
-        foreach ($cart['cart'] as $item) {
-            $data[] = [
+        $order = $this->orderRepository->create($order);
+
+        $carts = Arr::get($data, 'cart', []);
+        $productIds = collect($carts)->pluck('product_id')->toArray();
+
+        // query into repo
+        $products = Product::query()->whereIn('id', $productIds)->get();
+
+        $productData = [];
+        foreach ($carts as $item) {
+            $product = $products->where('id', $item['product_id'])->first();
+            $productData[] = [
                 'product_id' => $item['product_id'],
                 'quantity' => $item['quantity'],
-                'order_id' => $order->id
+                'order_id' => $order->id,
+                'price' => optional($product)->price,
             ];
         }
-//        dd($data);
-        $this->orderDetailRepository->insert($order->id, $data);
+//        dd($productData);
+        $this->orderDetailRepository->insert($order->id, $productData);
         $detail = [
             'order_id' => $order->id
         ];

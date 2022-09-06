@@ -9,10 +9,12 @@ use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Contracts\Services\CategoryService;
 use Modules\User\Contracts\Services\OrderService;
 use Modules\User\Contracts\Services\ProductService;
+use Modules\User\Contracts\Services\UserService;
 use Modules\User\Services\AuthServiceImpl;
 use Modules\User\Services\CateServiceImpl;
 use Modules\User\Services\OrderServiceImpl;
 use Modules\User\Services\ProductServiceImpl;
+use Modules\User\Services\UserServiceImpl;
 
 class BootstrapServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,7 @@ class BootstrapServiceProvider extends ServiceProvider
         $this->app->bind(OrderService::class, OrderServiceImpl::class);
         $this->app->bind(CategoryService::class, CateServiceImpl::class);
         $this->app->bind(AuthenticationManager::class, BasicAuthenticationManager::class);
+        $this->app->bind(UserService::class, UserServiceImpl::class);
 
     }
 

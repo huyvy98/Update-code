@@ -4,6 +4,7 @@ namespace Modules\User\Repositories\Mysql;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\User\Contracts\Repositories\Mysql\ProductRepository;
 
@@ -22,5 +23,14 @@ class ProductRepoImpl implements ProductRepository
                 $query->where('id', $categoryId);
             })
             ->get();
+    }
+
+    /**
+     * @param array $ids
+     * @return Collection
+     */
+    public function getByIds(array $ids): Collection
+    {
+        return Product::query()->whereIn('id', $ids)->get();
     }
 }

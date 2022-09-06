@@ -7,25 +7,28 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Modules\User\Contracts\Repositories\Mysql\OrderDetailRepository;
 use Modules\User\Contracts\Repositories\Mysql\OrderRepository;
+use Modules\User\Contracts\Repositories\Mysql\ProductRepository;
 use Modules\User\Contracts\Services\OrderService;
 use Modules\User\Http\Requests\OrderRequest;
 
 class OrderServiceImpl implements OrderService
 {
     /**
-     * @var OrderRepository
-     * @var OrderDetailRepository
+     * @var OrderRepository $orderRepository
+     * @var OrderDetailRepository $orderDetailRepository
+     * @var ProductRepository $productRepository
      */
     protected OrderRepository $orderRepository;
     protected OrderDetailRepository $orderDetailRepository;
+    protected ProductRepository $productRepository;
 
-    public function __construct(OrderRepository $orderRepository, OrderDetailRepository $orderDetailRepository)
+    public function __construct(OrderRepository $orderRepository, OrderDetailRepository $orderDetailRepository, ProductRepository $productRepository)
     {
         $this->orderRepository = $orderRepository;
         $this->orderDetailRepository = $orderDetailRepository;
+        $this->productRepository = $productRepository;
 
     }
 
@@ -45,9 +48,7 @@ class OrderServiceImpl implements OrderService
 
         $carts = Arr::get($data, 'cart', []);
         $productIds = collect($carts)->pluck('product_id')->toArray();
-
-        // query into repo
-        $products = Product::query()->whereIn('id', $productIds)->get();
+        $products = $this->productRepository->getByIds($productIds);
 
         $productData = [];
         foreach ($carts as $item) {
@@ -56,10 +57,9 @@ class OrderServiceImpl implements OrderService
                 'product_id' => $item['product_id'],
                 'quantity' => $item['quantity'],
                 'order_id' => $order->id,
-                'price' => optional($product)->price,
+                'price' => $product->price,
             ];
         }
-//        dd($productData);
         $this->orderDetailRepository->insert($order->id, $productData);
         $detail = [
             'order_id' => $order->id

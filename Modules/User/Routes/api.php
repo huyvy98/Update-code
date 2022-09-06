@@ -5,7 +5,7 @@ use Modules\User\Http\Controllers\AuthController;
 use Modules\User\Http\Controllers\OrderController;
 use Modules\User\Http\Controllers\CategoryController;
 use Modules\User\Http\Controllers\ProductController;
-
+use Modules\User\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,7 +24,7 @@ Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/register', [AuthController::class, 'register']);
 
 Route::group(['middleware' => 'auth.api:api'], function () {
-
+    Route::get('/info',[UserController::class,'show']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 

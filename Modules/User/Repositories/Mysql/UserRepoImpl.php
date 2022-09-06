@@ -3,6 +3,8 @@
 namespace Modules\User\Repositories\Mysql;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Modules\User\Contracts\Repositories\Mysql\UserRepository;
 
 class UserRepoImpl implements UserRepository
@@ -18,5 +20,14 @@ class UserRepoImpl implements UserRepository
         $user->save();
 
         return $user;
+    }
+
+    /**
+     * @param int $id
+     * @return User|null
+     */
+    public function findById(int $id): ?User
+    {
+        return User::query()->where('id', $id)->first();
     }
 }

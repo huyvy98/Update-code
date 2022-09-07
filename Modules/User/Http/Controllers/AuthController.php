@@ -2,6 +2,7 @@
 
 namespace Modules\User\Http\Controllers;
 
+use App\Transformers\SuccessResource;
 use Illuminate\Routing\Controller;
 use Modules\User\Contracts\Services\AuthService;
 use Modules\User\Http\Requests\LoginUserRequest;
@@ -57,5 +58,10 @@ class AuthController extends Controller
     public function logout(): void
     {
         $this->authService->logout();
+    }
+
+    public function test(): SuccessResource
+    {
+        return new SuccessResource();
     }
 }

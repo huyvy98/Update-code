@@ -23,6 +23,8 @@ class UserRepoImpl implements UserRepository
     }
 
     /**
+     * Find user by id
+     *
      * @param int $id
      * @return User|null
      */

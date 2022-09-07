@@ -4,8 +4,6 @@ namespace Modules\User\Services;
 
 use App\Exceptions\ApiException;
 use App\Models\User;
-use App\Securities\Authentications\AuthenticationManager;
-use App\Securities\Authentications\BasicAuthentication;
 use Illuminate\Support\Facades\Hash;
 use Modules\User\Contracts\Repositories\Mysql\UserRepository;
 use Modules\User\Contracts\Services\AuthService;
@@ -70,18 +68,5 @@ class AuthServiceImpl implements AuthService
     public function logout(): void
     {
         Auth::guard('api')->logout();
-    }
-
-    /**
-     * @param $token
-     * @return array
-     */
-    private function createNewToken($token): array
-    {
-        $data = [
-            'access_token' => $token
-        ];
-
-        return $data;
     }
 }

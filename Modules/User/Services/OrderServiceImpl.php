@@ -3,8 +3,6 @@
 namespace Modules\User\Services;
 
 use App\Models\Order;
-use App\Models\OrderDetail;
-use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Modules\User\Contracts\Repositories\Mysql\OrderDetailRepository;
@@ -24,12 +22,16 @@ class OrderServiceImpl implements OrderService
     protected OrderDetailRepository $orderDetailRepository;
     protected ProductRepository $productRepository;
 
+    /**
+     * @param OrderRepository $orderRepository
+     * @param OrderDetailRepository $orderDetailRepository
+     * @param ProductRepository $productRepository
+     */
     public function __construct(OrderRepository $orderRepository, OrderDetailRepository $orderDetailRepository, ProductRepository $productRepository)
     {
         $this->orderRepository = $orderRepository;
         $this->orderDetailRepository = $orderDetailRepository;
         $this->productRepository = $productRepository;
-
     }
 
     /**
@@ -64,9 +66,8 @@ class OrderServiceImpl implements OrderService
         $detail = [
             'order_id' => $order->id
         ];
-//        Mail::to(Auth::user()->email)->send(new MailNotify($data));
+//        Mail::to(Auth::user()->email)->send(new MailNotify($detail));
 
         return $detail;
     }
-
 }

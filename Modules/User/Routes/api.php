@@ -16,14 +16,13 @@ use Modules\User\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Thêm 1 api detail của user khi đăng nhập
-
-Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/login', [AuthController::class, 'login'])->name('login.user');
 
 Route::post('auth/register', [AuthController::class, 'register']);
 
-Route::group(['middleware' => 'auth.api:api'], function () {
+Route::group(['middleware' => 'auth_api:api'], function () {
+    Route::get('auth/test', [AuthController::class, 'test']);
+
     Route::get('/info',[UserController::class,'show']);
 
     Route::post('/logout', [AuthController::class, 'logout']);

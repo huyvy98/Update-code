@@ -7,7 +7,7 @@ use App\Securities\Exceptions\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\StatefulGuard;
-use Modules\User\Repositories\Auth;
+use Modules\Api\Repositories\Auth;
 
 class BasicAuthenticationManager implements AuthenticationManager
 {

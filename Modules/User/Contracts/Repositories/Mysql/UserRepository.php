@@ -15,6 +15,8 @@ interface UserRepository
     public function save(User $user): User;
 
     /**
+     * find user by id
+     *
      * @param int $id
      * @return User|null
      */

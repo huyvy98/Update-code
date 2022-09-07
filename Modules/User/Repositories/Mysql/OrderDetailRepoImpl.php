@@ -16,6 +16,6 @@ class OrderDetailRepoImpl implements OrderDetailRepository
      */
     public function insert(int $orderId, array $data): bool
     {
-        return OrderDetail::query()->where('order_id', $orderId)->insert($data);
+        return OrderDetail::where('order_id', $orderId)->insert($data);
     }
 }

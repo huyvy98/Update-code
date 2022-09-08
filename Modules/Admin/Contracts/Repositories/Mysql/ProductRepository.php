@@ -34,7 +34,7 @@ interface ProductRepository
      * @param int|null $max
      * @return LengthAwarePaginator
      */
-    public function getProduct(?string $name, ?int $min, ?int $max): LengthAwarePaginator;
+    public function get(?string $name, ?int $min, ?int $max): LengthAwarePaginator;
 
     /**
      * Create product
@@ -42,7 +42,7 @@ interface ProductRepository
      * @param Product $product
      * @return Product
      */
-    public function createProduct(Product $product): Product;
+    public function create(Product $product): Product;
 
     /**
      * Update product
@@ -50,16 +50,19 @@ interface ProductRepository
      * @param Product $product
      * @return Product|null
      */
-    public function updateProduct(Product $product): ?Product;
+    public function update(Product $product): ?Product;
 
     /**
      * Delete product
+     *
      * @param int $id
      * @return void
      */
     public function destroy(int $id): void;
 
     /**
+     * Get category
+     *
      * @return Collection
      */
     public function getCategory(): Collection;

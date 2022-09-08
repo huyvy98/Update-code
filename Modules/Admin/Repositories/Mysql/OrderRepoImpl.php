@@ -13,55 +13,56 @@ use Modules\Admin\Contracts\Repositories\Mysql\OrderRepository;
 class OrderRepoImpl implements OrderRepository
 {
     /**
-     * @param int $id
+     * Delete order
+     *
+     * @param int $orderId
      * @return void
      */
-    public function destroy(int $id): void
+    public function destroy(int $orderId): void
     {
-        Order::destroy($id);
+        Order::destroy($orderId);
     }
 
     /**
+     * Get all order
+     *
      * @return LengthAwarePaginator
      */
-    public function getAllOrder(): LengthAwarePaginator
+    public function getOrder(): LengthAwarePaginator
     {
         return Order::query()->paginate(10);
     }
 
     /**
-     * @param int $id
+     * Get order detail by id
+     *
+     * @param int $orderDetailId
      * @return Collection
      */
-    public function getOrderDetail(int $id): Collection
+    public function getOrderDetail(int $orderDetailId): Collection
     {
-        return OrderDetail::with('order', 'product')->where('order_id', $id)->get();
+        return OrderDetail::with('order')->where('order_id', $orderDetailId)->get();
     }
 
     /**
-     * @param int $id
+     * Change status order
+     *
+     * @param int $orderId
      * @return void
      */
-    public function changeStatus(int $id): void
+    public function changeStatus(int $orderId): void
     {
-        Order::query()->where('id', $id)->update(['status' => '1']);
+        Order::query()->where('id', $orderId)->update(['status' => '1']);
     }
 
     /**
-     * @param int $id
+     * Find order by id
+     *
+     * @param int $orderId
      * @return Order|null
      */
-    public function findById(int $id): ?Order
+    public function findById(int $orderId): ?Order
     {
-        return Order::query()->findOrFail($id);
-    }
-
-    /**
-     * @param int $id
-     * @return Collection
-     */
-    public function findUser(int $id): Collection
-    {
-        return Order::with('user')->where('id', $id)->get();
+        return Order::query()->findOrFail($orderId);
     }
 }

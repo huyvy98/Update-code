@@ -15,7 +15,7 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Save Product to database
      *
-     * @param  Product  $product
+     * @param Product $product
      * @return Product
      */
 
@@ -27,41 +27,32 @@ class ProductRepoImpl implements ProductRepository
     }
 
     /**
-     * Get all product
+     * Get all product and query to search product by price or by name
      *
-     * @param  string|null  $name
-     * @param  int|null  $min
-     * @param  int|null  $max
+     * @param string|null $name
+     * @param int|null $min
+     * @param int|null $max
      * @return LengthAwarePaginator
      */
-    public function getProduct(?string $name, ?int $min, ?int $max): LengthAwarePaginator
+    public function get(?string $name, ?int $min, ?int $max): LengthAwarePaginator
     {
-        return Product::query()->when($name, function (Builder $builder) use ($name) {
-            $builder->where('name', 'like', '%'.$name.'%');
-        })
+        return Product::query()
+            ->when($name, function (Builder $builder) use ($name) {
+                $builder->where('name', 'like', '%' . $name . '%');
+            })
             ->when($min, function (Builder $builder) use ($min, $max) {
-                $builder->whereBetween('price', [$min, $max])
-                    ->orWhereIn('price', [$min, $max]);
+                $builder->whereBetween('price', [$min, $max]);
             })
             ->paginate(10);
     }
 
     /**
-     * Select product
-     */
-    public function editProduct($id)
-    {
-        return Product::query()->where('id', $id)->first();
-    }
-
-    /**
      * Create product
      *
-     * @param  Product  $product
+     * @param Product $product
      * @return Product
      */
-
-    public function createProduct(Product $product): Product
+    public function create(Product $product): Product
     {
         $product->query()->create();
 
@@ -71,10 +62,10 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Update product
      *
-     * @param  Product  $product
+     * @param Product $product
      * @return Product
      */
-    public function updateProduct(Product $product): Product
+    public function update(Product $product): Product
     {
         $product->update();
 
@@ -84,10 +75,9 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Delete product
      *
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
-
     public function destroy(int $id): void
     {
         Product::destroy($id);
@@ -96,7 +86,7 @@ class ProductRepoImpl implements ProductRepository
     /**
      * Find product by id
      *
-     * @param  int  $id
+     * @param int $id
      * @return Product|null
      */
     public function findById(int $id): ?Product
@@ -105,6 +95,8 @@ class ProductRepoImpl implements ProductRepository
     }
 
     /**
+     * Get category
+     *
      * @return Collection
      */
     public function getCategory(): Collection

@@ -2,11 +2,9 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Models\Admin;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Modules\Admin\Contracts\Services\AdminService;
 use Modules\Admin\Http\Requests\AdminRequest;
@@ -34,7 +32,7 @@ class AdminController extends Controller
      */
     public function index(): View
     {
-        $admins = $this->adminService->getAll();
+        $admins = $this->adminService->getAdmin();
 
         return view('admin::admin.index', compact('admins'));
     }
@@ -83,7 +81,7 @@ class AdminController extends Controller
      */
     public function destroy(int $id): RedirectResponse
     {
-        $this->adminService->destroy($id);
+        $this->adminService->destroyAdmin($id);
 
         return Redirect::route('admin.index')->with('message', 'Đã xóa thành công');
     }

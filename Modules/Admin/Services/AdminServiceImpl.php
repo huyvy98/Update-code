@@ -14,16 +14,16 @@ use Spatie\Permission\Models\Permission;
 class AdminServiceImpl implements AdminService
 {
     /**
-     * @var AdminRepository $listAdminRepository
+     * @var AdminRepository $adminRepository
      */
-    protected AdminRepository $listAdminRepository;
+    protected AdminRepository $adminRepository;
 
     /**
-     * @param AdminRepository $listAdminRepository
+     * @param AdminRepository $adminRepository
      */
-    public function __construct(AdminRepository $listAdminRepository)
+    public function __construct(AdminRepository $adminRepository)
     {
-        $this->listAdminRepository = $listAdminRepository;
+        $this->adminRepository = $adminRepository;
     }
 
     /**
@@ -31,12 +31,13 @@ class AdminServiceImpl implements AdminService
      *
      * @return LengthAwarePaginator
      */
-    public function getAll(): LengthAwarePaginator
+    public function getAdmin(): LengthAwarePaginator
     {
-        return $this->listAdminRepository->getAllAdmin();
+        return $this->adminRepository->get();
     }
 
     /**
+     * save admin
      *
      * @param AdminRequest $request
      * @return Admin
@@ -51,19 +52,21 @@ class AdminServiceImpl implements AdminService
         $admin->phone = $request->get('phone');
         $admin->password = Hash::make($request->get('password'));
 
-        $this->listAdminRepository->save($admin);
+        $this->adminRepository->save($admin);
 
         return $admin;
     }
 
     /**
+     * update admin
+     *
      * @param AdminRequest $request
      * @param int $id
      * @return Admin
      */
     public function updateAdmin(AdminRequest $request, int $id): Admin
     {
-        $admin = $this->listAdminRepository->findById($id);
+        $admin = $this->adminRepository->findById($id);
 
         $admin->firstname = $request->get('firstname');
         $admin->lastname = $request->get('lastname');
@@ -75,16 +78,28 @@ class AdminServiceImpl implements AdminService
             $admin->password = Hash::make($request->get('password'));
         }
 
-        return $this->listAdminRepository->updateAdmin($admin);
+        return $this->adminRepository->update($admin);
     }
 
+    /**
+     * get id admin to edit
+     *
+     * @param int $id
+     * @return Admin|null
+     */
     public function editAdmin(int $id): ?Admin
     {
-        return $this->listAdminRepository->findById($id);
+        return $this->adminRepository->findById($id);
     }
 
-    public function destroy(int $id): void
+    /**
+     * delete admin
+     *
+     * @param int $id
+     * @return void
+     */
+    public function destroyAdmin(int $id): void
     {
-        $this->listAdminRepository->destroy($id);
+        $this->adminRepository->destroy($id);
     }
 }

@@ -18,7 +18,7 @@ class OrderController extends Controller
     protected OrderService $orderService;
 
     /**
-     * @param  OrderService  $orderService
+     * @param OrderService $orderService
      */
     public function __construct(OrderService $orderService)
     {
@@ -32,25 +32,29 @@ class OrderController extends Controller
      */
     public function index(): View
     {
-        $orders = $this->orderService->getAllOrder();
+        $orders = $this->orderService->getOrder();
 
         return view('admin::order.index', compact('orders'));
     }
 
     /**
-     * @param  int  $id
+     * @param int $orderId
      * @return RedirectResponse
      */
-    public function destroy(int $id): RedirectResponse
+    public function destroy(int $orderId): RedirectResponse
     {
-        $this->orderService->destroy($id);
+        $this->orderService->destroy($orderId);
 
         return redirect()->route('orders.index')->with('message', 'Đã xóa đơn hàng ');
     }
 
-    public function change(int $id): RedirectResponse
+    /**
+     * @param int $orderId
+     * @return RedirectResponse
+     */
+    public function change(int $orderId): RedirectResponse
     {
-        $this->orderService->updateStatus($id);
+        $this->orderService->updateStatus($orderId);
 
         return Redirect::route('orders.index')->with('message', 'Đã chuyển trạng thái đơn hàng');
     }
@@ -58,14 +62,13 @@ class OrderController extends Controller
     /**
      * Show a new resource.
      *
-     * @param  int  $id
+     * @param int $orderDetailId
      * @return View
      */
-    public function show(int $id): View
+    public function show(int $orderDetailId): View
     {
-        $orderDetails = $this->orderService->getOrderDetail($id);
-        $userFinds = $this->orderService->findUser($id);
+        $orderDetails = $this->orderService->getOrderDetail($orderDetailId);
 
-        return view('admin::order.show', compact('orderDetails', 'userFinds'));
+        return view('admin::order.show', compact('orderDetails'));
     }
 }

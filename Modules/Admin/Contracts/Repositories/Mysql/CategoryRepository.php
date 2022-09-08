@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface CategoryRepository
 {
     /**
-     * Find product by id
+     * Find category by id
      *
      * @param int $id
      * @return Category|null
@@ -17,7 +17,7 @@ interface CategoryRepository
     public function findById(int $id): ?Category;
 
     /**
-     * Save product to database
+     * Save category to database
      *
      * @param Category $category
      * @return Category
@@ -30,7 +30,7 @@ interface CategoryRepository
      *
      * @return LengthAwarePaginator
      */
-    public function getCategory(): LengthAwarePaginator;
+    public function get(): LengthAwarePaginator;
 
     /**
      * Create category
@@ -38,7 +38,7 @@ interface CategoryRepository
      * @param Category $category
      * @return Category
      */
-    public function createCategory(Category $category): Category;
+    public function create(Category $category): Category;
 
     /**
      * Update category
@@ -46,10 +46,11 @@ interface CategoryRepository
      * @param Category $category
      * @return Category|null
      */
-    public function updateCategory(Category $category): ?Category;
+    public function update(Category $category): ?Category;
 
     /**
      * Delete category
+     *
      * @param int $id
      * @return void
      */

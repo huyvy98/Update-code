@@ -10,22 +10,22 @@ use Modules\Admin\Http\Requests\CategoryRequest;
 interface CategoryService
 {
     /**
-     * get all product
+     * get all category
      *
      * @return LengthAwarePaginator
      */
-    public function getAll(): LengthAwarePaginator;
+    public function getCategory(): LengthAwarePaginator;
 
     /**
-     * save product to database
+     * save category
      *
      * @param CategoryRequest $request
      * @return Category
      */
-    public function saveCategoryData(CategoryRequest $request): Category;
+    public function saveCategory(CategoryRequest $request): Category;
 
     /**
-     * update product
+     * update category
      *
      * @param CategoryRequest $request
      * @param int $id
@@ -34,7 +34,7 @@ interface CategoryService
     public function updateCategory(CategoryRequest $request, int $id): Category;
 
     /**
-     * edit product
+     * edit category
      *
      * @param int $id
      * @return Category|null
@@ -42,10 +42,10 @@ interface CategoryService
     public function editCategory(int $id): ?Category;
 
     /**
-     * delete product
+     * delete category
      *
      * @param int $id
      * @return void
      */
-    public function destroy(int $id): void;
+    public function destroyCategory(int $id): void;
 }

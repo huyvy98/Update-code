@@ -26,18 +26,22 @@ class CategoryServiceImpl implements CategoryService
     }
 
     /**
+     * get all category
+     *
      * @return LengthAwarePaginator
      */
-    public function getAll(): LengthAwarePaginator
+    public function getCategory(): LengthAwarePaginator
     {
-        return $this->categoryRepository->getCategory();
+        return $this->categoryRepository->get();
     }
 
     /**
+     * save category
+     *
      * @param CategoryRequest $request
      * @return Category
      */
-    public function saveCategoryData(CategoryRequest $request): Category
+    public function saveCategory(CategoryRequest $request): Category
     {
         $category = new Category();
         $category->name = $request->get('name');
@@ -47,6 +51,8 @@ class CategoryServiceImpl implements CategoryService
     }
 
     /**
+     * update category
+     *
      * @param CategoryRequest $request
      * @param int $id
      * @return Category
@@ -55,12 +61,14 @@ class CategoryServiceImpl implements CategoryService
     {
         $category = $this->categoryRepository->findById($id);
         $category->name = $request->get('name');
-        $data = $this->categoryRepository->updateCategory($category);
+        $data = $this->categoryRepository->update($category);
 
         return $data;
     }
 
     /**
+     * edit category
+     *
      * @param int $id
      * @return Category|null
      */
@@ -70,10 +78,12 @@ class CategoryServiceImpl implements CategoryService
     }
 
     /**
+     * delete category
+     *
      * @param int $id
      * @return void
      */
-    public function destroy(int $id): void
+    public function destroyCategory(int $id): void
     {
         $this->categoryRepository->destroy($id);
     }

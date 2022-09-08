@@ -18,7 +18,7 @@ interface ProductService
      * @param Request $request
      * @return LengthAwarePaginator
      */
-    public function getAll(Request $request): LengthAwarePaginator;
+    public function getProduct(Request $request): LengthAwarePaginator;
 
     /**
      * save product to database
@@ -26,7 +26,7 @@ interface ProductService
      * @param ProductRequest $request
      * @return Product
      */
-    public function saveProductData(ProductRequest $request): Product;
+    public function saveProduct(ProductRequest $request): Product;
 
     /**
      * update product
@@ -54,6 +54,8 @@ interface ProductService
     public function destroy(int $id): void;
 
     /**
+     * Get category
+     *
      * @return Collection
      */
     public function getCategory(): Collection;

@@ -28,7 +28,7 @@ class UserServiceImpl implements UserService
      */
     public function getUserById(): array
     {
-        $id = Auth::guard('api')->user()->id;
+        $id = Auth::guard('api')->id();
 
         $user = $this->userRepository->findById($id)->toArray();
 

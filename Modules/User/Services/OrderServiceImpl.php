@@ -15,11 +15,17 @@ class OrderServiceImpl implements OrderService
 {
     /**
      * @var OrderRepository $orderRepository
-     * @var OrderDetailRepository $orderDetailRepository
-     * @var ProductRepository $productRepository
      */
     protected OrderRepository $orderRepository;
+
+    /**
+     * @var OrderDetailRepository $orderDetailRepository
+     */
     protected OrderDetailRepository $orderDetailRepository;
+
+    /**
+     * @var ProductRepository $productRepository
+     */
     protected ProductRepository $productRepository;
 
     /**
@@ -30,7 +36,9 @@ class OrderServiceImpl implements OrderService
     public function __construct(OrderRepository $orderRepository, OrderDetailRepository $orderDetailRepository, ProductRepository $productRepository)
     {
         $this->orderRepository = $orderRepository;
+
         $this->orderDetailRepository = $orderDetailRepository;
+
         $this->productRepository = $productRepository;
     }
 
@@ -44,7 +52,7 @@ class OrderServiceImpl implements OrderService
     {
         $data = $request->all();
         $order = new Order();
-        $order->user_id = Auth::guard('api')->user()->id;
+        $order->user_id = Auth::guard('api')->id();
         $order->status = "0";
         $order = $this->orderRepository->create($order);
 
@@ -63,11 +71,11 @@ class OrderServiceImpl implements OrderService
             ];
         }
         $this->orderDetailRepository->insert($order->id, $productData);
-        $detail = [
+        $result = [
             'order_id' => $order->id
         ];
-//        Mail::to(Auth::user()->email)->send(new MailNotify($detail));
+//        Mail::to(Auth::user()->email)->send(new MailNotify($result));
 
-        return $detail;
+        return $result;
     }
 }

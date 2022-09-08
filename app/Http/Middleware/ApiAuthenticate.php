@@ -2,34 +2,18 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ApiAuthenticate extends Middleware
 {
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     *
-     * @param  Request  $request
-     * @return string|null
+     * @param $request
+     * @return void
      */
-    protected function redirectTo($request): ?string
+    protected function redirectTo($request)
     {
-        if(! $request->expectsJson()){
-            return route('login.user');
-        }
-        return null;
+        dd(Auth::guard('api')->check());
     }
 
-    protected function authenticate($request, array $guards)
-    {
-        if($this->auth->guard('api')->check()){
-            return $this->auth->shouldUse('api');
-        }
-
-        $this->unauthenticated($request, ['api']);
-    }
 }

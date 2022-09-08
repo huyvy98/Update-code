@@ -14,10 +14,10 @@ interface AdminService
      *
      * @return LengthAwarePaginator
      */
-    public function getAll(): LengthAwarePaginator;
+    public function getAdmin(): LengthAwarePaginator;
 
     /**
-     * save admin to database
+     * save admin
      *
      * @param AdminRequest $request
      * @return Admin
@@ -47,6 +47,6 @@ interface AdminService
      * @param int $id
      * @return void
      */
-    public function destroy(int $id): void;
+    public function destroyAdmin(int $id): void;
 
 }

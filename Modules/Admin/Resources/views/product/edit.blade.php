@@ -16,10 +16,10 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Category</label>
-            <select name="category[]" multiple>
+            <select name="category_ids[]" multiple>
                 @foreach($category as $key => $cate)
                     <option
-                        value="{{$cate->id}}" {{ old('category', $products->category)->contains($cate->id) ? 'selected' : '' }}>{{$cate->name}}
+                        value="{{$cate->id}}" {{ old('category_ids', $products->category)->contains($cate->id) ? 'selected' : '' }}>{{$cate->name}}
                     </option>
                 @endforeach
             </select>

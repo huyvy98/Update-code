@@ -12,39 +12,31 @@ interface OrderService
     /**
      * delete order
      *
-     * @param  int  $id
+     * @param int $orderId
      * @return void
      */
-    public function destroy(int $id): void;
+    public function destroy(int $orderId): void;
 
     /**
      * get all order
      *
      * @return LengthAwarePaginator
      */
-    public function getAllOrder(): LengthAwarePaginator;
+    public function getOrder(): LengthAwarePaginator;
 
     /**
      * get order detail by id
      *
-     * @param  int  $id
+     * @param int $orderDetailId
      * @return Collection
      */
-    public function getOrderDetail(int $id): Collection;
-
-    /**
-     * find user by id
-     *
-     * @param  int  $id
-     * @return Collection
-     */
-    public function findUser(int $id): Collection;
+    public function getOrderDetail(int $orderDetailId): Collection;
 
     /**
      * update status
      *
-     * @param  int  $id
+     * @param int $orderId
      * @return void
      */
-    public function updateStatus(int $id): void;
+    public function updateStatus(int $orderId): void;
 }

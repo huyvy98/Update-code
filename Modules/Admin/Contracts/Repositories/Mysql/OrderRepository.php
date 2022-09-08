@@ -11,47 +11,46 @@ interface OrderRepository
     /**
      * Delete order
      *
-     * @param int $id
+     * @param int $orderId
      * @return void
      */
-    public function destroy(int $id): void;
+    public function destroy(int $orderId): void;
 
     /**
      * Get all order
      *
      * @return LengthAwarePaginator
      */
-    public function getAllOrder(): LengthAwarePaginator;
+    public function getOrder(): LengthAwarePaginator;
 
     /**
      * Get order detail by id
      *
-     * @param int $id
+     * @param int $orderDetailId
      * @return Collection
      */
-    public function getOrderDetail(int $id): Collection;
+    public function getOrderDetail(int $orderDetailId): Collection;
 
     /**
      * Change status order
      *
-     * @param int $id
+     * @param int $orderId
      * @return void
      */
-    public function changeStatus(int $id): void;
+    public function changeStatus(int $orderId): void;
 
     /**
      * Find order by id
      *
-     * @param int $id
+     * @param int $orderId
      * @return Order|null
      */
-    public function findById(int $id): ?Order;
+    public function findById(int $orderId): ?Order;
 
     /**
      * Find user by id
      *
-     * @param int $id
+     * @param int $userId
      * @return Collection
      */
-    public function findUser(int $id): Collection;
 }

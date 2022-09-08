@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function index(): View
     {
-        $categories = $this->categoryService->getAll();
+        $categories = $this->categoryService->getCategory();
 
         return view('admin::category.index', compact('categories'));
     }
@@ -53,7 +53,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request): RedirectResponse
     {
-        $this->categoryService->saveCategoryData($request);
+        $this->categoryService->saveCategory($request);
 
         return Redirect::route('categories.index')->with('message', 'Đã tạo mới danh mục');
     }
@@ -67,7 +67,7 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryService->editCategory($id);
 
-        return view('admin::category.edit',compact('categories'));
+        return view('admin::category.edit', compact('categories'));
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoryController extends Controller
     {
         $this->categoryService->updateCategory($request, $id);
 
-        return Redirect::route('categories.index')->with('message','Đã cập nhật tên danh mục');
+        return Redirect::route('categories.index')->with('message', 'Đã cập nhật tên danh mục');
     }
 
     /**
@@ -90,8 +90,8 @@ class CategoryController extends Controller
      */
     public function destroy(int $id): RedirectResponse
     {
-        $this->categoryService->destroy($id);
+        $this->categoryService->destroyCategory($id);
 
-        return Redirect::route('categories.index')->with('message','Đã xóa danh mục');
+        return Redirect::route('categories.index')->with('message', 'Đã xóa danh mục');
     }
 }

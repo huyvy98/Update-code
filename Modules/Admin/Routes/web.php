@@ -13,14 +13,14 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Http\Controllers\ProductController;
-use Modules\Admin\Http\Controllers\LoginController;
+use Modules\Admin\Http\Controllers\AuthController;
 use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
 use Modules\Admin\Http\Controllers\CategoryController;
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/admins/login', [LoginController::class, 'show'])->name('auth.show');
-    Route::post('/admins/login', [LoginController::class, 'login'])->name('auth.login');
+    Route::get('/admins/login', [AuthController::class, 'show'])->name('auth.show');
+    Route::post('/admins/login', [AuthController::class, 'login'])->name('auth.login');
 });
 
 Route::group(['prefix' => 'admins', 'middleware' => ['auth:admin']], function () {
@@ -84,6 +84,6 @@ Route::group(['prefix' => 'admins', 'middleware' => ['auth:admin']], function ()
         Route::get('/order-detail/{id}', [OrderController::class, 'show'])->middleware('permission:orderDetails.index');
     });
 
-    Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 

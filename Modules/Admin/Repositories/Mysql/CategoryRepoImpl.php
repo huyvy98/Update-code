@@ -12,6 +12,8 @@ use Modules\Admin\Contracts\Repositories\Mysql\CategoryRepository;
 class CategoryRepoImpl implements CategoryRepository
 {
     /**
+     * Find category by id
+     *
      * @param int $id
      * @return Category|null
      */
@@ -21,6 +23,8 @@ class CategoryRepoImpl implements CategoryRepository
     }
 
     /**
+     * Save category to database
+     *
      * @param Category $category
      * @return Category
      */
@@ -32,18 +36,22 @@ class CategoryRepoImpl implements CategoryRepository
     }
 
     /**
+     * Get all category from database
+     *
      * @return LengthAwarePaginator
      */
-    public function getCategory(): LengthAwarePaginator
+    public function get(): LengthAwarePaginator
     {
         return Category::query()->paginate(10);
     }
 
     /**
+     * Create category
+     *
      * @param Category $category
      * @return Category
      */
-    public function createCategory(Category $category): Category
+    public function create(Category $category): Category
     {
         $category->query()->create();
 
@@ -51,10 +59,12 @@ class CategoryRepoImpl implements CategoryRepository
     }
 
     /**
+     * Update category
+     *
      * @param Category $category
      * @return Category|null
      */
-    public function updateCategory(Category $category): ?Category
+    public function update(Category $category): ?Category
     {
         $category->update();
 
@@ -62,6 +72,8 @@ class CategoryRepoImpl implements CategoryRepository
     }
 
     /**
+     * Delete category
+     *
      * @param int $id
      * @return void
      */

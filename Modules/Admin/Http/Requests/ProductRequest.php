@@ -16,6 +16,7 @@ class ProductRequest extends FormRequest
             'price' => 'required',
             'description' => 'required',
             'image' => 'required',
+            'category_ids' =>'required'
         ];
     }
 
@@ -39,6 +40,7 @@ class ProductRequest extends FormRequest
             'price' => 'Giá',
             'description' => 'Thông tin',
             'image' => 'Ảnh',
+            'category_ids' => 'Danh mục',
         ];
     }
 }

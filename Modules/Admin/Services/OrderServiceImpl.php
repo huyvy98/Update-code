@@ -25,46 +25,45 @@ class OrderServiceImpl implements OrderService
     }
 
     /**
-     * @param int $id
+     * delete order
+     *
+     * @param int $orderId
      * @return void
      */
-    public function destroy(int $id): void
+    public function destroy(int $orderId): void
     {
-        $this->orderRepository->destroy($id);
+        $this->orderRepository->destroy($orderId);
     }
 
     /**
+     * get all order
+     *
      * @return LengthAwarePaginator
      */
-    public function getAllOrder(): LengthAwarePaginator
+    public function getOrder(): LengthAwarePaginator
     {
-        return $this->orderRepository->getAllOrder();
+        return $this->orderRepository->getOrder();
     }
 
     /**
-     * @param int $id
+     * get order detail by id
+     *
+     * @param int $orderDetailId
      * @return Collection
      */
-    public function getOrderDetail(int $id): Collection
+    public function getOrderDetail(int $orderDetailId): Collection
     {
-        return $this->orderRepository->getOrderDetail($id);
+        return $this->orderRepository->getOrderDetail($orderDetailId);
     }
 
     /**
-     * @param int $id
-     * @return Collection
-     */
-    public function findUser(int $id): Collection
-    {
-        return $this->orderRepository->findUser($id);
-    }
-
-    /**
-     * @param int $id
+     * update status
+     *
+     * @param int $orderId
      * @return void
      */
-    public function updateStatus(int $id): void
+    public function updateStatus(int $orderId): void
     {
-        $this->orderRepository->changeStatus($id);
+        $this->orderRepository->changeStatus($orderId);
     }
 }

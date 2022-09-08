@@ -15,12 +15,12 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($userFinds as $user)
+        @foreach($orderDetails->unique('user_id') as $user)
             <tr>
-                <td>{{$user->user->firstname . " " . $user->user->lastname }}</td>
-                <td>{{$user->user->phone}}</td>
-                <td>{{$user->user->address}}</td>
-                <td>{{$user->user->email}}</td>
+                <td>{{$user->order->user->firstname . " " . $user->order->user->lastname}}</td>
+                <td>{{$user->order->user->phone}}</td>
+                <td>{{$user->order->user->address}}</td>
+                <td>{{$user->order->user->email}}</td>
             </tr>
         @endforeach
         </tbody>

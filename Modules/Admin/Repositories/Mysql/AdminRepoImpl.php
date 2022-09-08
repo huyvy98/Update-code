@@ -11,7 +11,7 @@ class AdminRepoImpl implements AdminRepository
     /**
      * Save admin
      *
-     * @param  Admin  $admin
+     * @param Admin $admin
      * @return Admin
      */
     public function save(Admin $admin): Admin
@@ -26,7 +26,7 @@ class AdminRepoImpl implements AdminRepository
      *
      * @return LengthAwarePaginator
      */
-    public function getAllAdmin(): LengthAwarePaginator
+    public function get(): LengthAwarePaginator
     {
         return Admin::query()->paginate(5);
     }
@@ -34,7 +34,7 @@ class AdminRepoImpl implements AdminRepository
     /**
      * Delete admin
      *
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void
@@ -45,12 +45,12 @@ class AdminRepoImpl implements AdminRepository
     /**
      * Create new admin
      *
-     * @param  Admin  $admin
+     * @param Admin $admin
      * @return Admin
      */
-    public function createAdmin(Admin $admin): Admin
+    public function create(Admin $admin): Admin
     {
-        $admin->query()->create();
+        $admin->create();
 
         return $admin;
     }
@@ -58,10 +58,10 @@ class AdminRepoImpl implements AdminRepository
     /**
      * Update admin
      *
-     * @param  Admin  $admin
+     * @param Admin $admin
      * @return Admin
      */
-    public function updateAdmin(Admin $admin): Admin
+    public function update(Admin $admin): Admin
     {
         $admin->update();
 
@@ -71,7 +71,7 @@ class AdminRepoImpl implements AdminRepository
     /**
      * Find admin by ID
      *
-     * @param  int  $id
+     * @param int $id
      * @return Admin|null
      */
     public function findById(int $id): ?Admin

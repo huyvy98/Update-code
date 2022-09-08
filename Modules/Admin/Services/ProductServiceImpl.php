@@ -29,12 +29,14 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
+     * get all product
+     *
      * @param Request $request
      * @return LengthAwarePaginator
      */
-    public function getAll(Request $request): LengthAwarePaginator
+    public function getProduct(Request $request): LengthAwarePaginator
     {
-        return $this->productRepository->getProduct(
+        return $this->productRepository->get(
             $request->input('searchName'),
             $request->input('minPrice'),
             $request->input('maxPrice')
@@ -42,12 +44,14 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
+     * save product to database
+     *
      * @param ProductRequest $request
      * @return Product
      */
-    public function saveProductData(ProductRequest $request): Product
+    public function saveProduct(ProductRequest $request): Product
     {
-        $category = $request->get('category');
+        $category = $request->get('category_ids');
         if ($request->has('image')) {
             $filePath = $request['image']->storeAs('uploads', request('image')->getClientOriginalName(), 'public');
         }
@@ -64,6 +68,8 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
+     * edit product
+     *
      * @param int $id
      * @return Product|null
      */
@@ -73,13 +79,15 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
+     * update product
+     *
      * @param ProductRequestImage $request
      * @param $id
      * @return Product
      */
     public function updateProduct(ProductRequestImage $request, $id): Product
     {
-        $category = $request->get('category');
+        $category = $request->get('category_ids');
         $product = $this->productRepository->findById($id);
         $product->name = $request->get('name');
         $product->price = $request->get('price');
@@ -89,7 +97,7 @@ class ProductServiceImpl implements ProductService
             $filePath = $request['image']->storeAs('images', request('image')->getClientOriginalName(), 'public');
             $product->image = $filePath;
         }
-        $data = $this->productRepository->updateProduct($product);
+        $data = $this->productRepository->update($product);
 
         $data->category()->sync($category);
 
@@ -97,6 +105,8 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
+     * delete product
+     *
      * @param int $id
      * @return void
      */
@@ -106,6 +116,8 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
+     * Get category
+     *
      * @return Collection
      */
     public function getCategory(): Collection

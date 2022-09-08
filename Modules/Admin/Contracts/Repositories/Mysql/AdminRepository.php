@@ -8,9 +8,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface AdminRepository
 {
     /**
-     * Find product by id
+     * Find admin by id
      *
-     * @param  int  $id
+     * @param int $id
      * @return Admin |null
      */
     public function findById(int $id): ?Admin;
@@ -20,12 +20,12 @@ interface AdminRepository
      *
      * @return LengthAwarePaginator
      */
-    public function getAllAdmin(): LengthAwarePaginator;
+    public function get(): LengthAwarePaginator;
 
     /**
      * Delete admin
      *
-     * @param  int  $id
+     * @param int $id
      * @return void
      */
     public function destroy(int $id): void;
@@ -33,7 +33,7 @@ interface AdminRepository
     /**
      * Save admin
      *
-     * @param  Admin  $admin
+     * @param Admin $admin
      * @return Admin
      */
     public function save(Admin $admin): Admin;
@@ -41,16 +41,16 @@ interface AdminRepository
     /**
      * Create new admin
      *
-     * @param  Admin  $admin
+     * @param Admin $admin
      * @return Admin
      */
-    public function createAdmin(Admin $admin): Admin;
+    public function create(Admin $admin): Admin;
 
     /**
      * Update admin
      *
-     * @param  Admin  $admin
+     * @param Admin $admin
      * @return Admin
      */
-    public function updateAdmin(Admin $admin): Admin;
+    public function update(Admin $admin): Admin;
 }

@@ -34,9 +34,9 @@ class ProductController extends Controller
      * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
-        $products = $this->productService->getAll($request);
+        $products = $this->productService->getProduct($request);
         session()->flashInput($request->input());
 
         return view('admin::product.index', compact('products'));
@@ -60,7 +60,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request): RedirectResponse
     {
-        $this->productService->saveProductData($request);
+        $this->productService->saveProduct($request);
 
         return Redirect::route('products.index')->with('message', 'Đã thêm mới sản phẩm');
     }

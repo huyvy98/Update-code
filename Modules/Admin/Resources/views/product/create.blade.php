@@ -18,13 +18,14 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Category</label>
-            <select name="category[]" multiple>
+            <select name="category_ids[]" multiple>
                 @foreach($category as $cate)
-                    <option value="{{$cate->id}}">{{$cate->name}}</option>
+                    <option
+                        value="{{$cate->id}}" {{old('category_ids', $cate->id) ? 'selected' : ''}}>{{$cate->name}}</option>
                 @endforeach
             </select>
         </div>
-        @error('category')
+        @error('category_ids')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <div class="form-group">

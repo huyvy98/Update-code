@@ -5,9 +5,9 @@
                 <tbody>
                 <tr>
                     <td>
-                        <h1 style="font-size:17px;font-weight:bold;color:#444;padding:0 0 5px 0;margin:0">Cảm ơn quý khách {{ Auth::user()->name }} đã đặt hàng tại Impress</h1>
-                        <p style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">Impress rất vui thông báo đơn hàng của quý khách đã được tiếp nhận và đang trong quá trình xử lý. Impress sẽ thông báo đến quý khách ngay khi hàng chuẩn bị được giao.</p>
-                        <h3 style="font-size:13px;font-weight:bold;color:#e41e24;text-transform:uppercase;margin:20px 0 0 0;border-bottom:1px solid #ddd">Thông tin đơn hàng<span style="font-size:12px;color:#777;text-transform:none;font-weight:normal">(Ngày {{  \Illuminate\Support\Carbon::now('Asia/Ho_Chi_Minh')->day }} Tháng {{ \Illuminate\Support\Carbon::now()->month }} Năm {{ \Illuminate\Support\Carbon::now()->year }} {{ \Illuminate\Support\Carbon::now()->toTimeString() }})</span></h3>
+                        <h1 style="font-size:17px;font-weight:bold;color:#444;padding:0 0 5px 0;margin:0">Cảm ơn quý khách {{ Auth::user()->firstname }} đã đặt hàng!!</h1>
+                        <p style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">Rất vui thông báo đơn hàng của quý khách đã được tiếp nhận và đang trong quá trình xử lý. Impress sẽ thông báo đến quý khách ngay khi hàng chuẩn bị được giao.</p>
+                        <h3 style="font-size:13px;font-weight:bold;color:#a55900;text-transform:uppercase;margin:20px 0 0 0;border-bottom:1px solid #ddd">Thông tin đơn hàng<span style="font-size:12px;color:#777;text-transform:none;font-weight:normal">(Ngày {{  \Illuminate\Support\Carbon::now('Asia/Ho_Chi_Minh')->day }} Tháng {{ \Illuminate\Support\Carbon::now()->month }} Năm {{ \Illuminate\Support\Carbon::now()->year }} {{ \Illuminate\Support\Carbon::now()->toTimeString() }})</span></h3>
                     </td>
                 </tr>
                 <tr>
@@ -21,8 +21,8 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td style="padding:3px 9px 9px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal" valign="top"><span style="text-transform:capitalize">{{ Auth::user()->name }}</span><br><a href="{{ Auth::user()->email }}" target="_blank">{{ Auth::user()->email }}</a><br>{{ Auth::user()->phone }}</td>
-                                <td style="padding:3px 9px 9px 9px;border-top:0;border-left:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal" valign="top"><span style="text-transform:capitalize">{{ Auth::user()->name }}</span><br><a href="{{ Auth::user()->email }}" target="_blank">{{ Auth::user()->email }}</a><br>{{ Auth::user()->address }}<br>{{ Auth::user()->phone }}</td>
+                                <td style="padding:3px 9px 9px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal" valign="top"><span style="text-transform:capitalize">{{ Auth::user()->firstname }}</span><br><a href="{{ Auth::user()->email }}" target="_blank">{{ Auth::user()->email }}</a><br>{{ Auth::user()->phone }}</td>
+                                <td style="padding:3px 9px 9px 9px;border-top:0;border-left:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal" valign="top"><span style="text-transform:capitalize">{{ Auth::user()->firstname }}</span><br><a href="{{ Auth::user()->email }}" target="_blank">{{ Auth::user()->email }}</a><br>{{ Auth::user()->address }}<br>{{ Auth::user()->phone }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -35,15 +35,15 @@
                 </tr>
                 <tr>
                     <td>
-                        <h2 style="text-align:left;margin:10px 0;border-bottom:1px solid #ddd;padding-bottom:5px;font-size:13px;color:#e41e24">CHI TIẾT ĐƠN HÀNG</h2>
+                        <h2 style="text-align:left;margin:10px 0;border-bottom:1px solid #ddd;padding-bottom:5px;font-size:13px;color:#a55900">CHI TIẾT ĐƠN HÀNG</h2>
                         <table border="0" cellpadding="0" cellspacing="0" style="background:#ffffff" width="100%">
                             <thead>
                             <tr>
-                                <th align="left" bgcolor="#e41e24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Sản phẩm</th>
-                                <th align="left" bgcolor="#e41e24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Đơn giá</th>
-                                <th align="left" bgcolor="#e41e24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Số lượng</th>
-                                <th align="left" bgcolor="#e41e24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Giảm giá</th>
-                                <th align="right" bgcolor="#e41e24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Tổng tạm</th>
+                                <th align="left" bgcolor="#a55900" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Sản phẩm</th>
+                                <th align="left" bgcolor="#a55900" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Đơn giá</th>
+                                <th align="left" bgcolor="#a55900" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Số lượng</th>
+                                <th align="left" bgcolor="#a55900" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Giảm giá</th>
+                                <th align="right" bgcolor="#a55900" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Tổng tạm</th>
                             </tr>
                             </thead>
                             <tbody bgcolor="#eee" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
@@ -85,9 +85,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>&nbsp;
-                        <p style="margin:10px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">Mọi thắc mắc và góp ý, quý khách vui lòng liên hệ với Impress Care qua <a href="#" target="_blank" data-saferedirecturl="">https://Impress.vn</a>. Đội ngũ Impress luôn sẵn sàng hỗ trợ bạn.</p>
-                    </td>
+
                 </tr>
                 </tbody>
             </table>

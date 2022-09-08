@@ -5,10 +5,12 @@ namespace Modules\User\Services;
 use App\Models\Order;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Modules\User\Contracts\Repositories\Mysql\OrderDetailRepository;
 use Modules\User\Contracts\Repositories\Mysql\OrderRepository;
 use Modules\User\Contracts\Repositories\Mysql\ProductRepository;
 use Modules\User\Contracts\Services\OrderService;
+use Modules\User\Emails\MailNotify;
 use Modules\User\Http\Requests\OrderRequest;
 
 class OrderServiceImpl implements OrderService
@@ -74,7 +76,7 @@ class OrderServiceImpl implements OrderService
         $result = [
             'order_id' => $order->id
         ];
-//        Mail::to(Auth::user()->email)->send(new MailNotify($result));
+        Mail::to(Auth::user()->email)->send(new MailNotify($result));
 
         return $result;
     }

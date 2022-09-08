@@ -6,8 +6,12 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Modules\Admin\Contracts\Repositories\Mysql\OrderRepository;
 use Modules\Admin\Contracts\Services\OrderService;
+use Modules\Admin\Emails\MailConfirmOrder;
+use Modules\User\Emails\MailNotify;
 
 class OrderServiceImpl implements OrderService
 {
@@ -65,5 +69,6 @@ class OrderServiceImpl implements OrderService
     public function updateStatus(int $orderId): void
     {
         $this->orderRepository->changeStatus($orderId);
+        Mail::to(Auth::user()->email)->send(new MailConfirmOrder($orderId));
     }
 }

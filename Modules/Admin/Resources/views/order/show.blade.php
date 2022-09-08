@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($orderDetails->unique('user_id') as $user)
+        @foreach($orderInfo->unique('user_id') as $user)
             <tr>
                 <td>{{$user->order->user->firstname . " " . $user->order->user->lastname}}</td>
                 <td>{{$user->order->user->phone}}</td>
@@ -37,7 +37,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($orderDetails as $order)
+        @foreach($orderInfo as $order)
             <tr>
                 <td>{{$loop->index+1}}</td>
                 <td>{{$order->product->name}}</td>
@@ -50,7 +50,7 @@
         <tfoot>
 
         @php $total = 0 @endphp
-        @foreach($orderDetails as $order)
+        @foreach($orderInfo as $order)
             @php $total += $order->product->price*$order->quantity @endphp
         @endforeach
         <td style="position:absolute; right: 190px"><span style="color: #058cb1; float: right">Tổng tiền thanh toán: {{ number_format($total) }} VND</span>

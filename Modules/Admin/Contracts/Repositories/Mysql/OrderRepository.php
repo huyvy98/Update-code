@@ -46,11 +46,4 @@ interface OrderRepository
      * @return Order|null
      */
     public function findById(int $orderId): ?Order;
-
-    /**
-     * Find user by id
-     *
-     * @param int $userId
-     * @return Collection
-     */
 }

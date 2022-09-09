@@ -2,6 +2,8 @@
 
 namespace Modules\Admin\Emails;
 
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -33,9 +35,12 @@ class MailConfirmOrder extends Mailable
      */
     public function build()
     {
+        $order = Order::query()->where('id',$this->data)->first('user_id');
+        $userId = User::query()->where('id',$order->user_id)->first('email');
         return $this->from('huy.vytomosia@gmail.com')
+            ->to($userId->email)
             ->view('admin::mails.mailConfirmOrder')
-            ->subject('Đã nhận đơn hàng của bạn')
+            ->subject('Xác nhận thành công đơn hàng của bạn')
             ->with($this->data);
     }
 }

@@ -48,7 +48,7 @@ class AuthServiceImpl implements AuthService
      */
     public function registerUser(RegisterUserRequest $request): User
     {
-        if (User::query()->where('email') != $request->input('email')) {
+        if ($request->get('password_confirmation') == $request->get('password')) {
             $user = new User();
             $user->firstname = $request->input('firstname');
             $user->lastname = $request->input('lastname');

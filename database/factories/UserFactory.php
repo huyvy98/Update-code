@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Faker\Provider\Address;
+use Faker\Provider\PhoneNumber;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -28,8 +30,10 @@ class UserFactory extends Factory
         return [
             'firstname' => Str::random(10),
             'lastname' => Str::random(10),
+            'address' => Address::country(),
+            'phone' => PhoneNumber::randomDigit(),
             'email' => Str::random(20) . '@test.com',
-            'password' => Hash::make('12345678'),
+            'password' => '123',
             'email_verified_at' => Carbon::now()
         ];
     }

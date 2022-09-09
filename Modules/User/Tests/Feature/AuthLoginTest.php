@@ -18,11 +18,14 @@ class AuthLoginTest extends TestCase
      */
     public function testValidRequestShouldReturnBadRequest()
     {
-        $response = $this->postJson('/api/auth/login',['email'=>'x']);
+        $response = $this->postJson('/api/auth/login', ['email' => 'x']);
 
         $response->assertStatus(422);
     }
 
+    /**
+     * @return void
+     */
     public function testValidRequestShouldReturnSuccess()
     {
         $user = User::factory()->state(['password' => Hash::make('1')])->create();
@@ -32,7 +35,9 @@ class AuthLoginTest extends TestCase
         $response->assertStatus(200);
     }
 
-
+    /**
+     * @return void
+     */
     public function testValidTokenShouldReturnSuccess(): void
     {
         $jwtAuth = app(JWTAuth::class);
@@ -41,13 +46,5 @@ class AuthLoginTest extends TestCase
 
         $response = $this->getJson('/api/auth/test', ['Authorization' => 'Bearer ' . $token]);
         $response->assertStatus(200);
-    }
-
-    public function testInvalidTokenShouldReturnSuccess(): void
-    {
-        User::factory()->state(['password' => Hash::make('12345678')])->create();
-        $response = $this->getJson('/api/auth/test', ['Authorization' => 'Bearerasdasdasdasd']);
-
-        $response->assertStatus(401);
     }
 }

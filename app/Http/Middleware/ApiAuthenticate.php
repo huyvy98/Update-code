@@ -2,18 +2,29 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Closure;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class ApiAuthenticate extends Middleware
+class ApiAuthenticate
 {
     /**
-     * @param $request
-     * @return void
+     * Handle an incoming request.
+     *
+     * @param Request $request
+     * @param Closure $next
+     * @param $userType
+     * @return Response|RedirectResponse
      */
-    protected function redirectTo($request)
+    public function handle(Request $request, Closure $next, $userType)
     {
-        dd(Auth::guard('api')->check());
+        if(Auth::guard('api')->check()){
+            return $next($request);
+        }
+
+        return response()->json(['Permission Denied'],401);
     }
 
 }

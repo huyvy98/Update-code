@@ -74,9 +74,10 @@ class OrderServiceImpl implements OrderService
         }
         $this->orderDetailRepository->insert($order->id, $productData);
         $result = [
-            'order_id' => $order->id
+            'order_id' => $order->id,
+            'order_info' => $productData
         ];
-        Mail::to(Auth::user()->email)->send(new MailNotify($result));
+        Mail::to(Auth::user()->email)->send(new MailNotify($productData));
 
         return $result;
     }

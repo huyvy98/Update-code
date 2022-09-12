@@ -35,8 +35,8 @@ class MailConfirmOrder extends Mailable
      */
     public function build()
     {
-        $order = Order::query()->where('id',$this->data)->first('user_id');
-        $userId = User::query()->where('id',$order->user_id)->first('email');
+        $order = Order::query()->where('id', $this->data)->first('user_id');
+        $userId = User::query()->where('id', $order->user_id)->first('email');
         return $this->from('huy.vytomosia@gmail.com')
             ->to($userId->email)
             ->view('admin::mails.mailConfirmOrder')

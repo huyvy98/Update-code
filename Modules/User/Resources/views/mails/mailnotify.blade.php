@@ -10,7 +10,8 @@
                         <h1 style="font-size:17px;font-weight:bold;color:#444;padding:0 0 5px 0;margin:0">Cảm ơn quý
                             khách {{ Auth::user()->firstname . ' '. Auth::user()->lastname }} đã đặt hàng!!</h1>
                         <p style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">
-                            Thông báo đơn hàng số <span style="color: red">{{$result['order_id']}}</span> của quý khách đã được tiếp nhận và đang trong quá trình xử lý</p>
+                            Thông báo đơn hàng số <span style="color: red">{{$result['order_id']}}</span> của quý khách
+                            đã được tiếp nhận và đang trong quá trình xử lý</p>
                         <h3 style="font-size:13px;font-weight:bold;color:#a55900;text-transform:uppercase;margin:20px 0 0 0;border-bottom:1px solid #ddd">
                             Thông tin đơn hàng<span
                                 style="font-size:12px;color:#777;text-transform:none;font-weight:normal">(Ngày {{  \Illuminate\Support\Carbon::now('Asia/Ho_Chi_Minh')->day }} Tháng {{ \Illuminate\Support\Carbon::now()->month }} Năm {{ \Illuminate\Support\Carbon::now()->year }} {{ \Illuminate\Support\Carbon::now()->toTimeString() }})</span>

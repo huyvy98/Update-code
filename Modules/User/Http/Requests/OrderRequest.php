@@ -14,6 +14,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'cart'=>'present|array',
             'cart.*.product_id' => 'required|distinct',
             'cart.*.quantity' => 'required',
         ];

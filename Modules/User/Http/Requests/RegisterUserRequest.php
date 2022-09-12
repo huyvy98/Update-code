@@ -28,7 +28,7 @@ class   RegisterUserRequest extends FormRequest
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required|email|max:100|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
             'password_confirmation' => 'required|same:password'
         ];
     }
@@ -44,7 +44,7 @@ class   RegisterUserRequest extends FormRequest
             'email' => ':attribute không đúng định dạng ',
             'regex' => ':attribute phải là  số từ 0 -> 9',
             'max' => ':attribute phải ít hơn hay bằng :max ký tự ',
-            'min' => ':attribute phải nhỏ hơn hay bằng :min ký tự ',
+            'min' => ':attribute phải lớn hơn hoặc bằng :min ký tự ',
             'confirmed' => ':attribute nhập lại không giống nhau',
             'unique' => ':attribute đã được sử dụng',
         ];

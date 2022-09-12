@@ -32,8 +32,8 @@ class AuthRegisterTest extends TestCase
             'address' => 'HaLoi',
             'phone' => '032123213',
             'email' => Str::random(20) . '@test.com',
-            'password' => '1',
-            'password_confirmation' => '1'
+            'password' => '123456789',
+            'password_confirmation' => '123456789'
         ];
 
         $response = $this->postJson('/api/auth/register',$user);

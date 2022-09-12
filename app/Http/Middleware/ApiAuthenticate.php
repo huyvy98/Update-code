@@ -24,7 +24,7 @@ class ApiAuthenticate
             return $next($request);
         }
 
-        return response()->json(['Permission Denied'],401);
+        return response()->json(['Unauthorized'],401);
     }
 
 }

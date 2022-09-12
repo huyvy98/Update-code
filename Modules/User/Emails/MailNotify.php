@@ -2,7 +2,6 @@
 
 namespace Modules\User\Emails;
 
-use App\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -18,14 +17,15 @@ class MailNotify extends Mailable
      *
      * @return void
      */
-    public $productData;
+    public $result;
 
     /**
-     * @param $productData
+     * @param $result
      */
-    public function __construct($productData)
+    public function __construct($result)
     {
-        $this->productData = $productData;
+        $this->result = $result;
+
     }
 
     /**
@@ -38,6 +38,6 @@ class MailNotify extends Mailable
         return $this->from('huy.vytomosia@gmail.com')
             ->view('user::mails.mailnotify')
             ->subject('Cảm ơn bạn đã đặt hàng. Vui lòng chờ xác nhận')
-            ->with($this->productData);
+            ->with($this->result);
     }
 }

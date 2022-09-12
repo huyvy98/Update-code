@@ -77,7 +77,8 @@ class OrderServiceImpl implements OrderService
             'order_id' => $order->id,
             'order_info' => $productData
         ];
-        Mail::to(Auth::user()->email)->send(new MailNotify($productData));
+
+        Mail::to(Auth::user()->email)->send(new MailNotify($result));
 
         return $result;
     }

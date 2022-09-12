@@ -21,7 +21,7 @@
             <select name="category_ids[]" multiple>
                 @foreach($category as $cate)
                     <option
-                        value="{{$cate->id}}" {{old('category_ids', $cate->id) ? 'selected' : ''}}>{{$cate->name}}</option>
+                        value="{{$cate->id}}" {{ (collect(old('category_ids'))->contains($cate->id)) ? 'selected':'' }}>{{$cate->name}}</option>
                 @endforeach
             </select>
         </div>

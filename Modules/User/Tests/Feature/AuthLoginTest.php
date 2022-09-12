@@ -47,4 +47,12 @@ class AuthLoginTest extends TestCase
         $response = $this->getJson('/api/auth/test', ['Authorization' => 'Bearer ' . $token]);
         $response->assertStatus(200);
     }
+
+    public function testInvalidTokenShouldReturnSuccess(): void
+    {
+        User::factory()->state(['password' => Hash::make('12345678')])->create();
+        $response = $this->getJson('/api/auth/test', ['Authorization' => 'Bearer asdasdasdasd']);
+
+        $response->assertStatus(401);
+    }
 }

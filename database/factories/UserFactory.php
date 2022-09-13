@@ -30,10 +30,10 @@ class UserFactory extends Factory
         return [
             'firstname' => Str::random(10),
             'lastname' => Str::random(10),
-            'address' => Address::country(),
-            'phone' => PhoneNumber::randomDigit(),
-            'email' => Str::random(20) . '@test.com',
-            'password' => '123',
+            'address' => $this->faker->address,
+            'phone' => $this->faker->numberBetween(373448969,399888999),
+            'email' => Str::random(14) . '@test.com',
+            'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now()
         ];
     }

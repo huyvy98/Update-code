@@ -29,7 +29,6 @@
             <th scope="col">Name</th>
             <th scope="col">Category</th>
             <th scope="col">Price</th>
-            <th scope="col">Description</th>
             <th scope="col">Image</th>
             <th scope="col">Action</th>
         </tr>
@@ -49,7 +48,6 @@
                     <td></td>
                 @endif
                 <td>{{number_format($product->price)}} VND</td>
-                <td>{{$product->description}}</td>
                 <td><img src="/storage/{{$product->image}}" width="50px" height="50px"/></td>
                 <td>
                     @if(Auth::guard('admin')->user()->hasPermissionTo('products.edit'))

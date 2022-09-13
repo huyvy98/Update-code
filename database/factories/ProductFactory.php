@@ -24,8 +24,8 @@ class ProductFactory extends Factory
     {
         return [
             'name' => Str::random(4),
-            'price' => rand(100,10000000),
-            'description' => Str::random(16),
+            'price' => rand(100,10000000000),
+            'description' =>$this->faker->text,
             'image' => $this->faker->image('storage/app/public/uploads',640,480, null, false)
         ];
     }

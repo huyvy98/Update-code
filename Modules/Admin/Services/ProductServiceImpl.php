@@ -94,7 +94,7 @@ class ProductServiceImpl implements ProductService
         $product->description = $request->get('description');
 
         if ($request->hasFile('image')) {
-            $filePath = $request['image']->storeAs('images', request('image')->getClientOriginalName(), 'public');
+            $filePath = $request['image']->storeAs('uploads', request('image')->getClientOriginalName(), 'public');
             $product->image = $filePath;
         }
         $data = $this->productRepository->update($product);

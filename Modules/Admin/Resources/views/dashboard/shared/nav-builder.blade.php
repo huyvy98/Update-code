@@ -36,6 +36,14 @@
             </a>
         </li>
     @endif
+    @if(Auth::guard('admin')->user()->hasPermissionTo('orders.index'))
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{route('user.index')}}">
+                <i class="cil-house c-sidebar-nav-icon"></i>
+                User
+            </a>
+        </li>
+    @endif
     @if(Auth::guard('admin')->check())
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{route('auth.logout')}}">

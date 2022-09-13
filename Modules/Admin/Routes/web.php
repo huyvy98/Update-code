@@ -17,7 +17,7 @@ use Modules\Admin\Http\Controllers\AuthController;
 use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
 use Modules\Admin\Http\Controllers\CategoryController;
-
+use Modules\Admin\Http\Controllers\UserController;
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/admins/login', [AuthController::class, 'show'])->name('auth.show');
     Route::post('/admins/login', [AuthController::class, 'login'])->name('auth.login');
@@ -78,10 +78,13 @@ Route::group(['prefix' => 'admins', 'middleware' => ['auth:admin']], function ()
     Route::group(['prefix' => 'orders'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index')->middleware('permission:orders.index');
         Route::post('/{id}', [OrderController::class, 'change'])->name('orders.change');
-        Route::delete('/{id}', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware(
-            'permission:orders.destroy'
-        );
+        Route::delete('/{id}', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware('permission:orders.destroy');
         Route::get('/order-detail/{id}', [OrderController::class, 'show'])->middleware('permission:orderDetails.index');
+    });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('user.index')->middleware('permission:orders.index');
+        Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('permission:orders.destroy');
     });
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');

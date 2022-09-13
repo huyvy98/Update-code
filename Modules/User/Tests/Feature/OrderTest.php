@@ -51,17 +51,14 @@ class OrderTest extends TestCase
 
         $product = Product::factory()->create();
         $data = [
-            "cart" =>
+            'cart' => [
                 [
-                    [
-                        'product_id' => $product->id,
-                        'quantity' => rand(1, 15)
-                    ]
+                    'product_id' => $product->id,
+                    'quantity' => rand(1, 15)
                 ]
+            ]
         ];
-        $response = $this->postJson('/api/orders',
-            $data, ['Accept' => 'application/json']
-        );
+        $response = $this->postJson('/api/orders', $data);
 
         $response->assertStatus(200);
     }

@@ -20,6 +20,10 @@ Route::post('auth/login', [AuthController::class, 'login'])->name('login.user');
 
 Route::post('auth/register', [AuthController::class, 'register']);
 
+Route::get('/categories', [CategoryController::class, 'index']);
+
+Route::get('/categories/{id}/products', [ProductController::class, 'getProduct']);
+
 Route::group(['middleware' => 'auth_api:api'], function () {
     Route::get('auth/test', [AuthController::class, 'test']);
 
@@ -29,7 +33,4 @@ Route::group(['middleware' => 'auth_api:api'], function () {
 
     Route::post('/orders', [OrderController::class, 'order']);
 
-    Route::get('/categories', [CategoryController::class, 'index']);
-
-    Route::get('/categories/{id}/products', [ProductController::class, 'getProduct']);
 });

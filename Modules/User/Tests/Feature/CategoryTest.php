@@ -22,15 +22,4 @@ class CategoryTest extends TestCase
         $response = $this->get('/api/categories');
         $response->assertStatus(200);
     }
-
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testGetCategoryFail()
-    {
-        $response = $this->get('/api/categories');
-        $response->assertStatus(401);
-    }
 }

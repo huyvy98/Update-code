@@ -14,9 +14,9 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cart'=>'present|array',
-            'cart.*.product_id' => 'required|distinct',
-            'cart.*.quantity' => 'required',
+            'cart'=>'required|array',
+            'cart.*.product_id' => 'required|numeric|distinct',
+            'cart.*.quantity' => 'required|numeric',
         ];
     }
 
@@ -24,7 +24,8 @@ class OrderRequest extends FormRequest
     {
         return [
             'required' => ':attribute trống',
-            'distinct' => ':attribute đã có trong giỏ hàng'
+            'distinct' => ':attribute đã có trong giỏ hàng',
+            'numeric' => ':attribute phải là số'
         ];
     }
 

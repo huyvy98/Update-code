@@ -68,7 +68,7 @@ class OrderServiceImpl implements OrderService
     public function updateStatus(int $orderId): void
     {
         $this->orderRepository->changeStatus($orderId);
-        Mail::send(new MailConfirmOrder($orderId));
 
+        Mail::send(new MailConfirmOrder($orderId));
     }
 }

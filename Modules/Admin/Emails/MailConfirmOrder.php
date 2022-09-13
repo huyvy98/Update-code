@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\DB;
 
 class MailConfirmOrder extends Mailable
 {
@@ -16,16 +17,16 @@ class MailConfirmOrder extends Mailable
     /**
      * @var
      */
-    public $data;
+    public $orderId;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($orderId)
     {
-        $this->data = $data;
+        $this->orderId = $orderId;
     }
 
     /**
@@ -35,12 +36,12 @@ class MailConfirmOrder extends Mailable
      */
     public function build()
     {
-        $order = Order::query()->where('id', $this->data)->first('user_id');
+        $order = Order::query()->where('id', $this->orderId)->first('user_id');
         $userId = User::query()->where('id', $order->user_id)->first('email');
         return $this->from('huy.vytomosia@gmail.com')
             ->to($userId->email)
             ->view('admin::mails.mailConfirmOrder')
             ->subject('Xác nhận thành công đơn hàng của bạn')
-            ->with($this->data);
+            ->with($this->orderId);
     }
 }

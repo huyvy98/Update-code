@@ -19,6 +19,8 @@ interface ProductRepository
     public function getByCateId(int $categoryId): Collection;
 
     /**
+     * Get product by array id
+     *
      * @param array $ids
      * @return Collection
      */

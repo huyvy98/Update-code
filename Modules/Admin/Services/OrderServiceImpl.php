@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Mail;
 use Modules\Admin\Contracts\Repositories\Mysql\OrderRepository;
 use Modules\Admin\Contracts\Services\OrderService;
 use Modules\Admin\Emails\MailConfirmOrder;
-use Modules\User\Emails\MailNotify;
 
 class OrderServiceImpl implements OrderService
 {
@@ -70,5 +69,6 @@ class OrderServiceImpl implements OrderService
     {
         $this->orderRepository->changeStatus($orderId);
         Mail::send(new MailConfirmOrder($orderId));
+
     }
 }

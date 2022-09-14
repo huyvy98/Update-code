@@ -15,8 +15,8 @@ class OrderRequest extends FormRequest
     {
         return [
             'cart'=>'required|array',
-            'cart.*.product_id' => 'required|numeric|distinct',
-            'cart.*.quantity' => 'required|numeric',
+            'cart.*.product_id' => 'required|numeric|distinct|min:1',
+            'cart.*.quantity' => 'required|numeric|min:1',
         ];
     }
 
@@ -25,7 +25,8 @@ class OrderRequest extends FormRequest
         return [
             'required' => ':attribute trống',
             'distinct' => ':attribute đã có trong giỏ hàng',
-            'numeric' => ':attribute phải là số'
+            'numeric' => ':attribute phải là số',
+            'min' => ':attribute phải lớn hơn :min'
         ];
     }
 

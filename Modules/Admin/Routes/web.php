@@ -18,9 +18,9 @@ use Modules\Admin\Http\Controllers\OrderController;
 use Modules\Admin\Http\Controllers\AdminController;
 use Modules\Admin\Http\Controllers\CategoryController;
 use Modules\Admin\Http\Controllers\UserController;
-
+//
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/admins/login', [AuthController::class, 'show'])->name('auth.show');
+    Route::get('/admins/login', [AuthController::class, 'show'])->name('auth.showLoginForm');
     Route::post('/admins/login', [AuthController::class, 'login'])->name('auth.login');
 });
 

@@ -97,6 +97,7 @@
                                     @php
                                         $name = \App\Models\Product::query()->where('id',$item['product_id'])->first('name');
                                         $totalPrice = $item['quantity']*$item['price'];
+                                        $ship = $totalPrice/1000;
                                     @endphp
                                     <tr>
                                         <td align="left" style="padding:3px 9px" valign="top">
@@ -121,12 +122,13 @@
                             </tr>
                             <tr>
                                 <td align="right" colspan="4" style="padding:5px 9px">Phí vận chuyển</td>
-                                <td align="right" style="padding:5px 9px"><span>0</span></td>
+                                <td align="right" style="padding:5px 9px">
+                                    <span>{{number_format($ship, 0, '', '.')}}</span></td>
                             </tr>
                             <tr bgcolor="#eee">
                                 <td align="right" colspan="4" style="padding:7px 9px"><strong><big>Tổng giá trị đơn
                                             hàng</big> </strong></td>
-                                <td align="right" style="padding:7px 9px"><strong><big><span>{{ number_format($total, 0, '', '.') }}đ</span>
+                                <td align="right" style="padding:7px 9px"><strong><big><span>{{ number_format($total + $ship, 0, '', '.') }}đ</span>
                                         </big></strong></td>
                             </tr>
                             </tfoot>

@@ -54,7 +54,7 @@ class OrderServiceImpl implements OrderService
     {
         $data = $request->all();
         $order = new Order();
-        $order->user_id = Auth::guard('api')->id();
+        $order->user_id = Auth::guard('api')->user()->id;
         $order->status = "0";
         $order = $this->orderRepository->create($order);
 
@@ -77,8 +77,7 @@ class OrderServiceImpl implements OrderService
             'order_id' => $order->id,
             'order_info' => $productData
         ];
-
-        Mail::to(Auth::user()->email)->send(new MailNotify($result));
+        Mail::to(Auth::guard('api')->user()->email)->send(new MailNotify($result));
 
         return $result;
     }

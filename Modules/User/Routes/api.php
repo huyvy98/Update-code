@@ -24,7 +24,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 
 Route::get('/categories/{id}/products', [ProductController::class, 'getProduct']);
 
-Route::group(['middleware' => 'auth_api:api'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
     Route::get('auth/test', [AuthController::class, 'test']);
 
     Route::get('/info',[UserController::class,'show']);

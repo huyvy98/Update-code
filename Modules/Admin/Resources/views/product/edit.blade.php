@@ -24,6 +24,9 @@
                 @endforeach
             </select>
         </div>
+        @error('category_ids')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Price</label>
             <input class="form-control" type="number" name="price" value="{{ old('price', $products->price) }}">

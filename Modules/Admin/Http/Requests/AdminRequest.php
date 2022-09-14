@@ -14,10 +14,9 @@ class AdminRequest extends FormRequest
         return [
             'firstname' => 'required',
             'lastname' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'phone' => 'required',
             'password' => 'required|min:8'
-
         ];
     }
 
@@ -28,7 +27,8 @@ class AdminRequest extends FormRequest
     {
         return [
             'required' => 'Vui lòng không để trống trường :attribute',
-            'min' => ':attribute phải lớn hơn hoặc bằng :min ký tự'
+            'min' => ':attribute phải lớn hơn hoặc bằng :min ký tự',
+            'email' => ':attribute không đúng định dạng ',
         ];
     }
 

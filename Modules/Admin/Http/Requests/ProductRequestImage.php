@@ -12,7 +12,8 @@ class ProductRequestImage extends FormRequest
         return [
             'name' => 'required',
             'price' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'category_ids' => 'required'
         ];
     }
 
@@ -34,7 +35,8 @@ class ProductRequestImage extends FormRequest
         return [
             'name' => 'Tên sản phẩm',
             'price' => 'Giá',
-            'description' => 'Thông tin'
+            'description' => 'Thông tin',
+            'category_ids' => 'Danh mục'
         ];
     }
 }

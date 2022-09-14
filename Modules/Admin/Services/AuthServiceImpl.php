@@ -38,6 +38,6 @@ class AuthServiceImpl implements AuthService
     {
         Auth::guard('admin')->logout();
 
-        return Redirect::route('auth.show');
+        return Redirect::route('auth.showLoginForm');
     }
 }

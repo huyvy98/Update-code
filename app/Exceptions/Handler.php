@@ -41,7 +41,7 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->renderable(function (AuthenticationException $e, $request) {
-            return redirect()->route('auth.show');
+            return redirect()->route('auth.showLoginForm');
         });
 
         $this->renderable(function (ApiException $e, $request) {
@@ -64,8 +64,8 @@ class Handler extends ExceptionHandler
     /**
      * Prepare a JSON response for the given exception.
      *
-     * @param  Request  $request
-     * @param  \Throwable  $e
+     * @param Request $request
+     * @param \Throwable $e
      * @return Response
      */
     protected function prepareJsonResponse($request, Throwable $e): Response

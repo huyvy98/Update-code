@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\ApiException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
@@ -9,30 +10,36 @@ use Illuminate\Http\Request;
 class Authenticate extends Middleware
 {
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
+     * Handle an unauthenticated user.
      *
      * @param Request $request
-     * @return string|null
+     * @param array $guards
+     * @return void
+     *
+     * @throws AuthenticationException
      */
-    protected function redirectTo($request): ?string
+    protected function unauthenticated($request, array $guards)
     {
-        if (!$request->expectsJson()) {
-            return route('auth.login');
+        if ($guards[0] === 'admin') {
+            throw new AuthenticationException(
+                'Unauthenticated.', $guards, $this->redirectTo($request)
+            );
+        } elseif ($guards[0] === 'api') {
+            throw new ApiException(
+                '401', 'Unauthorized'
+            );
         }
     }
 
     /**
-     * @param $request
-     * @param array $guards
-     * @return void|null
-     * @throws AuthenticationException
+     * Get the path the user should be redirected to when they are not authenticated.
+     *
+     * @param Request $request
      */
-    protected function authenticate($request, array $guards)
+    protected function redirectTo($request)
     {
-        if ($this->auth->guard('admin')->check()) {
-            return $this->auth->shouldUse('admin');
+        if (!$request->expectsJson()) {
+            return route('auth.showLoginForm');
         }
-
-        $this->unauthenticated($request, ['admin']);
     }
 }

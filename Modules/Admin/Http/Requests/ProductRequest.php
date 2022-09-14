@@ -12,7 +12,7 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:products',
             'price' => 'required',
             'description' => 'required',
             'image' => 'required',
@@ -26,6 +26,7 @@ class ProductRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'unique' => ':attribute đã tồn tại',
             'required' => 'Vui lòng không để trống trường :attribute'
         ];
     }

@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Admin\Http\Requests\AdminRequest;
+use Modules\Admin\Http\Requests\AdminRequestUnique;
 
 interface AdminService
 {
@@ -19,10 +20,10 @@ interface AdminService
     /**
      * save admin
      *
-     * @param AdminRequest $request
+     * @param AdminRequestUnique $request
      * @return Admin
      */
-    public function saveAdmin(AdminRequest $request): Admin;
+    public function saveAdmin(AdminRequestUnique $request): Admin;
 
     /**
      * update admin

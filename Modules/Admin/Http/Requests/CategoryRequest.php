@@ -12,7 +12,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required'
+            'name' => 'required|unique:categories'
         ];
     }
 
@@ -22,7 +22,8 @@ class CategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => 'Vui lòng không để trống trường :attribute'
+            'required' => 'Vui lòng không để trống trường :attribute',
+            'unique' => ':attribute đã tồn tại'
         ];
     }
 

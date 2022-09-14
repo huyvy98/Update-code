@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Modules\Admin\Contracts\Services\AdminService;
 use Modules\Admin\Http\Requests\AdminRequest;
+use Modules\Admin\Http\Requests\AdminRequestUnique;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
@@ -45,7 +46,11 @@ class AdminController extends Controller
         return view('admin::admin.create');
     }
 
-    public function store(AdminRequest $request): RedirectResponse
+    /**
+     * @param AdminRequestUnique $request
+     * @return RedirectResponse
+     */
+    public function store(AdminRequestUnique $request): RedirectResponse
     {
         $this->adminService->saveAdmin($request);
 

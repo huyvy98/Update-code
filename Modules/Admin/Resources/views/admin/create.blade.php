@@ -41,7 +41,7 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Phone</label>
-            <input class="form-control" type="text" name="phone" value="{{ old('phone') }}"
+            <input class="form-control" type="number" name="phone" value="{{ old('phone') }}"
                    placeholder="Phone Number">
         </div>
         @error('phone')

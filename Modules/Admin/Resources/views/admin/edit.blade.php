@@ -1,7 +1,7 @@
 @extends('admin::dashboard.base')
 
 @section('title', 'Tomosia')
-@section('headerText','Sửa sản phẩm')
+@section('headerText','Sửa admin')
 @section('content')
     <form method="POST" enctype="multipart/form-data">
         @csrf

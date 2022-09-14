@@ -37,9 +37,7 @@ class AuthServiceImpl implements AuthService
         if (!$token) {
             throw ApiException::forbidden('Email or password was incorrect');
         }
-        return $token = [
-            'access_token' => $token
-        ];
+        return ['access_token' => $token];
     }
 
     /**

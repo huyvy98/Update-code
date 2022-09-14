@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Contracts\Repositories\Mysql\AdminRepository;
 use Modules\Admin\Contracts\Services\AdminService;
 use Modules\Admin\Http\Requests\AdminRequest;
+use Modules\Admin\Http\Requests\AdminRequestUnique;
 use Spatie\Permission\Models\Permission;
 
 class AdminServiceImpl implements AdminService
@@ -39,10 +40,10 @@ class AdminServiceImpl implements AdminService
     /**
      * save admin
      *
-     * @param AdminRequest $request
+     * @param AdminRequestUnique $request
      * @return Admin
      */
-    public function saveAdmin(AdminRequest $request): Admin
+    public function saveAdmin(AdminRequestUnique $request): Admin
     {
         $admin = new Admin();
         $admin->assignRole('Admin');

@@ -18,7 +18,7 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Category</label>
-            <select name="category_ids[]" multiple>
+            <select name="category_ids[]" multiple class="form-select">
                 @foreach($category as $cate)
                     <option
                         value="{{$cate->id}}" {{ (collect(old('category_ids'))->contains($cate->id)) ? 'selected':'' }}>{{$cate->name}}</option>

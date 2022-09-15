@@ -16,7 +16,7 @@
         @enderror
         <div class="form-group">
             <label for="exampleInputEmail1">Category</label>
-            <select name="category_ids[]" multiple>
+            <select name="category_ids[]" multiple class="form-select">
                 @foreach($category as $key => $cate)
                     <option
                         value="{{$cate->id}}"
@@ -60,6 +60,4 @@
         </div>
     </form>
 
-    <p>
-    </p>
 @endsection

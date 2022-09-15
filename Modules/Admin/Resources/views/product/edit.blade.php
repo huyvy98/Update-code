@@ -19,7 +19,11 @@
             <select name="category_ids[]" multiple>
                 @foreach($category as $key => $cate)
                     <option
-                        value="{{$cate->id}}" {{ old('category_ids', $products->category)->contains($cate->id) ? 'selected' : '' }}>{{$cate->name}}
+                        value="{{$cate->id}}"
+                        @if($products->category->contains($cate->id)) selected @endif
+                        {{ (collect(old('category_ids'))->contains($cate->id)) ? 'selected':'' }}
+                    >
+                        {{$cate->name}}
                     </option>
                 @endforeach
             </select>
